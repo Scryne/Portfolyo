@@ -1,15 +1,18 @@
 'use client';
 
 import { ArrowUpRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const abone = () => () => {};
 
 /**
  * E-posta satırı. Adres HTML'de tek parça durmaz ("@" ayrı öğe), mailto bağlantısı tarayıcıda
  * kurulur: kaba adres toplayıcıların regex'i sayfada tam adres bulamaz.
  */
 export function EpostaSatiri({ ad, kullanici, alan }: { ad: string; kullanici: string; alan: string }) {
-  const [href, setHref] = useState<string>();
-  useEffect(() => setHref(`mailto:${kullanici}@${alan}`), [kullanici, alan]);
+  // Sunucuda false, tarayıcıda true: statik HTML'e mailto yazılmaz.
+  const tarayicida = useSyncExternalStore(abone, () => true, () => false);
+  const href = tarayicida ? `mailto:${kullanici}@${alan}` : undefined;
   return (
     <li className="border-b border-cizgi">
       <a href={href} className="group flex items-center justify-between gap-6 py-5 focus-visible:outline-offset-0">
