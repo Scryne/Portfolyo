@@ -16,6 +16,12 @@ export const HERO = {
   } satisfies Ik,
 };
 
+/** Arama/paylaşım açıklaması: hero cümlesinden geniş, bütün kapsamı anlatır. */
+export const OZET = {
+  tr: 'Çok kiracılı SaaS, belge yapay zekâsı, OSINT ve endüstriyel yazılım geliştiriyorum. Dokuz projenin vaka çalışması, ölçümleri ve CV.',
+  en: 'I build multi-tenant SaaS, document AI, OSINT and industrial software. Case studies, measurements and CV for nine projects.',
+} satisfies Ik;
+
 /**
  * Hero küresi: projelerin gerçekten geçtiği yerler. `kare` projenin galerisindeki görsel;
  * alt metni oradan gelir. Konum [enlem, boylam].

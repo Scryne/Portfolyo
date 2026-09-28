@@ -102,13 +102,15 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
     hTheta: acilar(yerler[0].konum)[1],
     aktif: 0,
     suruk: null as null | { x: number; phi: number; tasindi: boolean },
-    uzerinde: -1,
+    /** Küre durmuşsa çizimi yeniden başlatır (efekt kurulunca atanır). */
+    uyandir: () => {},
   });
 
   /** Seçimi değiştir. `dondur`: küreyi o konuma çevir (imleçle seçerken çevirmeyiz, işaret kaçar). */
   const sec = (i: number, dondur: boolean) => {
     d.current.aktif = i;
     setAktif(i);
+    d.current.uyandir();
     if (!dondur) return;
     const [p, t] = acilar(yerler[i].konum);
     let hedef = p;
@@ -136,10 +138,33 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
     let renk = temaRenkleri();
     const genis = matchMedia('(min-width: 64rem)');
     const az = matchMedia(AZ_HAREKET);
+    let gorunur = true;
+    let durgun = 0; // üst üste kaç kare hedefte kaldı
+    // Kartın kutuya göre yeri: her karede ölçmek yerine boyut değişince bir kez.
+    let kartKutu = { l: 0, t: 0, r: 0, b: 0 };
+    const olc = () => {
+      w = k.offsetWidth;
+      const bb = k.getBoundingClientRect();
+      const kb = kart.current!.getBoundingClientRect();
+      kartKutu = { l: kb.left - bb.left, t: kb.top - bb.top, r: kb.right - bb.left, b: kb.bottom - bb.top };
+    };
+    olc();
+    const uyandir = () => {
+      durgun = 0;
+      if (gorunur) globe?.toggle(true);
+    };
+    d.current.uyandir = uyandir;
 
-    const ro = new ResizeObserver(() => (w = k.offsetWidth));
+    const ro = new ResizeObserver(() => {
+      olc();
+      uyandir();
+    });
     ro.observe(k);
-    const mo = new MutationObserver(() => (renk = temaRenkleri()));
+    ro.observe(kart.current!);
+    const mo = new MutationObserver(() => {
+      renk = temaRenkleri();
+      uyandir();
+    });
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
     import('cobe').then(({ default: createGlobe }) => {
@@ -171,18 +196,21 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
             halka.current.style.transform = `translate(${hx}px, ${hy}px)`;
             halka.current.style.opacity = p.onde ? '1' : '0';
           }
-          if (cizgi.current && kart.current) {
-            const kb = kart.current.getBoundingClientRect();
-            const bb = k.getBoundingClientRect();
+          if (cizgi.current) {
             // Kartın işarete en yakın kenar noktası.
-            const kx = Math.min(Math.max(hx, kb.left - bb.left), kb.right - bb.left);
-            const ky = Math.min(Math.max(hy, kb.top - bb.top), kb.bottom - bb.top);
+            const kx = Math.min(Math.max(hx, kartKutu.l), kartKutu.r);
+            const ky = Math.min(Math.max(hy, kartKutu.t), kartKutu.b);
             cizgi.current.setAttribute('x1', String(hx));
             cizgi.current.setAttribute('y1', String(hy));
             cizgi.current.setAttribute('x2', String(kx));
             cizgi.current.setAttribute('y2', String(ky));
             cizgi.current.style.opacity = p.onde && genis.matches ? '1' : '0';
           }
+          // Hedefte birkaç kare kaldıysa çizmeyi bırak: durağan küre GPU'yu ve üstündeki camı boşuna
+          // yormasın. Birkaç kare: boyut ve renk değişikliği bir sonraki karede uygulanıyor.
+          const hedefte = !x.suruk && Math.abs(x.hPhi - x.phi) < 1e-4 && Math.abs(x.hTheta - x.theta) < 1e-4;
+          durgun = hedefte ? durgun + 1 : 0;
+          if (durgun > 3) globe?.toggle(false);
           return s;
         },
       });
@@ -190,7 +218,10 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
     });
 
     // Ekran dışındayken çizme.
-    const io = new IntersectionObserver(([e]) => globe?.toggle(e.isIntersecting));
+    const io = new IntersectionObserver(([e]) => {
+      gorunur = e.isIntersecting;
+      globe?.toggle(gorunur);
+    });
     io.observe(k);
 
     return () => {
@@ -222,6 +253,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
     };
     const bas = (e: PointerEvent) => {
       d.current.suruk = { x: e.clientX, phi: d.current.phi, tasindi: false };
+      d.current.uyandir();
       c.setPointerCapture(e.pointerId);
     };
     const hareket = (e: PointerEvent) => {
@@ -234,7 +266,6 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
       }
       if (e.pointerType !== 'mouse') return;
       const i = yakin(e);
-      d.current.uzerinde = i;
       c.style.cursor = i >= 0 ? 'pointer' : 'grab';
       if (i >= 0 && i !== d.current.aktif) sec(i, false);
     };
@@ -250,11 +281,13 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
     c.addEventListener('pointerdown', bas);
     c.addEventListener('pointermove', hareket);
     c.addEventListener('pointerup', birak);
-    c.addEventListener('pointercancel', () => (d.current.suruk = null));
+    const iptalEt = () => (d.current.suruk = null);
+    c.addEventListener('pointercancel', iptalEt);
     return () => {
       c.removeEventListener('pointerdown', bas);
       c.removeEventListener('pointermove', hareket);
       c.removeEventListener('pointerup', birak);
+      c.removeEventListener('pointercancel', iptalEt);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- sec yalnız ref ve setState kullanır
   }, [yerler, router]);
@@ -346,7 +379,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
                 setOynuyor(false);
                 sec(i, true);
               }}
-              className="group grid h-8 w-7 place-items-center rounded-sm"
+              className="group grid h-11 w-9 place-items-center rounded-sm lg:h-8 lg:w-7"
             >
               <span
                 className={`h-[3px] w-5 rounded-full transition-colors duration-200 ${i === aktif ? 'bg-murekkep' : 'bg-cizgi-guclu group-hover:bg-yazi-3'}`}
@@ -357,7 +390,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
             type="button"
             onClick={() => setOynuyor(!oynuyor)}
             aria-label={oynuyor ? METIN.durdur[dil] : METIN.oynat[dil]}
-            className="ml-1 grid size-8 place-items-center rounded-sm text-yazi-2 transition-colors hover:text-yazi"
+            className="ml-1 grid size-11 place-items-center lg:size-8 rounded-sm text-yazi-2 transition-colors hover:text-yazi"
           >
             {oynuyor ? <Pause aria-hidden className="size-4" /> : <Play aria-hidden className="size-4" />}
           </button>

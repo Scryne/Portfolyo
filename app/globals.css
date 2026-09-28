@@ -279,6 +279,12 @@ body {
   }
 }
 
+/* Defter ekrana girene kadar kalem bekler (components/GorununceOynat.tsx). */
+[data-bekle] .kalem-cizgi path,
+[data-bekle] .kalem-sonra {
+  animation-play-state: paused;
+}
+
 @keyframes kalem-cek {
   to {
     stroke-dashoffset: 0;

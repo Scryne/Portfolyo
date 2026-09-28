@@ -8,6 +8,7 @@ import { CvBant } from './CvBant';
 import { Defter } from './Defter';
 import { Dizin } from './Dizin';
 import { Dugme } from './Dugme';
+import { GorununceOynat } from './GorununceOynat';
 import { Kure } from './Kure';
 import { Sergi } from './Sergi';
 import { Yontem } from './Yontem';
@@ -46,9 +47,9 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
         </div>
       </section>
       <section className="izgara border-b border-cizgi">
-        <div className="kap py-20 lg:py-28">
+        <GorununceOynat className="kap py-20 lg:py-28">
           <Defter dil={dil} />
-        </div>
+        </GorununceOynat>
       </section>
       <Sergi dil={dil} />
       <Dizin dil={dil} />

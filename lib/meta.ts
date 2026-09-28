@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { HERO, KISI } from '@/content/site';
+import { HERO, KISI, OZET } from '@/content/site';
 import type { Dil, Proje } from './tipler';
 import { yol } from './metin';
 import { SITE_URL } from './site';
 
 const ACIKLAMA = {
-  tr: `${KISI.ad}: yazılım geliştirici. ${HERO.giris.tr}`,
-  en: `${KISI.ad}: software developer. ${HERO.giris.en}`,
+  tr: `${KISI.ad}: yazılım geliştirici. ${OZET.tr}`,
+  en: `${KISI.ad}: software developer. ${OZET.en}`,
 };
 
 export function kokMeta(dil: Dil): Metadata {
