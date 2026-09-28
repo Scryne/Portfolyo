@@ -11,10 +11,67 @@ export const KISI = {
 export const HERO = {
   ust: { tr: 'Yazılım geliştirici', en: 'Software developer' } satisfies Ik,
   giris: {
-    tr: 'Çok kiracılı SaaS, belge yapay zekâsı, OSINT ve endüstriyel yazılım geliştiriyorum. Kodu yapay zekâ ajanlarıyla yazıyorum; çalıştığına testle, değerlendirme setiyle ve gerçek veriyle uçtan uca koşuyla karar veriyorum.',
-    en: 'I build multi-tenant SaaS, document AI, OSINT and industrial software. I write code with AI agents, and decide whether it works with tests, evaluation sets and end-to-end runs on real data.',
+    tr: 'Haritada olayları izleyen, uydu görüntüsünde gizlenmiş yapıları bulan, ihale şartnamesini okuyan yazılımlar geliştiriyorum.',
+    en: 'I build software that tracks events on a map, finds structures hidden in satellite imagery and reads tender specifications.',
   } satisfies Ik,
 };
+
+/**
+ * Hero küresi: projelerin gerçekten geçtiği yerler. `kare` projenin galerisindeki görsel;
+ * alt metni oradan gelir. Konum [enlem, boylam].
+ */
+export const KURE: { slug: string; kare: string; konum: [number, number]; yer: Ik; ne: Ik }[] = [
+  {
+    slug: 'wartrack',
+    kare: 'pano',
+    konum: [32.5, 35.5],
+    yer: { tr: 'Levant · İran–İsrail hattı', en: 'Levant · Iran–Israel theatre' },
+    ne: {
+      tr: '15 kaynaktan gelen haberi haritaya yerleştirir, tehdit seviyesini gerekçesiyle hesaplar.',
+      en: 'Places news from 15 sources on a map and computes a threat level with its reasons.',
+    },
+  },
+  {
+    slug: 'ghostbuilding',
+    kare: 'bulgu',
+    konum: [48.3, -4.5],
+    yer: { tr: 'Île Longue · Fransa', en: 'Île Longue · France' },
+    ne: {
+      tr: 'Üç uydu kaynağını karşılaştırır, bulanıklaştırılmış ya da mozaiklenmiş yerleri işaretler.',
+      en: 'Compares three satellite sources and flags places that were blurred or mosaicked.',
+    },
+  },
+  {
+    slug: 'mythatlas',
+    kare: 'ilyada',
+    konum: [39.96, 26.24],
+    yer: { tr: 'Truva · Çanakkale', en: 'Troy · Çanakkale' },
+    ne: {
+      tr: '157 mit, 212 tanrı ve 104 kutsal alanı dünya haritasında birbirine bağlar.',
+      en: 'Links 157 myths, 212 deities and 104 sacred sites on a world map.',
+    },
+  },
+  {
+    slug: 'mythatlas',
+    kare: 'abu-simbel',
+    konum: [22.34, 31.63],
+    yer: { tr: 'Abu Simbel · Mısır', en: 'Abu Simbel · Egypt' },
+    ne: {
+      tr: 'Her görselin, kaynağın ve UNESCO iddiasının doğrulanabilir kaldığı bir mitoloji atlası.',
+      en: 'A mythology atlas where every image, source and UNESCO claim stays verifiable.',
+    },
+  },
+  {
+    slug: 'tenderiq',
+    kare: 'inceleme-koyu',
+    konum: [39.93, 32.85],
+    yer: { tr: 'Türkiye · kamu ihaleleri', en: 'Türkiye · public tenders' },
+    ne: {
+      tr: 'Türkçe ihale şartnamesinden gereksinim, belge ve riskleri kaynağıyla çıkarır.',
+      en: 'Extracts requirements, documents and risks from Turkish tender specifications, with sources.',
+    },
+  },
+];
 
 /**
  * Hero'daki denetim defteri. Her satırın sayısı ilgili projenin `olcumler` alanında da durur;

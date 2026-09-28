@@ -23,6 +23,17 @@ colors:
   night-primary: "#94A8FF"
   night-on-primary: "#101317"
   night-pen: "#FF8C74"
+  # Hero: renk ağı zemini ve küre. Açık temada soluk, koyu temada derin mor / mavi / gül.
+  mesh-violet: "#8C7CF5"
+  mesh-blue: "#6F9BFF"
+  mesh-rose: "#F08CC0"
+  globe-base: "#FFFFFF"
+  globe-glow: "#DCE1FF"
+  night-mesh-violet: "#5C3CDC"
+  night-mesh-blue: "#286EFF"
+  night-mesh-rose: "#DC3C8C"
+  night-globe-base: "#383D6B"
+  night-globe-glow: "#5247B3"
 typography:
   display:
     fontFamily: Archivo
@@ -64,31 +75,38 @@ spacing:
 ## Overview
 
 **Brief.** Alan: yazılım mühendisliği portfolyosu. Kitle: işe alım yapan mühendis ve teknik
-lider, TR ve yurt dışı. Kazanılacak sıfat: **kesin**. Hareket derinliği: tek bir orkestre an
-(hero'daki kalem çizgisi), gerisi sessiz geri bildirim. Layout ailesi: tam genişlik tipografik
-hero → asimetrik sergi → tam genişlik görsel → dizin tablosu → numaralı yöntem yığını → bant.
+lider, TR ve yurt dışı. Kazanılacak sıfat: **kesin**. Hareket derinliği: hero'da canlı küre (tek
+sürekli hareket), gerisi sessiz geri bildirim. Layout ailesi: asimetrik küre hero'su → defter →
+asimetrik sergi → tam genişlik görsel → dizin tablosu → numaralı yöntem yığını → bant.
 
-**Hero.** Görünür başlık yok; ad nav'da, `h1` yalnız ekran okuyucu için (ad · rol). Scryne
-2026-09-28: önce "Yapay zekâyla kuruyorum. Sonra ölçüyorum." garip bulundu, sonra dev ad + rol
-ve denetim ölçümlerinden eğim grafiği ("saçma ve kötü", `hero-egim` dalında duruyor) reddedildi.
-Hero şu an giriş paragrafı + düğmeler + defter. Aynı gün statik taslakla gösterilip reddedilen üç yön daha:
-dipnotlu büyük paragraf (iddia → kenarda kanıt), gerçek ürün ekranlarından "şekil masası", Wartrack
-test raporu ("testler yeşildi, ürün haber çekmiyordu"). Yeni yön denerken bunları tekrarlama. Tez başlıkta değil, defterde durur.
+**Hero (2026-09-28, Scryne seçti).** Renk ağı zemininde noktalı bir dünya küresi (`cobe`,
+WebGL, tembel yüklenir). Küre projelerin gerçekten geçtiği yerlere sırayla döner (Levant,
+Île Longue, Truva, Abu Simbel, Türkiye; kaynak `content/site.ts` → `KURE`); cam bir kart o
+projenin ekranını ve tek cümlesini gösterir, kartla işaret arasında kesikli bir çizgi, işarette
+nabız atan bir halka durur. İmleç bir işarete gelince tur durur ve o kart açılır; tıklama vakaya
+gider; sürükleme küreyi çevirir. Tur için çubuk düğmeleri ve durdur/oynat var (WCAG 2.2.2);
+hareket azaltma tercihinde tur kendiliğinden başlamaz. Görünür başlık yok: ad nav'da, `h1`
+ekran okuyucu için. Solda rol etiketi + giriş cümlesi + iki düğme.
+
+**Reddedilenler (tekrarlama).** Aynı gün: "Yapay zekâyla kuruyorum. Sonra ölçüyorum." başlığı
+("garip"), dev ad + rol, denetim ölçümlerinden eğim grafiği (`hero-egim` dalı, "saçma ve kötü"),
+statik taslakta dipnotlu büyük paragraf, ürün ekranlarından "şekil masası", Wartrack test
+raporu, prototipte proje ağı ve 3D ekran duvarı. Scryne'ın gerekçesi: hero yeterince etkileyici
+değildi ve denetim/ölçüm teması hero'da istenmiyor. Tez defterde ve vaka sayfalarında kalır.
 
 **Tez.** Berkay yapay zekâ ajanlarıyla hızlı kuruyor, sonra neyin gerçekten çalıştığını
 ölçüyor. Eylül 2026'da dokuz projesini yeniden ölçtü; testler yeşilken ürünlerin çalışmadığı
 yerleri buldu ve düzeltti. Site bu yüzden bir **denetim defteri** gibi tasarlandı: iddia
 kırmızı kalemle çizilir, ölçülen değer kobalt mürekkeple yazılır.
 
-**Farklılaştırıcı detay (imza).** Hero'daki denetim defteri: her satırda bir proje, eski değer
-kırmızı bir kalem çizgisiyle üstü çizilmiş, yanında ölçülmüş yeni değer. Sayfa açılışında
-kalem çizgileri sırayla çekilir. Sitenin tek orkestre hareketi budur.
+**Farklılaştırıcı detay (imza).** Hero küresi: işler soyut bir "portfolyo" değil, dünyada yeri
+olan yazılımlar olarak görünür. İkinci imza hero'nun hemen altındaki denetim defteri: eski
+değer kırmızı kalemle çizilir, yanında ölçülen değer.
 
-**Global varsayılandan sapma.** Global "dark glassmorphism" varsayılanının mor/mavi/pembe
-gradient mesh arkaplanı burada kullanılmıyor: ölçüm ve kanıt anlatan bir sayfada dekoratif
-renk, "renk yalnız anlam taşır" ilkesini (Berkay'ın kendi projelerinin ortak tasarım kararı)
-bozar. Camın arkasındaki doku bunun yerine ince bir **ölçüm ızgarası** (milimetrik kâğıt) ve
-sol üstten gelen yumuşak kobalt ışıktır. Cam yalnız navigasyon çubuğunda ve lightbox'ta.
+**Global varsayılanla ilişki.** Hero global "dark glassmorphism" dilini kullanır: mor / mavi /
+gül renk ağı zemin (`mesh-*`, `night-mesh-*`) ve cam kart. Sayfanın geri kalanı ölçüm
+anlattığı için sade kalır: zemin ince bir **ölçüm ızgarası**, renk yalnız anlam taşır. Cam
+yalnız nav, hero kartı ve lightbox'ta.
 Taban disiplin (blur 12px, 1px ışık kenarı, kontrast, fallback) globalden aynen gelir.
 
 **Bilerek kaçınılan varsayılan.** `ui-ux-pro-max` bu brief'e "koyu lacivert + yeşil aksan,
@@ -149,7 +167,9 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
 
 ## Components
 
-- **Denetim defteri (hero):** satır = proje · ölçülen şey · önce (üstü çizili, `pen`) → sonra
+- **Küre (hero):** `components/Kure.tsx`. Renkler `--kure-taban/-parilti/-isaret` üzerinden temaya bağlı
+  (tema değişince küre yeniden boyanır). İşaret izdüşümü cobe gölgelendiricisinin tersi; `izdusum()`.
+- **Denetim defteri (hero'nun altı):** satır = proje · ölçülen şey · önce (üstü çizili, `pen`) → sonra
   (`primary`, büyük mono). Satır, projenin vaka sayfasına bağlanır. Mobilde değerler alt satıra iner.
 - **Ölçüm cetveli (vaka sayfası):** yatay ölçek, gerçek eşikler tik olarak (ör. CLS 0,1).
   "Önce" içi boş `pen` halka, "sonra" dolu `primary` nokta. Yön metinle de söylenir

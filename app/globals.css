@@ -24,6 +24,13 @@
   --cam-duz: var(--color-paper-raised);
   --cam-kenar: color-mix(in oklab, var(--color-ink) 9%, transparent);
   --golge: 0 1px 2px rgb(21 24 27 / 0.06), 0 12px 32px -12px rgb(21 24 27 / 0.18);
+  --ag-1: color-mix(in oklab, var(--color-mesh-violet) 30%, transparent);
+  --ag-2: color-mix(in oklab, var(--color-mesh-blue) 26%, transparent);
+  --ag-3: color-mix(in oklab, var(--color-mesh-rose) 20%, transparent);
+  --cam-kart: color-mix(in oklab, var(--color-paper-top) 62%, transparent);
+  --kure-taban: var(--color-globe-base);
+  --kure-parilti: var(--color-globe-glow);
+  --kure-isaret: var(--color-primary);
 }
 
 :root[data-theme='dark'] {
@@ -45,6 +52,13 @@
   --cam-duz: var(--color-night-raised);
   --cam-kenar: rgb(255 255 255 / 0.1);
   --golge: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.6);
+  --ag-1: color-mix(in oklab, var(--color-night-mesh-violet) 42%, transparent);
+  --ag-2: color-mix(in oklab, var(--color-night-mesh-blue) 30%, transparent);
+  --ag-3: color-mix(in oklab, var(--color-night-mesh-rose) 22%, transparent);
+  --cam-kart: rgb(255 255 255 / 0.06);
+  --kure-taban: var(--color-night-globe-base);
+  --kure-parilti: var(--color-night-globe-glow);
+  --kure-isaret: var(--color-night-primary);
 }
 
 /* JS kapalıysa sistem tercihine uy. */
@@ -68,6 +82,13 @@
     --cam-duz: var(--color-night-raised);
     --cam-kenar: rgb(255 255 255 / 0.1);
     --golge: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.6);
+  --ag-1: color-mix(in oklab, var(--color-night-mesh-violet) 42%, transparent);
+  --ag-2: color-mix(in oklab, var(--color-night-mesh-blue) 30%, transparent);
+  --ag-3: color-mix(in oklab, var(--color-night-mesh-rose) 22%, transparent);
+  --cam-kart: rgb(255 255 255 / 0.06);
+  --kure-taban: var(--color-night-globe-base);
+  --kure-parilti: var(--color-night-globe-glow);
+  --kure-isaret: var(--color-night-primary);
   }
 }
 
@@ -267,5 +288,55 @@ body {
   to {
     opacity: 1;
     translate: 0 0;
+  }
+}
+
+/* ---------- Hero küresi ---------- */
+
+/* Renk ağı: sol üstten mor ışık, sağda mavi, altta gül. Camın arkasında bir şey olsun diye. */
+@utility kure-zemin {
+  background-color: var(--zemin);
+  background-image:
+    radial-gradient(60% 55% at 10% 6%, var(--ag-1), transparent 70%),
+    radial-gradient(50% 50% at 88% 32%, var(--ag-2), transparent 70%),
+    radial-gradient(55% 55% at 70% 102%, var(--ag-3), transparent 70%);
+}
+
+/* Küre kartı: cam. Destek yoksa daha opak düz zemin. */
+.cam-kart {
+  background: var(--cam-duz);
+  border: 1px solid var(--cam-kenar);
+  box-shadow: var(--golge);
+  @supports (backdrop-filter: blur(1px)) {
+    background: var(--cam-kart);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kure-kart-ic {
+    animation: kart-gel 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .kure-halka::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    border: 2px solid var(--murekkep);
+    animation: halka-nabiz 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+  }
+}
+
+@keyframes kart-gel {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+@keyframes halka-nabiz {
+  to {
+    scale: 2.2;
+    opacity: 0;
   }
 }

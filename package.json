@@ -16,6 +16,7 @@
     "yayinla": "node scripts/yayinla.mjs"
   },
   "dependencies": {
+    "cobe": "^0.6.3",
     "lucide-react": "^1.48.0",
     "next": "16.3.6",
     "react": "19.2.8",

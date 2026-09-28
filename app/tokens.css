@@ -18,6 +18,16 @@
   --color-night-primary: #94a8ff;
   --color-night-on-primary: #101317;
   --color-night-pen: #ff8c74;
+  --color-mesh-violet: #8c7cf5;
+  --color-mesh-blue: #6f9bff;
+  --color-mesh-rose: #f08cc0;
+  --color-globe-base: #ffffff;
+  --color-globe-glow: #dce1ff;
+  --color-night-mesh-violet: #5c3cdc;
+  --color-night-mesh-blue: #286eff;
+  --color-night-mesh-rose: #dc3c8c;
+  --color-night-globe-base: #383d6b;
+  --color-night-globe-glow: #5247b3;
   --font-display: "Archivo";
   --font-heading: "Archivo";
   --font-body: "Archivo";
