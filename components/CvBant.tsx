@@ -1,3 +1,5 @@
+import { statSync } from 'node:fs';
+import path from 'node:path';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { KISI } from '@/content/site';
 import { M, yol } from '@/lib/metin';
@@ -26,6 +28,12 @@ function Satir({ href, ad, deger, indir, lang }: { href: string; ad: string; deg
   );
 }
 
+/** Derlemede okunur: "PDF · 286 KB". Dosya yoksa derleme kırılır; önce `npm run cv`. */
+function boyut(dil: Dil, cvDil: Dil) {
+  const kb = Math.round(statSync(path.join(process.cwd(), 'public', yol.cv(cvDil))).size / 1024);
+  return `${M.pdf[dil]} · ${kb} KB`;
+}
+
 export function CvBant({ dil }: { dil: Dil }) {
   return (
     <section id="cv" aria-labelledby="cv-baslik" className="border-t border-cizgi bg-zemin-2">
@@ -37,8 +45,8 @@ export function CvBant({ dil }: { dil: Dil }) {
           <p className="mt-6 max-w-[40ch] text-lg leading-relaxed text-yazi-2">{M.cvGiris[dil]}</p>
         </div>
         <ul className="border-t border-cizgi-guclu lg:col-span-6 lg:col-start-7">
-          <Satir href={yol.cv('tr')} ad={M.cvTr[dil]} deger={M.pdf[dil]} indir lang="tr" />
-          <Satir href={yol.cv('en')} ad={M.cvEn[dil]} deger={M.pdf[dil]} indir lang="en" />
+          <Satir href={yol.cv('tr')} ad={M.cvTr[dil]} deger={boyut(dil, 'tr')} indir lang="tr" />
+          <Satir href={yol.cv('en')} ad={M.cvEn[dil]} deger={boyut(dil, 'en')} indir lang="en" />
           <Satir href={KISI.github} ad="GitHub" deger="github.com/Scryne" />
           <Satir href={KISI.linkedin} ad="LinkedIn" deger="linkedin.com/in/berkay-karaca" />
         </ul>

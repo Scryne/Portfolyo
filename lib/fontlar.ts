@@ -1,17 +1,21 @@
-import { Archivo, IBM_Plex_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 
-// next/font dosyaları derlemede indirip bizim sunucumuzdan verir; çalışma anında Google'a istek yok.
+// Kendi sunucumuzdan, siteye göre küçültülmüş dosyalar (bkz. app/fonts/OKU-BENI.md).
 // Archivo'nun `wdth` ekseni tipografinin imzası: başlıklar geniş kesimde (bkz. DESIGN.md).
-export const archivo = Archivo({
-  subsets: ['latin', 'latin-ext'],
-  axes: ['wdth'],
+export const archivo = localFont({
+  src: '../app/fonts/Archivo-tr.woff2',
+  weight: '400 800',
+  style: 'normal',
   variable: '--font-archivo',
   display: 'swap',
+  declarations: [{ prop: 'font-stretch', value: '100% 125%' }],
 });
 
-export const plexMono = IBM_Plex_Mono({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500'],
+export const plexMono = localFont({
+  src: [
+    { path: '../app/fonts/IBMPlexMono-400-tr.woff2', weight: '400', style: 'normal' },
+    { path: '../app/fonts/IBMPlexMono-500-tr.woff2', weight: '500', style: 'normal' },
+  ],
   variable: '--font-plex-mono',
   display: 'swap',
 });

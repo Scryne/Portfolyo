@@ -1,5 +1,6 @@
 import { ArrowDown } from 'lucide-react';
 import { HERO, KISI } from '@/content/site';
+import { kisiJsonLd } from '@/lib/meta';
 import { M, yol } from '@/lib/metin';
 import type { Dil } from '@/lib/tipler';
 import { CvBant } from './CvBant';
@@ -13,6 +14,10 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
   const [ilk, ikinci] = HERO.baslik[dil];
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(kisiJsonLd(dil)).replace(/</g, '\\u003c') }}
+      />
       <section className="izgara border-b border-cizgi">
         <div className="kap pt-32 pb-16 md:pt-40 lg:pb-20">
           <p className="baslik text-lg text-yazi md:text-xl">
