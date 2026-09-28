@@ -54,7 +54,7 @@ export function kisiJsonLd(dil: Dil) {
 }
 
 export function anaSayfaMeta(dil: Dil): Metadata {
-  const k = kart(dil, 'index', `${KISI.ad} · ${HERO.baslik[dil].join(' ')}`);
+  const k = kart(dil, 'index', `${KISI.ad} · ${HERO.ust[dil]}`);
   return {
     alternates: {
       canonical: yol.ana(dil),

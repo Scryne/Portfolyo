@@ -11,7 +11,6 @@ import { Sergi } from './Sergi';
 import { Yontem } from './Yontem';
 
 export function AnaSayfa({ dil }: { dil: Dil }) {
-  const [ilk, ikinci] = HERO.baslik[dil];
   return (
     <>
       <script
@@ -20,14 +19,10 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
       />
       <section className="izgara border-b border-cizgi">
         <div className="kap pt-32 pb-16 md:pt-40 lg:pb-20">
-          <p className="baslik text-lg text-yazi md:text-xl">
-            {KISI.ad}
-            <span className="text-yazi-3"> · </span>
-            <span className="text-yazi-2">{HERO.ust[dil]}</span>
-          </p>
-          <h1 className="gosterge mt-6 max-w-[16ch] text-[clamp(2.75rem,7.6vw,7rem)] md:mt-8">
-            <span className="block">{ilk}</span>
-            <span className="block text-murekkep">{ikinci}</span>
+          {/* Başlık: ad. Rol altında, ölçülen değerlerle aynı mavi mürekkep. */}
+          <h1>
+            <span className="gosterge block text-[clamp(3rem,10vw,8.5rem)]">{KISI.ad}</span>
+            <span className="baslik mt-4 block text-[clamp(1.625rem,3.4vw,3rem)] text-murekkep md:mt-6">{HERO.ust[dil]}</span>
           </h1>
           <div className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-12 lg:items-end">
             <p className="metin text-lg leading-relaxed text-yazi-2 lg:col-span-7">{HERO.giris[dil]}</p>

@@ -68,6 +68,9 @@ lider, TR ve yurt dışı. Kazanılacak sıfat: **kesin**. Hareket derinliği: t
 (hero'daki kalem çizgisi), gerisi sessiz geri bildirim. Layout ailesi: tam genişlik tipografik
 hero → asimetrik sergi → tam genişlik görsel → dizin tablosu → numaralı yöntem yığını → bant.
 
+**Hero.** Başlık adın kendisi, altında rol kobalt mürekkeple. Scryne 2026-09-28: "Yapay zekâyla
+kuruyorum. Sonra ölçüyorum." cümlesi garip geldi, kaldırıldı. Tez başlıkta değil, defterde durur.
+
 **Tez.** Berkay yapay zekâ ajanlarıyla hızlı kuruyor, sonra neyin gerçekten çalıştığını
 ölçüyor. Eylül 2026'da dokuz projesini yeniden ölçtü; testler yeşilken ürünlerin çalışmadığı
 yerleri buldu ve düzeltti. Site bu yüzden bir **denetim defteri** gibi tasarlandı: iddia
@@ -107,7 +110,7 @@ ayrı tasarlanmış: yüzeyler yükseldikçe açılır, mürekkepler doygunluğu
 ## Typography
 
 **Archivo** tek UI ailesi; değişken `wdth` ekseni tipografinin kendisini imza yapar:
-- Görüntü başlıkları (ad, hero cümlesi, proje adları) **geniş** kesimde (`wdth` 118–125),
+- Görüntü başlıkları (hero'da ad, proje adları, bölüm başlıkları) **geniş** kesimde (`wdth` 118–125),
   ağır ve sıkı. Kısa tutulur; hiçbir başlık üç satırı geçmez.
 - Gövde normal genişlikte (`wdth` 100), 65ch ölçü.
 - **IBM Plex Mono** yalnız makine değerleri için: ölçüm, tarih, repo yolu, künye alanları,

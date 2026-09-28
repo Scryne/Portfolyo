@@ -28,7 +28,7 @@ const { HERO, KISI } = await import(pathToFileURL(path.join(KOK, 'content/site.t
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const sayisal = (s) => /^[\d.,%/ ]+$/.test(s);
 
-function kart({ ust, baslik, alt, olcum, buyuk }) {
+function kart({ ust, baslik, alt, olcum, buyuk, adsiz = false }) {
   const satir = olcum
     ? `<div class="olcum"><span class="ne">${esc(olcum.ne)}</span><span class="deger">${
         olcum.once ? `<s>${esc(olcum.once)}</s> ` : ''
@@ -44,8 +44,9 @@ function kart({ ust, baslik, alt, olcum, buyuk }) {
   .ust { font: 500 22px/1 var(--font-sans); font-variation-settings: 'wdth' 112; color: var(--yazi-2); }
   .ust b { color: var(--yazi); font-weight: 650; }
   h1 { margin: 0; font-family: var(--font-sans); font-variation-settings: 'wdth' 125; font-weight: 760;
-       letter-spacing: -0.025em; line-height: 0.96; color: var(--yazi); font-size: ${buyuk ? 86 : 118}px; }
+       letter-spacing: -0.025em; line-height: 0.96; color: var(--yazi); font-size: ${buyuk ? 104 : 118}px; }
   h1 em { font-style: normal; color: var(--murekkep); display: block; }
+  h1 em.rol { font-size: 0.52em; font-variation-settings: 'wdth' 112; font-weight: 650; letter-spacing: -0.015em; margin-top: 0.35em; }
   p { margin: 22px 0 0; font: 400 30px/1.3 var(--font-sans); font-variation-settings: 'wdth' 106;
       color: var(--yazi-2); max-width: 30ch; }
   .olcum { display: flex; justify-content: space-between; align-items: baseline; border-top: 2px solid var(--cizgi-guclu); padding-top: 22px; }
@@ -55,7 +56,7 @@ function kart({ ust, baslik, alt, olcum, buyuk }) {
   .deger b { font-weight: 500; color: var(--murekkep); }
 </style></head>
 <body class="izgara">
-  <div class="ust"><b>${esc(KISI.ad)}</b> · ${esc(ust)}</div>
+  <div class="ust">${adsiz ? '' : `<b>${esc(KISI.ad)}</b> · `}${esc(ust)}</div>
   <div><h1>${baslik}</h1>${alt ? `<p>${esc(alt)}</p>` : ''}</div>
   ${satir || '<div></div>'}
 </body></html>`;
@@ -63,10 +64,9 @@ function kart({ ust, baslik, alt, olcum, buyuk }) {
 
 const isler = [];
 for (const dil of ['tr', 'en']) {
-  const [ilk, ikinci] = HERO.baslik[dil];
   isler.push({
     ad: `${dil}/index`,
-    html: kart({ ust: HERO.ust[dil], baslik: `${esc(ilk)}<em>${esc(ikinci)}</em>`, buyuk: true,
+    html: kart({ ust: dil === 'tr' ? 'Portfolyo' : 'Portfolio', baslik: `${esc(KISI.ad)}<em class="rol">${esc(HERO.ust[dil])}</em>`, buyuk: true, adsiz: true,
       olcum: { ne: dil === 'tr' ? 'Wartrack · çekilen RSS kaynağı' : 'Wartrack · RSS feeds fetched', once: '0/15', sonra: '15/15' } }),
   });
   for (const p of projeler) {

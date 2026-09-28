@@ -10,10 +10,6 @@ export const KISI = {
 
 export const HERO = {
   ust: { tr: 'Yazılım geliştirici', en: 'Software developer' } satisfies Ik,
-  baslik: {
-    tr: ['Yapay zekâyla kuruyorum.', 'Sonra ölçüyorum.'],
-    en: ['I build with AI agents.', 'Then I measure.'],
-  } satisfies Ik<string[]>,
   giris: {
     tr: 'Çok kiracılı SaaS, belge yapay zekâsı, OSINT ve endüstriyel yazılım geliştiriyorum. Kodu yapay zekâ ajanlarıyla yazıyorum; çalıştığına testle, değerlendirme setiyle ve gerçek veriyle uçtan uca koşuyla karar veriyorum.',
     en: 'I build multi-tenant SaaS, document AI, OSINT and industrial software. I write code with AI agents, and decide whether it works with tests, evaluation sets and end-to-end runs on real data.',
