@@ -30,3 +30,6 @@ __pycache__/
 next-env.d.ts
 .vercel
 *.pem
+
+# GitHub Pages yayın kopyası (scripts/yayinla.mjs)
+/.yayin/

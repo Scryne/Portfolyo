@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { KISI } from '@/content/site';
 import { M, yol } from '@/lib/metin';
 import type { Dil } from '@/lib/tipler';
+import { EpostaSatiri } from './EpostaSatiri';
 
 function Satir({ href, ad, deger, indir, lang }: { href: string; ad: string; deger: string; indir?: boolean; lang?: string }) {
   const Ikon = indir ? ArrowDown : ArrowUpRight;
@@ -47,6 +48,7 @@ export function CvBant({ dil }: { dil: Dil }) {
         <ul className="border-t border-cizgi-guclu lg:col-span-6 lg:col-start-7">
           <Satir href={yol.cv('tr')} ad={M.cvTr[dil]} deger={boyut(dil, 'tr')} indir lang="tr" />
           <Satir href={yol.cv('en')} ad={M.cvEn[dil]} deger={boyut(dil, 'en')} indir lang="en" />
+          <EpostaSatiri ad={M.eposta[dil]} kullanici={KISI.eposta.kullanici} alan={KISI.eposta.alan} />
           <Satir href={KISI.github} ad="GitHub" deger="github.com/Scryne" />
           <Satir href={KISI.linkedin} ad="LinkedIn" deger="linkedin.com/in/berkay-karaca" />
         </ul>

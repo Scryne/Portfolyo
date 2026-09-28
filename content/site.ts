@@ -4,6 +4,8 @@ export const KISI = {
   ad: 'Berkay Karaca',
   github: 'https://github.com/Scryne',
   linkedin: 'https://www.linkedin.com/in/berkay-karaca-3619a8419',
+  // Scryne onayıyla (2026-09-28). Parçalı tutulur, bkz. components/EpostaSatiri.tsx.
+  eposta: { kullanici: 'berkaykaraca10', alan: 'gmail.com' },
 };
 
 export const HERO = {

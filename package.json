@@ -12,7 +12,8 @@
     "design:lint": "design.md lint DESIGN.md",
     "gorseller": "node scripts/gorseller.mjs",
     "postbuild": "node scripts/duzlestir.mjs && node scripts/og.mjs",
-    "cv": "node scripts/cv.mjs"
+    "cv": "node scripts/cv.mjs",
+    "yayinla": "node scripts/yayinla.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.48.0",
