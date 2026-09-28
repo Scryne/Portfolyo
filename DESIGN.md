@@ -100,7 +100,7 @@ ortalaması; reddedildi.
 
 Tema: sistem tercihine uyar, kullanıcı değiştirebilir. Koyu tema tersine çevrilmiş değil,
 ayrı tasarlanmış: yüzeyler yükseldikçe açılır, mürekkepler doygunluğu azaltılmış açık tonlar.
-Ölçülen kontrast (sayfa / yükseltilmiş / üst zeminde): `ink-3` 4.50–5.06, `primary` 6.42–7.23,
+Ölçülen kontrast (sayfa / yükseltilmiş / üst zeminde): `ink-3` 4.77–5.37, `primary` 6.42–7.23,
 `pen` 5.19–5.85; koyu temada `night-ink-3` 4.69–5.52, `night-primary` 7.01–8.25,
 `night-pen` 6.97–8.21. Hepsi normal metin için 4.5:1'in üstünde.
 
@@ -113,6 +113,12 @@ ayrı tasarlanmış: yüzeyler yükseldikçe açılır, mürekkepler doygunluğu
 - **IBM Plex Mono** yalnız makine değerleri için: ölçüm, tarih, repo yolu, künye alanları,
   etiketler. Mono görüldüğü yerde "bu bir kayıt" demektir; dekoratif kullanılmaz.
 - Sayılar her yerde `tabular-nums`. Etiketler büyük harf değil, küçük boy + açık aralık.
+- Font dosyaları siteye göre küçültülmüş alt kümeler (`app/fonts/`, 75 KB). İçeriğe Türkçe ve
+  Latin-1 dışında bir karakter girerse `app/fonts/OKU-BENI.md`'deki komutla yeniden üret.
+
+Token → CSS: `npm run tokens` bu dosyanın frontmatter'ını `app/tokens.css`'e yazar;
+`app/globals.css` yalnız hangi temada hangi token'ın kullanılacağını eşler (`--zemin`,
+`--yazi`, `--murekkep`, `--kalem` …). Bileşenlerde ham renk yok.
 
 ## Layout
 

@@ -21,8 +21,9 @@ yöntem ve dürüst sınırlarla ayrı bir vaka sayfasında anlatılır. Tüm sa
 | Çatı | Next.js 16 (App Router), `output: 'export'` | Statik çıktı: her yerde barınır, sunucu yok. Diğer projelerle aynı sürüm çizgisi. |
 | Dil | TypeScript (strict), React 19 | İçerik tipli veri; bir alan eksikse derleme kırılır. |
 | Stil | Tailwind CSS v4, token'lar `DESIGN.md` → CSS değişkenleri | Tek kaynak: renk/tip değerleri yalnız DESIGN.md'de. |
-| Font | Archivo (değişken, `wdth` + `wght`), IBM Plex Mono; `next/font` ile kendi sunucumuzdan | Çalışma anında Google'a istek yok. Türkçe glifler tam. |
-| Görsel | `sharp` betiği: vitrin WebP → 3 genişlik (960/1600/2400) + boyut manifesti | Mobilde 2880 px görsel indirilmez, CLS 0 (boyut önceden biliniyor). EXIF/metadata atılır. |
+| Font | Archivo (değişken, `wdth` + `wght`), IBM Plex Mono; alt küme woff2, `next/font/local` | Çalışma anında Google'a istek yok; 214 KB → 75 KB (Türkçe + Latin-1). |
+| Sosyal kart | `scripts/og.mjs`: Playwright ile sitenin derlenmiş CSS'inden 20 kart | next/og (satori) `wdth` eksenini çizemiyor. |
+| Görsel | `sharp` betiği: vitrin kareleri → 800/1400/2200 + özgün genişlik WebP, boyut manifesti | Mobilde 2880 px görsel indirilmez, CLS 0 (boyut önceden biliniyor). EXIF/metadata atılır. |
 | Etkileşim | CSS animasyonu + küçük istemci bileşenleri; lightbox yerel `<dialog>` | JS yükü küçük, odak tuzağı tarayıcıdan geliyor. |
 | İkon | lucide-react | Emoji yok. |
 | Test/doğrulama | `tsc`, ESLint, `gorsel-dogrulama` (4 genişlik × 2 tema), Lighthouse | "Bitti" = ölçülmüş. |

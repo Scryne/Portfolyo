@@ -11,12 +11,12 @@ Durum sütunu session-start hook'u tarafından otomatik okunur — format bozulm
 
 | Faz | Adı | Durum | Bitti Kriteri |
 | --- | --- | --- | --- |
-| 0 | İskelet ve token'lar | 🔄 Devam Ediyor | `npm run build` statik `out/` üretir; iki dilin kök layout'u ve 404 çalışır; DESIGN.md lint temiz |
-| 1 | İçerik ve görsel hattı | ⏳ Bekliyor | 9 proje TR+EN tipli içerikte; her sayı `_portfolyo/projeler` künyesine izlenir; görsel betiği varyant + manifest üretir |
-| 2 | Ana sayfa | ⏳ Bekliyor | Denetim defteri, sergiler, dizin, yöntem, CV bandı; gorsel-dogrulama 4 genişlik × 2 tema temiz |
-| 3 | Vaka sayfaları | ⏳ Bekliyor | 9 × 2 sayfa, galeri + lightbox klavyeyle çalışır; gorsel-dogrulama temiz |
-| 4 | CV ve iletişim | ⏳ Bekliyor | Web CV sürümü (kişisel veri kararına göre) indirilebilir; PDF meta verisi kontrol edildi |
-| 5 | Sertleştirme | ⏳ Bekliyor | Erişilebilirlik, hareket performansı, metadata/OG/sitemap, metin pası; Lighthouse mobil ≥ 90 / a11y 100 / BP 100 / SEO 100 |
+| 0 | İskelet ve token'lar | ✅ Tamamlandı | `npm run build` statik `out/` üretir; iki dilin kök layout'u ve 404 çalışır; DESIGN.md lint temiz |
+| 1 | İçerik ve görsel hattı | ✅ Tamamlandı | 9 proje TR+EN tipli içerikte; her sayı `_portfolyo/projeler` künyesine izlenir; görsel betiği varyant + manifest üretir |
+| 2 | Ana sayfa | ✅ Tamamlandı | Denetim defteri, sergiler, dizin, yöntem, CV bandı; gorsel-dogrulama 4 genişlik × 2 tema temiz |
+| 3 | Vaka sayfaları | ✅ Tamamlandı | 9 × 2 sayfa, galeri + lightbox klavyeyle çalışır; gorsel-dogrulama temiz |
+| 4 | CV ve iletişim | 🔄 Devam Ediyor | Web CV sürümü (kişisel veri kararına göre) indirilebilir; PDF meta verisi kontrol edildi |
+| 5 | Sertleştirme | ✅ Tamamlandı | Erişilebilirlik, hareket performansı, metadata/OG/sitemap, metin pası; Lighthouse mobil ≥ 90 / a11y 100 / BP 100 / SEO 100 |
 | 6 | Yayın (tetiklemeli) | ⏳ Bekliyor | Scryne'ın onayladığı yerde yayında; canlı adreste gorsel-dogrulama temiz |
 
 ## Faz Detayları
@@ -25,22 +25,38 @@ Durum sütunu session-start hook'u tarafından otomatik okunur — format bozulm
 - **İşler:** Next 16 + Tailwind v4 + TS kurulumu, statik export, `(tr)`/`(en)` kök layout'ları,
   fontlar, DESIGN.md → CSS token'ları, tema değiştirici (flaşsız).
 - **Bitti Kriteri:** yukarıdaki tablo.
+- **Notlar (2026-09-28):** Next 16.3 statik export segment prefetch dosyalarını klasör olarak
+  yazıyor (`__next.!X/…/__PAGE__.txt`), istemci noktalı düz ad istiyor → her statik sunucuda 404.
+  `scripts/duzlestir.mjs` (postbuild) düz kopyaları yazıyor. Next yükseltmesinde tekrar kontrol et.
+  `design.md export` Windows'ta dosyaya yönlendirilince boş dosya bırakıyor → `scripts/tokens.mjs`.
 
 ### Faz 1: İçerik ve görsel hattı
 - **İşler:** `content/projeler/*.ts` (TR+EN), ölçüm verisi, `scripts/gorseller.mjs`.
-- **Notlar:** Kokpit ve MythAtlas'ın `vitrin/` klasörü yok; `sonra/` karelerinden seçilecek.
+- **Notlar:** Kokpit ve MythAtlas'ın `vitrin/` klasörü yok; `sonra/` karelerinden seçildi.
+  Görseller: 56 kare, 800/1400/2200/2880 varyant, 10,4 MB (kaynak karelerin kendisi repoda yok).
 
 ### Faz 2: Ana sayfa
 - **İşler:** Hero + denetim defteri (imza), seçilmiş projeler, dizin, yöntem, CV/iletişim, altbilgi.
+- **Notlar:** gorsel-dogrulama tam sayfa kareyi kaydırmadan çektiği için tembel görseller boş
+  görünür; tasarım incelemesi için kaydırıp `img.decode()` bekleyen ayrı çekim gerekiyor.
+  Next'in prefetch HEAD isteği Chromium'da ERR_ABORTED raporlanıyor (zararsız); doğrulama
+  betiğine bu istisna eklendi.
 
 ### Faz 3: Vaka sayfaları
 - **İşler:** künye, bölümler, ölçüm cetvelleri, galeri, sonraki proje.
 
 ### Faz 4: CV ve iletişim
 - **İşler:** `_portfolyo/cv` üreticisine web sürümü; indirme bağlantıları.
+- **Durum:** `node olustur.mjs --web` telefon ve e-postayı çıkarıyor, `npm run cv` siteye
+  kopyalıyor; PDF meta verisinde yazar yok. **Açık:** web CV'de şehir ve okul kalıyor; Scryne
+  onaylayınca faz kapanır.
 
 ### Faz 5: Sertleştirme
 - **İşler:** fixing-accessibility, fixing-motion-performance, fixing-metadata, ux-writing, Lighthouse.
+- **Sonuç (2026-09-28):** axe 0 ihlal (5 rota × 2 genişlik × 2 tema); klavye testi (atla
+  bağlantısı, lightbox ok/Escape, odak dönüşü, tema kalıcılığı, dil anahtarı) geçti; Lighthouse
+  mobil perf 95–97 / a11y 100 / BP 100 / SEO 100, CLS 0. Font alt kümesi LCP'yi 3,6 → 2,9 sn indirdi.
+  OG kartları `scripts/og.mjs` ile (satori değişken font eksenini desteklemiyor).
 
 ### Faz 6: Yayın (tetiklemeli)
 - **İşler:** barındırma + alan adı Scryne'ın kararıyla; CI (build + link kontrolü).
