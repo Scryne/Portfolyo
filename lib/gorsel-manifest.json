@@ -1,0 +1,557 @@
+{
+  "tenderiq/inceleme": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "tenderiq/ihale": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "tenderiq/panel": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "tenderiq/kullanim": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "tenderiq/inceleme-koyu": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "tenderiq/tanitim": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "fabrikaos/pano": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "fabrikaos/lot": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "fabrikaos/pareto": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "fabrikaos/ikiz": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "fabrikaos/kiosk": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "fabrikaos/harita": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "fabrikaos/kanban": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "fabrikaos/tahmin": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "fabrikaos/platform": {
+    "w": 2880,
+    "h": 3160,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "fabrikaos/kvkk": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "fabrikaos/mobil": {
+    "w": 780,
+    "h": 1684,
+    "genislikler": [
+      780
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "aegis/eslesme": {
+    "w": 2880,
+    "h": 2068,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "aegis/pano": {
+    "w": 2880,
+    "h": 2224,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "aegis/elenen": {
+    "w": 2880,
+    "h": 2068,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "aegis/varlik": {
+    "w": 2880,
+    "h": 2073,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "aegis/denetim-izi": {
+    "w": 2880,
+    "h": 2478,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "aegis/mobil": {
+    "w": 780,
+    "h": 1684,
+    "genislikler": [
+      780
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "ghostbuilding/bulgu": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 24 24)"
+  },
+  "ghostbuilding/esri": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 40 40)"
+  },
+  "ghostbuilding/maptiler": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 40)"
+  },
+  "ghostbuilding/karsilastir": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 24 24)"
+  },
+  "ghostbuilding/avrupa": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "ghostbuilding/mobil": {
+    "w": 780,
+    "h": 1688,
+    "genislikler": [
+      780
+    ],
+    "zemin": "rgb(24 24 40)"
+  },
+  "osintlab/calisma-alani": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "osintlab/graf": {
+    "w": 1685,
+    "h": 951,
+    "genislikler": [
+      800,
+      1400,
+      1685
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "osintlab/olay": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "osintlab/dogrulama": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "osintlab/sorusturma": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "osintlab/entity": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "osintlab/arsiv": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "osintlab/mobil": {
+    "w": 780,
+    "h": 1688,
+    "genislikler": [
+      780
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "politikdesk/olay": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "politikdesk/kumanda": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "politikdesk/gundem": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "politikdesk/olay-koyu": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "wartrack/pano": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(72 72 72)"
+  },
+  "wartrack/durum-ozeti": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(8 24 24)"
+  },
+  "wartrack/katmanlar": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(56 72 72)"
+  },
+  "wartrack/kritik": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(72 72 72)"
+  },
+  "wartrack/nokta": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(56 72 72)"
+  },
+  "wartrack/mobil": {
+    "w": 390,
+    "h": 1627,
+    "genislikler": [
+      390
+    ],
+    "zemin": "rgb(8 24 24)"
+  },
+  "mythatlas/harita": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "mythatlas/zeus": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "mythatlas/abu-simbel": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "mythatlas/ilyada": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "mythatlas/soy-agaci": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "mythatlas/arkeoloji": {
+    "w": 1440,
+    "h": 900,
+    "genislikler": [
+      800,
+      1440
+    ],
+    "zemin": "rgb(40 40 24)"
+  },
+  "kokpit/pano": {
+    "w": 1920,
+    "h": 992,
+    "genislikler": [
+      800,
+      1400,
+      1920
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "kokpit/saglik": {
+    "w": 1920,
+    "h": 992,
+    "genislikler": [
+      800,
+      1400,
+      1920
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "kokpit/envanter": {
+    "w": 1920,
+    "h": 992,
+    "genislikler": [
+      800,
+      1400,
+      1920
+    ],
+    "zemin": "rgb(24 24 24)"
+  }
+}

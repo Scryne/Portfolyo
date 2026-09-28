@@ -1,0 +1,269 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/*
+ * Tema: kesin renkler app/tokens.css'te (DESIGN.md'den üretilir). Burada yalnız hangi temada
+ * hangisinin kullanılacağı eşlenir. Bileşenler ham renk değil, bu anlamsal adları kullanır.
+ */
+:root {
+  color-scheme: light;
+  --zemin: var(--color-paper);
+  --zemin-2: var(--color-paper-raised);
+  --zemin-3: var(--color-paper-top);
+  --yazi: var(--color-ink);
+  --yazi-2: var(--color-ink-2);
+  --yazi-3: var(--color-ink-3);
+  --murekkep: var(--color-primary);
+  --murekkep-ustu: var(--color-on-primary);
+  --kalem: var(--color-pen);
+  --cizgi: color-mix(in oklab, var(--color-ink) 13%, transparent);
+  --cizgi-guclu: color-mix(in oklab, var(--color-ink) 26%, transparent);
+  --izgara: color-mix(in oklab, var(--color-ink) 5.5%, transparent);
+  --isik: color-mix(in oklab, var(--color-primary) 11%, transparent);
+  --cam: color-mix(in oklab, var(--color-paper) 74%, transparent);
+  --cam-duz: var(--color-paper-raised);
+  --cam-kenar: color-mix(in oklab, var(--color-ink) 9%, transparent);
+  --golge: 0 1px 2px rgb(21 24 27 / 0.06), 0 12px 32px -12px rgb(21 24 27 / 0.18);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --zemin: var(--color-night);
+  --zemin-2: var(--color-night-raised);
+  --zemin-3: var(--color-night-top);
+  --yazi: var(--color-night-ink);
+  --yazi-2: var(--color-night-ink-2);
+  --yazi-3: var(--color-night-ink-3);
+  --murekkep: var(--color-night-primary);
+  --murekkep-ustu: var(--color-night-on-primary);
+  --kalem: var(--color-night-pen);
+  --cizgi: color-mix(in oklab, var(--color-night-ink) 12%, transparent);
+  --cizgi-guclu: color-mix(in oklab, var(--color-night-ink) 24%, transparent);
+  --izgara: color-mix(in oklab, var(--color-night-ink) 4.5%, transparent);
+  --isik: color-mix(in oklab, var(--color-night-primary) 10%, transparent);
+  --cam: color-mix(in oklab, var(--color-night) 70%, transparent);
+  --cam-duz: var(--color-night-raised);
+  --cam-kenar: rgb(255 255 255 / 0.1);
+  --golge: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.6);
+}
+
+/* JS kapalıysa sistem tercihine uy. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --zemin: var(--color-night);
+    --zemin-2: var(--color-night-raised);
+    --zemin-3: var(--color-night-top);
+    --yazi: var(--color-night-ink);
+    --yazi-2: var(--color-night-ink-2);
+    --yazi-3: var(--color-night-ink-3);
+    --murekkep: var(--color-night-primary);
+    --murekkep-ustu: var(--color-night-on-primary);
+    --kalem: var(--color-night-pen);
+    --cizgi: color-mix(in oklab, var(--color-night-ink) 12%, transparent);
+    --cizgi-guclu: color-mix(in oklab, var(--color-night-ink) 24%, transparent);
+    --izgara: color-mix(in oklab, var(--color-night-ink) 4.5%, transparent);
+    --isik: color-mix(in oklab, var(--color-night-primary) 10%, transparent);
+    --cam: color-mix(in oklab, var(--color-night) 70%, transparent);
+    --cam-duz: var(--color-night-raised);
+    --cam-kenar: rgb(255 255 255 / 0.1);
+    --golge: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.6);
+  }
+}
+
+@theme inline {
+  --color-zemin: var(--zemin);
+  --color-zemin-2: var(--zemin-2);
+  --color-zemin-3: var(--zemin-3);
+  --color-yazi: var(--yazi);
+  --color-yazi-2: var(--yazi-2);
+  --color-yazi-3: var(--yazi-3);
+  --color-murekkep: var(--murekkep);
+  --color-murekkep-ustu: var(--murekkep-ustu);
+  --color-kalem: var(--kalem);
+  --color-cizgi: var(--cizgi);
+  --color-cizgi-guclu: var(--cizgi-guclu);
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, 'Cascadia Mono', monospace;
+  --breakpoint-xs: 30rem;
+}
+
+/* ---------- Taban ---------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--zemin);
+  color: var(--yazi);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  font-variation-settings: 'wdth' 100;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--murekkep) 28%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--murekkep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Tipografi ---------- */
+
+@utility genis {
+  font-variation-settings: 'wdth' 122;
+}
+@utility enli {
+  font-variation-settings: 'wdth' 125;
+}
+
+@utility gosterge {
+  font-family: var(--font-sans);
+  font-variation-settings: 'wdth' 125;
+  font-weight: var(--font-weight-display);
+  line-height: 0.98;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+@utility baslik {
+  font-family: var(--font-sans);
+  font-variation-settings: 'wdth' 112;
+  font-weight: var(--font-weight-heading);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
+}
+
+@utility etiket {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-label);
+  letter-spacing: var(--tracking-label);
+  line-height: 1.4;
+}
+
+@utility okuma {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-readout);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+@utility metin {
+  max-width: 65ch;
+  text-wrap: pretty;
+}
+
+/* ---------- Düzen ---------- */
+
+@utility kap {
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+  @media (width >= 64rem) {
+    padding-inline: var(--spacing-gutter-lg);
+  }
+}
+
+@utility bolum {
+  padding-block: var(--spacing-section-sm);
+  @media (width >= 64rem) {
+    padding-block: var(--spacing-section);
+  }
+}
+
+/* Milimetrik ölçüm ızgarası + sol üstten kobalt ışık. Camın arkasındaki doku. */
+@utility izgara {
+  background-image:
+    radial-gradient(ellipse 70% 60% at 8% 0%, var(--isik), transparent 70%),
+    linear-gradient(to right, var(--izgara) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--izgara) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    24px 24px,
+    24px 24px;
+  background-position: 0 0, -1px -1px, -1px -1px;
+}
+
+/* Cam: yalnız nav ve lightbox. Destek yoksa düz, daha opak zemin. */
+@utility cam {
+  background: var(--cam-duz);
+  @supports (backdrop-filter: blur(1px)) {
+    background: var(--cam);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  }
+}
+
+/* Bir rapordaki şekil gibi: üst zemin, 1px kenar. */
+@utility sekil {
+  background: var(--zemin-3);
+  border: 1px solid var(--cizgi);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Satır içi bağlantı: kobalt mürekkep, alt çizgi ince. */
+@utility baglanti {
+  color: var(--murekkep);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in oklab, var(--murekkep) 45%, transparent);
+  transition: text-decoration-color 150ms ease-out;
+  &:hover {
+    text-decoration-color: var(--murekkep);
+  }
+}
+
+/* ---------- Kalem çizgisi (imza hareketi) ---------- */
+
+.kalem-cizgi path {
+  stroke: var(--kalem);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kalem-cizgi path {
+    stroke-dashoffset: 1;
+    animation: kalem-cek 520ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: calc(420ms + var(--sira, 0) * 150ms);
+  }
+  .kalem-sonra {
+    opacity: 0;
+    translate: 0 4px;
+    animation: sonra-gel 380ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    animation-delay: calc(760ms + var(--sira, 0) * 150ms);
+  }
+}
+
+@keyframes kalem-cek {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sonra-gel {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}

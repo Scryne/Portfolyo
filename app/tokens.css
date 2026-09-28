@@ -1,0 +1,43 @@
+/* Üretildi: npm run tokens (kaynak DESIGN.md). Elle düzenleme. */
+@theme {
+  --color-paper: #eceeea;
+  --color-paper-raised: #f5f6f2;
+  --color-paper-top: #fbfbf8;
+  --color-ink: #15181b;
+  --color-ink-2: #4d545a;
+  --color-ink-3: #62696f;
+  --color-primary: #2a43cf;
+  --color-on-primary: #fbfbf8;
+  --color-pen: #b3361f;
+  --color-night: #101317;
+  --color-night-raised: #171b20;
+  --color-night-top: #1e2329;
+  --color-night-ink: #e6e9e4;
+  --color-night-ink-2: #a3aaaf;
+  --color-night-ink-3: #858d93;
+  --color-night-primary: #94a8ff;
+  --color-night-on-primary: #101317;
+  --color-night-pen: #ff8c74;
+  --font-display: "Archivo";
+  --font-heading: "Archivo";
+  --font-body: "Archivo";
+  --font-label: "IBM Plex Mono";
+  --font-readout: "IBM Plex Mono";
+  --text-body: 1.0625rem;
+  --text-label: 0.75rem;
+  --tracking-display: -0.025em;
+  --tracking-heading: -0.015em;
+  --tracking-label: 0.06em;
+  --font-weight-display: 760;
+  --font-weight-heading: 650;
+  --font-weight-body: 400;
+  --font-weight-label: 500;
+  --font-weight-readout: 500;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --spacing-gutter: 20px;
+  --spacing-gutter-lg: 40px;
+  --spacing-section: 144px;
+  --spacing-section-sm: 96px;
+}
