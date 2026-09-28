@@ -15,9 +15,9 @@ Durum sütunu session-start hook'u tarafından otomatik okunur — format bozulm
 | 1 | İçerik ve görsel hattı | ✅ Tamamlandı | 9 proje TR+EN tipli içerikte; her sayı `_portfolyo/projeler` künyesine izlenir; görsel betiği varyant + manifest üretir |
 | 2 | Ana sayfa | ✅ Tamamlandı | Denetim defteri, sergiler, dizin, yöntem, CV bandı; gorsel-dogrulama 4 genişlik × 2 tema temiz |
 | 3 | Vaka sayfaları | ✅ Tamamlandı | 9 × 2 sayfa, galeri + lightbox klavyeyle çalışır; gorsel-dogrulama temiz |
-| 4 | CV ve iletişim | 🔄 Devam Ediyor | Web CV sürümü (kişisel veri kararına göre) indirilebilir; PDF meta verisi kontrol edildi |
+| 4 | CV ve iletişim | ✅ Tamamlandı | Web CV sürümü (kişisel veri kararına göre) indirilebilir; PDF meta verisi kontrol edildi |
 | 5 | Sertleştirme | ✅ Tamamlandı | Erişilebilirlik, hareket performansı, metadata/OG/sitemap, metin pası; Lighthouse mobil ≥ 90 / a11y 100 / BP 100 / SEO 100 |
-| 6 | Yayın (tetiklemeli) | ⏳ Bekliyor | Scryne'ın onayladığı yerde yayında; canlı adreste gorsel-dogrulama temiz |
+| 6 | Yayın (tetiklemeli) | ✅ Tamamlandı | Scryne'ın onayladığı yerde yayında; canlı adreste gorsel-dogrulama temiz |
 
 ## Faz Detayları
 
@@ -47,9 +47,10 @@ Durum sütunu session-start hook'u tarafından otomatik okunur — format bozulm
 
 ### Faz 4: CV ve iletişim
 - **İşler:** `_portfolyo/cv` üreticisine web sürümü; indirme bağlantıları.
-- **Durum:** `node olustur.mjs --web` telefon ve e-postayı çıkarıyor, `npm run cv` siteye
-  kopyalıyor; PDF meta verisinde yazar yok. **Açık:** web CV'de şehir ve okul kalıyor; Scryne
-  onaylayınca faz kapanır.
+- **Sonuç (2026-09-28):** Sitede başvuru CV'sinin birebir aynısı (Scryne: "CV aynı kalmalıydı";
+  önce telefonsuz bir web sürümü yapılmıştı, geri alındı). E-posta `berkaykaraca10@gmail.com` hem
+  CV'de hem sitede (sitede adres HTML'de tek parça değil). CV'ye site adresi eklendi.
+  `npm run cv` → `_portfolyo/cv/cikti` → `public/cv`.
 
 ### Faz 5: Sertleştirme
 - **İşler:** fixing-accessibility, fixing-motion-performance, fixing-metadata, ux-writing, Lighthouse.
@@ -60,3 +61,7 @@ Durum sütunu session-start hook'u tarafından otomatik okunur — format bozulm
 
 ### Faz 6: Yayın (tetiklemeli)
 - **İşler:** barındırma + alan adı Scryne'ın kararıyla; CI (build + link kontrolü).
+- **Sonuç (2026-09-28):** GitHub Pages, https://scryne.github.io/ — public `Scryne/Scryne.github.io`
+  repoda yalnız derlenmiş site (kaynak yerelde). `npm run yayinla` derler + iter (noreply kimlik,
+  autocrlf kapalı). `public/.nojekyll` şart (`_next`). Canlıda gorsel-dogrulama 160 kare 0 sorun.
+  CI kurulmadı: yayın yerelden, ölçümle.
