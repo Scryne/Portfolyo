@@ -71,7 +71,9 @@ hero → asimetrik sergi → tam genişlik görsel → dizin tablosu → numaral
 **Hero.** Görünür başlık yok; ad nav'da, `h1` yalnız ekran okuyucu için (ad · rol). Scryne
 2026-09-28: önce "Yapay zekâyla kuruyorum. Sonra ölçüyorum." garip bulundu, sonra dev ad + rol
 ve denetim ölçümlerinden eğim grafiği ("saçma ve kötü", `hero-egim` dalında duruyor) reddedildi.
-Hero şu an giriş paragrafı + düğmeler + defter. Tez başlıkta değil, defterde durur.
+Hero şu an giriş paragrafı + düğmeler + defter. Aynı gün statik taslakla gösterilip reddedilen üç yön daha:
+dipnotlu büyük paragraf (iddia → kenarda kanıt), gerçek ürün ekranlarından "şekil masası", Wartrack
+test raporu ("testler yeşildi, ürün haber çekmiyordu"). Yeni yön denerken bunları tekrarlama. Tez başlıkta değil, defterde durur.
 
 **Tez.** Berkay yapay zekâ ajanlarıyla hızlı kuruyor, sonra neyin gerçekten çalıştığını
 ölçüyor. Eylül 2026'da dokuz projesini yeniden ölçtü; testler yeşilken ürünlerin çalışmadığı
