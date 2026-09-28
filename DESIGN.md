@@ -68,8 +68,10 @@ lider, TR ve yurt dışı. Kazanılacak sıfat: **kesin**. Hareket derinliği: t
 (hero'daki kalem çizgisi), gerisi sessiz geri bildirim. Layout ailesi: tam genişlik tipografik
 hero → asimetrik sergi → tam genişlik görsel → dizin tablosu → numaralı yöntem yığını → bant.
 
-**Hero.** Başlık adın kendisi, altında rol kobalt mürekkeple. Scryne 2026-09-28: "Yapay zekâyla
-kuruyorum. Sonra ölçüyorum." cümlesi garip geldi, kaldırıldı. Tez başlıkta değil, defterde durur.
+**Hero.** Görünür başlık yok; ad nav'da, `h1` yalnız ekran okuyucu için (ad · rol). Scryne
+2026-09-28: önce "Yapay zekâyla kuruyorum. Sonra ölçüyorum." garip bulundu, sonra dev ad + rol
+ve denetim ölçümlerinden eğim grafiği ("saçma ve kötü", `hero-egim` dalında duruyor) reddedildi.
+Hero şu an giriş paragrafı + düğmeler + defter. Tez başlıkta değil, defterde durur.
 
 **Tez.** Berkay yapay zekâ ajanlarıyla hızlı kuruyor, sonra neyin gerçekten çalıştığını
 ölçüyor. Eylül 2026'da dokuz projesini yeniden ölçtü; testler yeşilken ürünlerin çalışmadığı
