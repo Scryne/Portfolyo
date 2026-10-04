@@ -42,7 +42,7 @@ export type Kare = { ad: string; aciklama: Ik; mobil?: boolean };
 export type Proje = {
   slug: string;
   ad: string;
-  /** Alan etiketi: "Belge yapay zekâsı · SaaS" */
+  /** Alan etiketi: "İhale analizi · SaaS" */
   alan: Ik;
   /** Ad yanında duran tek satır. */
   baslik: Ik;

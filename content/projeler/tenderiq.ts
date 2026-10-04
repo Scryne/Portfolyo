@@ -4,7 +4,7 @@ import type { Proje } from '@/lib/tipler';
 export const tenderiq: Proje = {
   slug: 'tenderiq',
   ad: 'TenderIQ',
-  alan: { tr: 'Belge yapay zekâsı · SaaS', en: 'Document AI · SaaS' },
+  alan: { tr: 'İhale analizi · SaaS', en: 'Tender analysis · SaaS' },
   baslik: {
     tr: 'Kamu ihalesi şartnamelerini kaynağına kadar izlenebilir biçimde analiz eden yapay zekâ platformu',
     en: 'AI analysis of public tender documents, traceable down to the clause',
@@ -140,7 +140,7 @@ export const tenderiq: Proje = {
           tur: 'p',
           metin: {
             tr: 'CV öncesi yeniden ölçüldüğünde testler yerelde yeşildi, ama ürün çalışmıyordu. Yapay zekâ hattı ölüydü (model emekliye ayrılmıştı), CI bir aydır kırmızıydı (2 kritik + 6 yüksek güvenlik açığı), boş bırakılan bir ayar altı test dosyasının hiç toplanmamasına yol açıyordu ve kullanıcıya on yerde ham “Failed to fetch” sızıyordu. Hepsi kapatıldı: CI 9/9 yeşil, trivy’de 0 yüksek/kritik, erişilebilirlikte 18 rotanın 18’i 100, kurgusal bir şartnameyle uçtan uca koşu 34 kaynaklı bulgu.',
-            en: 'Re-measured before writing the CV, the tests were green locally but the product did not work. The AI pipeline was dead (its model had been retired), CI had been red for a month (2 critical + 6 high vulnerabilities), one empty setting meant six test files were never collected, and a raw “Failed to fetch” leaked to users in ten places. All closed: CI 9/9 green, 0 high/critical in trivy, 18 of 18 routes at 100 for accessibility, and an end-to-end run on a fictional tender producing 34 cited findings.',
+            en: 'When I re-measured it before writing the CV, the tests were green locally but the product did not work. The AI pipeline was dead (its model had been retired), CI had been red for a month (2 critical + 6 high vulnerabilities), one empty setting meant six test files were never collected, and a raw “Failed to fetch” leaked to users in ten places. All closed: CI 9/9 green, 0 high/critical in trivy, 18 of 18 routes at 100 for accessibility, and an end-to-end run on a fictional tender producing 34 cited findings.',
           },
         },
       ],

@@ -29,7 +29,7 @@ export const politikdesk: Proje = {
   ],
   olcek: [
     { ad: { tr: 'Kaynak', en: 'Sources' }, deger: { tr: '101 (55 resmî + haber, 46 X hesabı/listesi)', en: '101 (55 official + news, 46 X accounts/lists)' } },
-    { ad: { tr: 'Test', en: 'Tests' }, deger: { tr: '2.695 hermetik + 16 canlı veri kabul testi', en: '2,695 hermetic + 16 live-data acceptance tests' } },
+    { ad: { tr: 'Test', en: 'Tests' }, deger: { tr: '2.701 hermetik + 16 canlı veri kabul testi', en: '2,701 hermetic + 16 live-data acceptance tests' } },
     { ad: { tr: 'Koşu', en: 'Run' }, deger: { tr: '52 kaynak → 492 makale → 336 olay, 21 dk', en: '52 sources → 492 articles → 336 events, 21 min' } },
     { ad: { tr: 'Commit', en: 'Commits' }, deger: { tr: '148', en: '148' } },
   ],

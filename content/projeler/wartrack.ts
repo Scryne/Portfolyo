@@ -127,14 +127,14 @@ export const wartrack: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Testler canlı veritabanını siliyordu.** API testleri gerçek yedek dizinine yazıyor, rotasyonla operatörün tek gerçek yedeğini silmeye bir koşu uzaktaydı. Testler geçici veritabanına alındı, bir koruma testi eklendi.',
+              '**Testler gerçek yedeği silmek üzereydi.** API testleri gerçek yedek dizinine yazıyor, rotasyonla operatörün tek gerçek yedeğini silmeye bir koşu uzaktaydı. Testler geçici veritabanına alındı, bir koruma testi eklendi.',
               '**RSS hiç çekmiyordu (0/15).** SSRF denetimi ve istek aynı alan adını iki kez çözüyor, yavaş DNS’te iş parçacığı havuzu tıkanıyordu. Denetim bağlantı anına taşındı: 15/15 kaynak, ~430 haber 25 saniyede.',
               '**Sahte alarm.** Olaylar okunma anıyla tarihleniyordu; bir ay kapalı kalan pano açılınca “5 · KRİTİK” gösterdi. Bir deve yarışı haberi (“intercepted”) füze olayı sayılıyordu. Üç ayrı tehdit hesabı teke indirildi.',
               '**Sahte yapay zekâ özeti.** Model yokken beş kalıp cümle “AI özeti” diye kaydediliyordu; kaldırıldı.',
               '**Arayüz:** harita katmanı anahtar istediği için boştu, canlı yayınların yarısı ölüydü, 71 emoji ve 94 ham renk kodu tasarım sistemini deliyordu.',
             ],
             en: [
-              '**Tests were deleting the live database’s backups.** API tests wrote into the real backup directory; one more run and rotation would have deleted the operator’s only real backup. Tests moved to a temporary database, with a guard test.',
+              '**Tests were about to delete the real backup.** API tests wrote into the real backup directory; one more run and rotation would have deleted the operator’s only real backup. Tests moved to a temporary database, with a guard test.',
               '**RSS never fetched (0/15).** The SSRF check and the request resolved the same host twice, and slow DNS stalled the thread pool. The check moved to connect time: 15/15 feeds, ~430 stories in 25 seconds.',
               '**False alarm.** Events were dated by read time, so after a month offline the board opened at “5 · CRITICAL”. A camel-race story (“intercepted”) counted as a missile event. Three separate threat calculations were merged into one.',
               '**Fake AI summary.** With no model running, five canned sentences were saved as the “AI summary”; removed.',

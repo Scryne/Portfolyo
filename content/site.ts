@@ -18,8 +18,8 @@ export const HERO = {
 
 /** Arama/paylaşım açıklaması: hero cümlesinden geniş, bütün kapsamı anlatır. */
 export const OZET = {
-  tr: 'Çok kiracılı SaaS, belge yapay zekâsı, OSINT, harita ve endüstriyel yazılım geliştiriyorum. On projenin vaka çalışması, ölçümleri ve CV.',
-  en: 'I build multi-tenant SaaS, document AI, OSINT, mapping and industrial software. Case studies, measurements and CV for ten projects.',
+  tr: 'Çok kiracılı SaaS, OSINT, harita ve endüstriyel yazılım geliştiriyorum. On projenin vaka çalışması, ölçümleri ve CV.',
+  en: 'I build multi-tenant SaaS, OSINT, mapping and industrial software. Case studies, measurements and CV for ten projects.',
 } satisfies Ik;
 
 /**
@@ -164,10 +164,10 @@ export const DEFTER: { slug: string; ne: Ik; once: Ik; sonra: Ik }[] = [
     sonra: { tr: '0', en: '0' },
   },
   {
-    slug: 'osintlab',
-    ne: { tr: 'Entity çıkarımında kaçırma; LLM’siz', en: 'Entity extraction miss rate, without an LLM' },
-    once: { tr: '%7,4', en: '7.4%' },
-    sonra: { tr: '%4,4', en: '4.4%' },
+    slug: 'politikdesk',
+    ne: { tr: 'CI’ın kırmızı kaldığı hafta', en: 'Weeks CI stayed red' },
+    once: { tr: '5+', en: '5+' },
+    sonra: { tr: '0', en: '0' },
   },
 ];
 

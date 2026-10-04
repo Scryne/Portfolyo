@@ -45,11 +45,11 @@ export const fabrikaos: Proje = {
       kaynak: 'FabrikaOS.md · Yapay zekâ 4',
     },
     {
-      ne: { tr: 'Yüksek ve kritik bağımlılık açığı', en: 'High and critical dependency advisories' },
+      ne: { tr: 'Yüksek ve kritik geliştirme bağımlılığı açığı', en: 'High and critical dev-dependency advisories' },
       once: { tr: '10', en: '10' },
       sonra: { tr: '0', en: '0' },
       cetvel: { min: 0, max: 10, once: 10, sonra: 0, yon: 'asagi' },
-      kaynak: 'cv/veri.mjs · FabrikaOS',
+      kaynak: 'FabrikaOS DURUM.md · madde 7',
     },
     {
       ne: { tr: 'Mobilde yatay taşan sayfa', en: 'Pages overflowing horizontally on mobile' },
