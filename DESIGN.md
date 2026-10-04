@@ -79,7 +79,7 @@ lider, TR ve yurt dışı. Kazanılacak sıfat: **kesin**. Hareket derinliği: h
 sürekli hareket), gerisi sessiz geri bildirim. Layout ailesi: asimetrik küre hero'su → defter →
 asimetrik sergi → tam genişlik görsel → dizin tablosu → numaralı yöntem yığını → bant.
 
-**Hero (2026-09-28, Scryne seçti).** Renk ağı zemininde noktalı bir dünya küresi (`cobe`,
+**Hero (2026-09-28, Scryne seçti; küre v2 aşağıda).** Renk ağı zemininde noktalı bir dünya küresi (`cobe`,
 WebGL, tembel yüklenir). Küre projelerin gerçekten geçtiği yerlere sırayla döner (Levant,
 Île Longue, Truva, Abu Simbel, Türkiye; kaynak `content/site.ts` → `KURE`); cam bir kart o
 projenin ekranını ve tek cümlesini gösterir, kartla işaret arasında kesikli bir çizgi, işarette
@@ -87,6 +87,24 @@ nabız atan bir halka durur. İmleç bir işarete gelince tur durur ve o kart a�
 gider; sürükleme küreyi çevirir. Tur için çubuk düğmeleri ve durdur/oynat var (WCAG 2.2.2);
 hareket azaltma tercihinde tur kendiliğinden başlamaz. Görünür başlık yok: ad nav'da, `h1`
 ekran okuyucu için. Solda rol etiketi + giriş cümlesi + iki düğme.
+
+**Küre v2 (2026-10-04, Scryne: "tüm projelerim gözüksün, noktalar üst üste gelmesin").** On projenin
+hepsi kürede, her biri bir kez ve künyesindeki gerçek yerinde (Ankara'da üç proje: KİK, MASAK, TBMM).
+Kurallar:
+- **Kümeler halkaya açılır.** 9°'den yakın konumlar (Türkiye + Levant) tek küme; üyeler küme ortasının
+  çevresinde sabit bir halkaya dizilir, gerçek konuma ince bir çizgi iner (cobe'un küçük noktası).
+  Halkadaki sıra coğrafi yöndür ve statiktir: küre dönerken yer değiştirmez.
+- **Adlar görünür.** Önde kalan her işaretin yanında mono ad; tek başına duran ad küreden dışarı
+  bakar. Adlar birbirine, başka bir noktaya ya da karta binmez: yer yoksa öbür yana geçer, orada da
+  yoksa gizlenir (nokta kalır, imleçle görünür). Seçili projenin adı hep görünür. 40rem altında
+  yalnız seçili ad.
+- **Rota (imza).** Tur bir yerden ötekine geçerken iki konum arasına büyük daire yayı mürekkeple
+  çizilir: yüzeyden yükselir, kürenin arkasında kalan parça çizilmez, ucunda kalem noktası, sonra
+  söner. Aynı kümedeki komşuya yay yok. Hareket azaltma tercihinde çizilmez.
+- **Kart konumu örtmez.** Masaüstünde küre seçili konumun güneybatısına bakar (64–80rem'de daha
+  fazla); konum ortanın sağ üstüne düşer. 64–80rem'de kart metin sütununa taşmaz (`left-0`, 17rem).
+- Mobilde on çubuk sığmaz: önceki / sayaç / sonraki; masaüstünde çubuklar. Kartta `04 / 10` sayacı.
+- Tur sırası coğrafidir (Türkiye → Levant → Mısır → Fransa → San Francisco), `content/site.ts`.
 
 **Reddedilenler (tekrarlama).** Aynı gün: "Yapay zekâyla kuruyorum. Sonra ölçüyorum." başlığı
 ("garip"), dev ad + rol, denetim ölçümlerinden eğim grafiği (`hero-egim` dalı, "saçma ve kötü"),

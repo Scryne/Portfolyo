@@ -308,6 +308,97 @@ body {
     radial-gradient(55% 55% at 70% 102%, var(--ag-3), transparent 70%);
 }
 
+/* Küre işaretleri: sıfır boyutlu bir çapa; nokta ve ad ona göre yerleşir. Yan (`data-yan`) kümedeki
+   yuvanın yönünden ya da kürenin kenarına yakınlıktan gelir. Ad zemin renginde bir hale taşır:
+   küre noktalarının üstünde de okunur. */
+.kure-isaret {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.kure-nokta {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 9999px;
+  background: var(--zemin);
+  border: 2px solid var(--murekkep);
+}
+.kure-isaret[data-aktif] .kure-nokta {
+  background: var(--murekkep);
+}
+.kure-ad {
+  position: absolute;
+  top: 0;
+  padding: 2px 4px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--yazi-2);
+  text-shadow:
+    0 0 2px var(--zemin),
+    0 0 4px var(--zemin),
+    0 0 8px var(--zemin);
+  transition: color 200ms;
+}
+.kure-isaret[data-aktif] .kure-ad,
+.kure-isaret:hover .kure-ad {
+  color: var(--murekkep);
+}
+.kure-isaret[data-aktif] .kure-ad {
+  font-weight: 500;
+}
+.kure-isaret[data-yan='sag'] .kure-ad {
+  left: 6px;
+  translate: 0 -50%;
+}
+.kure-isaret[data-yan='sol'] .kure-ad {
+  right: 6px;
+  translate: 0 -50%;
+}
+.kure-isaret[data-yan='ust'] .kure-ad {
+  top: auto;
+  bottom: 6px;
+  translate: -50% 0;
+}
+.kure-isaret[data-yan='alt'] .kure-ad {
+  top: 6px;
+  translate: -50% 0;
+}
+/* Dar ekranda yalnız seçili projenin adı: on ad küçük kürede birbirine girer. */
+@media (width < 40rem) {
+  .kure-isaret:not([data-aktif]) .kure-ad {
+    display: none;
+  }
+}
+/* Yerine sığmayan ad gizlenir; nokta kalır, imleç gelince ad görünür. */
+.kure-isaret[data-gizli] .kure-ad {
+  opacity: 0;
+}
+.kure-isaret[data-gizli]:hover .kure-ad {
+  opacity: 1;
+}
+/* Rota: tur bir yerden ötekine geçerken mürekkeple çizilen büyük daire yayı. Dolu çekirdek + geniş,
+   soluk hale: küredeki nokta deseninin içinde kaybolmasın. */
+.kure-rota {
+  stroke: var(--murekkep);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.kure-rota-hale {
+  stroke: var(--murekkep);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.18;
+}
+
 /* Küre kartı: cam. Destek yoksa daha opak düz zemin. */
 .cam-kart {
   background: var(--cam-duz);
