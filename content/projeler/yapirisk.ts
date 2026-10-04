@@ -3,7 +3,7 @@ import type { Proje } from '@/lib/tipler';
 // Kaynak: _portfolyo/projeler/YapiRisk.md
 export const yapirisk: Proje = {
   slug: 'yapirisk',
-  ad: 'YapiRisk',
+  ad: 'YapıRisk',
   alan: { tr: 'Deprem riski · Harita', en: 'Earthquake risk · Maps' },
   baslik: {
     tr: 'Binanın deprem riskini resmî yöntemle ön değerlendiren harita uygulaması',
