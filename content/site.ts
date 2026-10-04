@@ -11,15 +11,15 @@ export const KISI = {
 export const HERO = {
   ust: { tr: 'Yazılım geliştirici', en: 'Software developer' } satisfies Ik,
   giris: {
-    tr: 'Haritada olayları izleyen, uydu görüntüsünde gizlenmiş yapıları bulan, ihale şartnamesini okuyan yazılımlar geliştiriyorum.',
-    en: 'I build software that tracks events on a map, finds structures hidden in satellite imagery and reads tender specifications.',
+    tr: 'Uydu görüntüsünde gizlenmiş yapıları bulan, binanın deprem riskini resmî yöntemle ön değerlendiren, ihale şartnamesini okuyan yazılımlar geliştiriyorum.',
+    en: 'I build software that finds structures hidden in satellite imagery, pre-assesses a building’s earthquake risk with the official method and reads tender specifications.',
   } satisfies Ik,
 };
 
 /** Arama/paylaşım açıklaması: hero cümlesinden geniş, bütün kapsamı anlatır. */
 export const OZET = {
-  tr: 'Çok kiracılı SaaS, belge yapay zekâsı, OSINT ve endüstriyel yazılım geliştiriyorum. Dokuz projenin vaka çalışması, ölçümleri ve CV.',
-  en: 'I build multi-tenant SaaS, document AI, OSINT and industrial software. Case studies, measurements and CV for nine projects.',
+  tr: 'Çok kiracılı SaaS, belge yapay zekâsı, OSINT, harita ve endüstriyel yazılım geliştiriyorum. On projenin vaka çalışması, ölçümleri ve CV.',
+  en: 'I build multi-tenant SaaS, document AI, OSINT, mapping and industrial software. Case studies, measurements and CV for ten projects.',
 } satisfies Ik;
 
 /**
@@ -65,6 +65,16 @@ export const KURE: { slug: string; kare: string; konum: [number, number]; yer: I
     ne: {
       tr: 'Her görselin, kaynağın ve UNESCO iddiasının doğrulanabilir kaldığı bir mitoloji atlası.',
       en: 'A mythology atlas where every image, source and UNESCO claim stays verifiable.',
+    },
+  },
+  {
+    slug: 'yapirisk',
+    kare: 'sonuc',
+    konum: [38.1, 28.0],
+    yer: { tr: 'Ege · Manisa, İzmir, Aydın, Denizli', en: 'Aegean · Manisa, İzmir, Aydın, Denizli' },
+    ne: {
+      tr: '2,2 milyon binada deprem riskini resmî yöntemle ön değerlendirir; sonuç gerekçeli bir inceleme önceliği.',
+      en: 'Pre-assesses earthquake risk for 2.2 million buildings with the official method; the result is a reasoned inspection priority.',
     },
   },
   {

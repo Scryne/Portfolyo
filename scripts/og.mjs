@@ -19,7 +19,7 @@ if (!css) throw new Error('Derlenmiş CSS bulunamadı; önce next build');
 const cssMetni = readFileSync(css, 'utf8');
 const degisken = (ad) => cssMetni.match(new RegExp(ad + ':([^;}]+)'))?.[1] ?? 'sans-serif';
 
-const SLUGLAR = ['tenderiq', 'fabrikaos', 'aegis', 'ghostbuilding', 'wartrack', 'osintlab', 'politikdesk', 'mythatlas', 'kokpit'];
+const SLUGLAR = ['tenderiq', 'fabrikaos', 'aegis', 'ghostbuilding', 'yapirisk', 'wartrack', 'osintlab', 'politikdesk', 'mythatlas', 'kokpit'];
 const projeler = await Promise.all(
   SLUGLAR.map(async (s) => Object.values(await import(pathToFileURL(path.join(KOK, `content/projeler/${s}.ts`)).href))[0]),
 );

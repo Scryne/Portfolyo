@@ -8,6 +8,7 @@ import { osintlab } from './osintlab';
 import { politikdesk } from './politikdesk';
 import { tenderiq } from './tenderiq';
 import { wartrack } from './wartrack';
+import { yapirisk } from './yapirisk';
 
 /** Dizin ve "sonraki proje" sırası. CV'deki sırayla aynı başlar. */
 export const PROJELER: Proje[] = [
@@ -15,6 +16,7 @@ export const PROJELER: Proje[] = [
   fabrikaos,
   aegis,
   ghostbuilding,
+  yapirisk,
   wartrack,
   osintlab,
   politikdesk,

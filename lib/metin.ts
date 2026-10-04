@@ -21,8 +21,8 @@ export const M = {
   vakaOku: { tr: 'Vaka çalışmasını oku', en: 'Read the case study' },
   tumProjeler: { tr: 'Tüm projeler', en: 'All projects' },
   tumProjelerGiris: {
-    tr: 'Dokuzu da Eylül 2026’da yeniden ölçüldü.',
-    en: 'All nine were re-measured in September 2026.',
+    tr: 'Dokuzu Eylül 2026’da yeniden ölçüldü; YapiRisk Ekim 2026’da eklendi.',
+    en: 'Nine were re-measured in September 2026; YapiRisk was added in October 2026.',
   },
   acikKaynak: { tr: 'Açık kaynak', en: 'Open source' },
   ozelRepo: { tr: 'Özel repo', en: 'Private repo' },

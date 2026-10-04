@@ -86,9 +86,18 @@ const SECIM = {
     ['arkeoloji', 'MythAtlas/sonra/shot_archaeology.png'],
   ],
   kokpit: [
-    ['pano', 'Kokpit/sonra/pano.png'],
-    ['saglik', 'Kokpit/sonra/saglik.png'],
-    ['envanter', 'Kokpit/sonra/envanter.png'],
+    ['pano', 'Kokpit/v25/pano.png'],
+    ['ada-cevap', 'Kokpit/v25/ada-cevap.png'],
+    ['ada-goz', 'Kokpit/v25/ada-goz.png'],
+    ['saglik', 'Kokpit/v25/saglik.png'],
+  ],
+  yapirisk: [
+    ['sonuc', 'YapiRisk/vitrin/sonuc.png'],
+    ['form', 'YapiRisk/vitrin/form.png'],
+    ['harita', 'YapiRisk/vitrin/harita.png'],
+    ['rapor', 'YapiRisk/vitrin/rapor-ust.png'],
+    ['yontem', 'YapiRisk/vitrin/yontem.png'],
+    ['mobil', 'YapiRisk/vitrin/mobil-form.png'],
   ],
 };
 

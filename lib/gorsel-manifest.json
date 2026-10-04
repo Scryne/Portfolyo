@@ -525,14 +525,32 @@
     "zemin": "rgb(40 40 24)"
   },
   "kokpit/pano": {
-    "w": 1920,
-    "h": 992,
+    "w": 1583,
+    "h": 974,
+    "genislikler": [
+      800,
+      1583
+    ],
+    "zemin": "rgb(24 24 24)"
+  },
+  "kokpit/ada-cevap": {
+    "w": 1160,
+    "h": 1093,
+    "genislikler": [
+      800,
+      1160
+    ],
+    "zemin": "rgb(8 8 24)"
+  },
+  "kokpit/ada-goz": {
+    "w": 2260,
+    "h": 1110,
     "genislikler": [
       800,
       1400,
-      1920
+      2260
     ],
-    "zemin": "rgb(24 24 24)"
+    "zemin": "rgb(8 8 24)"
   },
   "kokpit/saglik": {
     "w": 1920,
@@ -544,14 +562,66 @@
     ],
     "zemin": "rgb(24 24 24)"
   },
-  "kokpit/envanter": {
-    "w": 1920,
-    "h": 992,
+  "yapirisk/sonuc": {
+    "w": 2880,
+    "h": 1800,
     "genislikler": [
       800,
       1400,
-      1920
+      2200,
+      2880
     ],
-    "zemin": "rgb(24 24 24)"
+    "zemin": "rgb(8 8 8)"
+  },
+  "yapirisk/form": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "yapirisk/harita": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 8)"
+  },
+  "yapirisk/rapor": {
+    "w": 2000,
+    "h": 1225,
+    "genislikler": [
+      800,
+      1400,
+      2000
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "yapirisk/yontem": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(8 8 24)"
+  },
+  "yapirisk/mobil": {
+    "w": 780,
+    "h": 1688,
+    "genislikler": [
+      780
+    ],
+    "zemin": "rgb(24 24 40)"
   }
 }
