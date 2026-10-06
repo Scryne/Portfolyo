@@ -15,7 +15,7 @@ export const yapirisk: Proje = {
   },
   donem: { tr: 'Eyl 2026 – Eki 2026', en: 'Sep 2026 – Oct 2026' },
   yil: 202610,
-  durum: { tr: 'v1 çalışır; yayın hazırlığı tamam', en: 'v1 works; ready for release' },
+  durum: { tr: 'v1 çalışır; yayın öncesinde beklemede (Ekim 2026)', en: 'v1 works; on hold before release (Oct 2026)' },
   repo: { acik: false },
   demo: {
     tr: 'Henüz yok. Statik site; GitHub Pages iş akışı hazır.',
