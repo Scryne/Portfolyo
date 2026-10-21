@@ -46,12 +46,13 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
           <Kure yerler={kureYerleri(dil)} dil={dil} className="mx-auto w-full max-w-[36rem] lg:col-span-7 lg:mr-0 lg:max-w-[45rem]" />
         </div>
       </section>
-      <section className="izgara border-b border-cizgi">
+      <Sergi dil={dil} />
+      {/* Defter işlerden sonra: ziyaretçi önce projeleri görür, sonra ölçülmüş düzeltmeleri. */}
+      <section className="izgara border-y border-cizgi">
         <GorununceOynat className="kap py-20 lg:py-28">
           <Defter dil={dil} />
         </GorununceOynat>
       </section>
-      <Sergi dil={dil} />
       <Dizin dil={dil} />
       <Yontem dil={dil} />
       <CvBant dil={dil} />

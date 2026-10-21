@@ -67,8 +67,8 @@ export const ghostbuilding: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Hassas tesisler ticari uydu görüntülerinde çoğu zaman gizlenir, ama her sağlayıcı bunu farklı yapar: biri bulanıklaştırır, biri mozaikler, biri yıllar önceki bir çekimi gösterir. Tek bir haritaya bakan kişi bunu fark etmez. Kaynakları elle yan yana koymak yavaştır ve asıl soruyu cevaplamaz: iki görüntü arasındaki fark gerçekten sıra dışı mı, yoksa her konumda görülen sıradan bir fark mı (çekim tarihi, mevsim, renk dengesi)?',
-            en: 'Sensitive sites are often hidden in commercial satellite imagery, but every provider does it differently: one blurs, one mosaics, one shows a capture from years ago. Someone looking at a single map never notices. Putting sources side by side by hand is slow and misses the real question: is the difference between two images actually unusual, or the ordinary kind seen everywhere (capture date, season, colour balance)?',
+            tr: 'Hassas tesisler ticari uydu görüntülerinde gizlenir ama her sağlayıcı farklı yapar: biri bulanıklaştırır, biri mozaikler, biri eski bir çekimi gösterir. Asıl soru şu: iki kaynak arasındaki fark gerçekten sıra dışı mı, yoksa her konumda görülen sıradan bir fark mı (çekim tarihi, mevsim, renk)?',
+            en: 'Sensitive sites are hidden in commercial satellite imagery, but each provider does it differently: one blurs, one mosaics, one shows an old capture. The real question: is the difference between two sources actually unusual, or the ordinary kind seen everywhere (capture date, season, colour)?',
           },
         },
       ],
@@ -80,20 +80,16 @@ export const ghostbuilding: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Tarama:** bir koordinat için uygun her kaynaktan (Esri, MapTiler, Fransa’da IGN) aynı z16 karoyu indirir; Celery kuyruğunda çalışır.',
-              '**İki sinyal:** kaynak çiftleri arasında görüntü farkı (SSIM, piksel, histogram) ve bir kaynağın diğerlerinden belirgin biçimde bulanık olup olmadığı (Laplacian, FFT, bölgesel harita, beş kural).',
-              '**Tabana göre puan:** ham ölçüm sıradan konumlardan ölçülen dağılıma göre 0–100’e çevrilir; 50, sıradan konumların %99’u demektir. Arayüzde her puanın yanında bu çizgi durur.',
-              '**Kanıt:** karolar yan yana (mozaik yumuşatılmasın diye piksel piksel), gerekçe maddeleri puan katkılarıyla (+15, +10 → ham skor 25) ve ayırıcılı üst üste karşılaştırma.',
-              '**Doğrulama:** son kararı topluluk verir; isabetli oy veren kullanıcının güven puanı artar.',
-              '**Kapalı sinyaller açıkça yazılır:** bina dedektörü ve tarihsel değişim çalışmıyor diye gizlenmez; arayüz neden kapalı olduklarını söyler.',
+              '**Tarama:** bir koordinat için Esri, MapTiler ve (Fransa’da) IGN’den aynı z16 karoyu indirir.',
+              '**İki sinyal:** kaynaklar arası görüntü farkı (SSIM, piksel, histogram) ve bir kaynağın diğerlerinden belirgin biçimde bulanık olması (Laplacian, FFT, beş kural).',
+              '**Tabana göre puan:** ham ölçüm, sıradan konumlardan ölçülen dağılıma göre 0–100’e çevrilir; 50, sıradan konumların %99’u demek ve bu çizgi her puanın yanında durur.',
+              '**Kanıt:** karolar yan yana, gerekçe maddeleri puan katkılarıyla, ayırıcılı karşılaştırma. Çalışmayan sinyaller (bina dedektörü, tarihsel değişim) gizlenmez, neden kapalı oldukları yazılır.',
             ],
             en: [
-              '**Scan:** downloads the same z16 tile from every applicable source (Esri, MapTiler, IGN in France) for a coordinate, queued on Celery.',
-              '**Two signals:** image difference between source pairs (SSIM, pixel, histogram) and whether one source is markedly blurrier than the rest (Laplacian, FFT, a regional blur map, five rules).',
-              '**Score against a baseline:** raw measurements are mapped to 0–100 against the distribution measured on ordinary locations; 50 means the 99th percentile of ordinary. The UI draws that line next to every score.',
-              '**Evidence:** tiles side by side (nearest-neighbour, so mosaics are not smoothed), reasons with their score contributions (+15, +10 → raw score 25), and a slider overlay comparison.',
-              '**Verification:** the community makes the final call; users who vote accurately gain trust.',
-              '**Disabled signals are stated openly:** the building detector and historical change are not hidden when they do not work; the UI explains why they are off.',
+              '**Scan:** downloads the same z16 tile from Esri, MapTiler and (in France) IGN for a coordinate.',
+              '**Two signals:** image difference between sources (SSIM, pixel, histogram) and one source being markedly blurrier than the rest (Laplacian, FFT, five rules).',
+              '**Score against a baseline:** raw measurements are mapped to 0–100 against the distribution measured on ordinary locations; 50 is the 99th percentile of ordinary, and that line sits beside every score.',
+              '**Evidence:** tiles side by side, reasons with their score contributions, a slider comparison. Signals that do not work (building detector, historical change) are not hidden; the UI says why they are off.',
             ],
           },
         },
@@ -105,34 +101,25 @@ export const ghostbuilding: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'İlk sürüm (Nisan 2026) bir proje planından yapay zekâ ajanlarıyla **iki günde, beş fazda** kuruldu: harita, tarama kuyruğu, görüntü analizi, doğrulama, CI, Docker. Her şey vardı ve testler yeşildi. Eylül 2026’da Claude Code ile yapılan denetim tek bir soru sordu: bu sistem gerçekte neyi ölçüyor? Cevap rahatsız ediciydi:',
-            en: 'The first version (April 2026) was built from a project plan with AI agents in **two days, five phases**: map, scan queue, image analysis, verification, CI, Docker. Everything was there and the tests were green. The September 2026 audit with Claude Code asked one question: what does this system actually measure? The answer was uncomfortable:',
+            tr: 'İlk sürüm yapay zekâ ajanlarıyla iki günde kuruldu ve testler yeşildi. Eylül 2026 denetimi “bu sistem gerçekte neyi ölçüyor?” diye sordu:',
+            en: 'The first version was built with AI agents in two days and the tests were green. The September 2026 audit asked “what does this system actually measure?”:',
           },
         },
         {
-          tur: 'sirali',
+          tur: 'liste',
           ogeler: {
             tr: [
-              '**Eşikler hiç ölçülmemişti.** “Anomali” eşiği %15 fark olarak yazılmıştı; sıradan 40 konumun 39’u bu eşiği geçiyordu. Sistem her yeri işaretliyordu. Çözüm bir kalibrasyon betiği oldu: sıradan konumlar aynı hattan geçirildi, eşikler p90/p99’dan türetildi.',
-              '**Hizalama kanıtı bozuyordu.** Farklı çözünürlükteki karolar merkezden kırpılıyordu. Bir yerde de OSM’nin çizilmiş haritası uydu fotoğrafıyla “karşılaştırılıyordu”.',
-              '**Veri kaynağı savunulamazdı.** Görüntüler resmî olmayan uçlardan rastgele tarayıcı kimliğiyle çekiliyordu; herkese açık bir repoda bu, sağlayıcı koşullarının ihlaliydi. Resmî kaynaklara (Esri, MapTiler, IGN) geçildi.',
-              '**Demo verisi uydurmaydı.** Londra merkezine elle %91,5 “gizli yapı” skoru yazılmıştı. Şimdi demo verisi yalnız gerçek motorun referans taramasından geliyor.',
-              '**Genel amaçlı model yukarıdan bina tanımaz.** “Hayalet bina” analizi bir COCO modeline dayanıyordu; açık kalsaydı uydurma sonuç üretecekti. Kapatıldı ve arayüzde gerekçesiyle gösteriliyor.',
+              '**Eşikler hiç ölçülmemişti:** sabit %15 eşiğini sıradan 40 konumun 39’u geçiyordu. Eşikler artık sıradan konumların p90/p99’undan türetiliyor.',
+              '**Veri kaynağı savunulamazdı:** görüntüler resmî olmayan uçlardan çekiliyordu; resmî kaynaklara geçildi.',
+              '**Demo verisi uydurmaydı:** Londra’ya elle %91,5 skor yazılmıştı; demo artık gerçek motorun referans taramasından.',
+              '**Genel amaçlı model yukarıdan bina tanımıyordu:** COCO tabanlı analiz kapatıldı. Her değişiklik regresyon testiyle sabitlendi (230 test).',
             ],
             en: [
-              '**The thresholds had never been measured.** The “anomaly” threshold was a hard-coded 15% difference, and 39 of 40 ordinary locations exceeded it. The system flagged everything. The fix was a calibration script: run ordinary locations through the same pipeline and derive thresholds from p90/p99.',
-              '**Alignment was corrupting the evidence.** Tiles of different resolutions were centre-cropped, and in one place OpenStreetMap’s drawn map was being “compared” with a satellite photo.',
-              '**The data source was indefensible.** Imagery came from unofficial endpoints with a random browser identity, a terms-of-service violation in a public repository. It now uses official sources (Esri, MapTiler, IGN).',
-              '**The demo data was made up.** Central London had a hand-written 91.5% “hidden structure” score. Demo data now comes only from the real engine’s reference scan.',
-              '**A general-purpose model cannot recognise buildings from above.** The “ghost building” analysis relied on a COCO model and would have produced fabricated results. It was switched off, and the UI says why.',
+              '**The thresholds had never been measured:** 39 of 40 ordinary locations exceeded the hard-coded 15%. Thresholds now come from the p90/p99 of ordinary locations.',
+              '**The data source was indefensible:** imagery came from unofficial endpoints; it now uses official sources.',
+              '**The demo data was made up:** London had a hand-written 91.5% score; the demo now comes from the real engine’s reference scan.',
+              '**A general-purpose model could not see buildings from above:** the COCO-based analysis was switched off. Every change was pinned with a regression test (230 tests).',
             ],
-          },
-        },
-        {
-          tur: 'p',
-          metin: {
-            tr: 'Her davranış değişikliği bir regresyon testiyle sabitlendi (230 test).',
-            en: 'Every behaviour change was pinned with a regression test (230 tests).',
           },
         },
       ],
@@ -143,8 +130,8 @@ export const ghostbuilding: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Gece vardiyasındaki bir analiz masası: karanlık tam ekran harita, kenarlarda cam paneller, az renk. Dört kategori rengi yalnız kategori için, kırmızı yalnız hata için. Puanın “iyi/kötü” rengi yok, çünkü puan bir olasılık değil. Koordinat, puan ve kayıt kimliği eş aralıklı yazılır; kaynak atıfları her karonun yanında durur.',
-            en: 'A night-shift analysis desk: a dark full-screen map, glass panels at the edges, very little colour. Four category colours for categories only, red for errors only. The score has no “good/bad” colour, because it is not a probability. Coordinates, scores and record IDs are monospace, and source attribution sits beside every tile.',
+            tr: 'Gece vardiyasındaki bir analiz masası: karanlık tam ekran harita, kenarlarda cam paneller, az renk. Puanın “iyi/kötü” rengi yok, çünkü bir olasılık değil.',
+            en: 'A night-shift analysis desk: a dark full-screen map, glass panels at the edges, little colour. The score has no “good/bad” colour, because it is not a probability.',
           },
         },
       ],
@@ -155,8 +142,8 @@ export const ghostbuilding: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Yapay zekâ bir sistemi iki günde kurabilir, ama sistemin söylediğine güvenmek için ölçümü insanın talep etmesi gerekir. Denetimin en değerli çıktısı bir özellik değil, bir taban dağılımıydı.',
-            en: 'AI can build a system in two days, but trusting what it says requires a human to demand the measurement. The audit’s most valuable output was not a feature but a baseline distribution.',
+            tr: 'Yapay zekâ bir sistemi iki günde kurabilir; söylediğine güvenmek için ölçümü insanın istemesi gerekir. Denetimin en değerli çıktısı bir özellik değil, bir taban dağılımıydı.',
+            en: 'AI can build a system in two days; trusting what it says takes a human who demands the measurement. The audit’s most valuable output was not a feature but a baseline distribution.',
           },
         },
       ],

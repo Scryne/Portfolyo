@@ -62,8 +62,8 @@ export const aegis: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Türkiye’de MASAK kapsamındaki yükümlüler (ürünün ilk hedefi SMMM/YMM ve bağımsız denetim ofisleri) yeni bir kurumsal müşteriyi kabul etmeden önce onu ve yöneticilerini yaptırım, PEP ve malvarlığı dondurma listelerine karşı taramak, kararını da denetimde savunabilmek zorundadır. Bugün bu iş elle yapılıyor: liste sitelerinde ad aranıyor, ekran görüntüsü klasöre konuyor. Türkçe yazım farkları (“A.Ş.” / “Anonim Şirketi”, İ/ı) gerçek eşleşmeleri kaçırtıyor. “Neden elediniz?” sorusunun cevabı çoğu zaman kayıtlı değil.',
-            en: 'Firms covered by Turkey’s financial crimes regulator (the first target is accounting and audit practices) must screen every new corporate client and its directors against sanctions, PEP and asset-freeze lists before onboarding, and be able to defend that decision in an audit. Today it is manual: names are searched on list websites and screenshots dropped into folders. Turkish spelling differences (“A.Ş.” vs “Anonim Şirketi”, İ/ı) make real matches slip through, and the answer to “why did you dismiss this?” is rarely on record.',
+            tr: 'MASAK yükümlüleri (ilk hedef SMMM/YMM ve denetim ofisleri) yeni bir kurumsal müşteriyi ve yöneticilerini yaptırım, PEP ve malvarlığı dondurma listelerinde taramak ve kararını denetimde savunmak zorunda. Bugün bu elle yapılıyor; Türkçe yazım farkları (“A.Ş.” / “Anonim Şirketi”, İ/ı) gerçek eşleşmeleri kaçırtıyor, “neden elediniz?” sorusunun cevabı kayıtlı değil.',
+            en: 'Firms regulated by Turkey’s financial crimes authority (first target: accounting and audit practices) must screen every new corporate client and its directors against sanctions, PEP and asset-freeze lists, and defend the decision in an audit. Today this is manual; Turkish spelling differences (“A.Ş.” vs “Anonim Şirketi”, İ/ı) let real matches slip, and “why did you dismiss this?” is rarely on record.',
           },
         },
       ],
@@ -75,20 +75,16 @@ export const aegis: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Varlık kütüğü:** şirket, yöneticiler, gerçek faydalanıcılar ve ortaklık oranları. Her değerin kaynağı ve gözlem zamanı tutulur. TCKN şifreli kolonda durur; tekrar kontrolü anahtarlı kör indeksle yapılır.',
-              '**Belgeden çıkarım:** imza sirküleri ya da faaliyet belgesi yüklenir, Docling metne çevirir, kural tabanlı çıkarım yetkilileri ve kimlik numaralarını **öneri** olarak sunar. Onaysız hiçbir şey kütüğe girmez.',
-              '**Tarama:** şirket ve bağlı kişiler kendi ortamında çalışan OpenSanctions motoruna karşı taranır; kişisel veri dışarı çıkmaz. Skor bantları üçe ayrılır: gerekçesiyle saklanan otomatik eleme, insan incelemesi ve acil işaret.',
-              '**Karar:** analist her adayı skor, eşleşme nedenleri ve kaynak bağlantısıyla görür, onaylar ya da gerekçe yazarak eler. Karar geri alınabilir, silinemez.',
-              '**Dosya:** kimlik, taramalar, kararlar, tutarsızlıklar ve kaynaklar tek bir PDF/Word dosyada toplanır, SHA-256 ile mühürlenir ve saklama süresine bağlanır.',
-              '**Denetim izi:** risk etkileyen her eylem yalnız eklenen, hash zincirli bir ize yazılır; zincir her görüntülemede yeniden doğrulanır.',
+              '**Varlık kütüğü:** şirket, yöneticiler, gerçek faydalanıcılar; her değer kaynağı ve zamanıyla. TCKN şifreli kolonda, tekrar kontrolü kör indeksle.',
+              '**Belgeden öneri:** imza sirküleri Docling ile metne çevrilir, yetkililer **öneri** olarak gelir; onaysız hiçbir şey kütüğe girmez.',
+              '**Yerel tarama:** OpenSanctions motoru kendi ortamında; kişisel veri dışarı çıkmaz. Sonuç üç banda ayrılır: gerekçeli otomatik eleme, inceleme, acil.',
+              '**Gerekçeli karar ve mühürlü dosya:** analist her adayı eşleşme nedenleriyle görür, gerekçe yazarak eler; dosya SHA-256 ile mühürlenir, denetim izi hash zincirli.',
             ],
             en: [
-              '**Entity register:** company, directors, beneficial owners and ownership shares, each value with its source and observation time. National ID numbers sit in an encrypted column; duplicate checks use a keyed blind index.',
-              '**Extraction from documents:** upload a signature circular or registry document, Docling turns it into text, and rule-based extraction offers directors and ID numbers as **suggestions**. Nothing enters the register without approval.',
-              '**Screening:** the company and related people are screened against a self-hosted OpenSanctions engine; personal data never leaves. Scores fall into three bands: auto-dismissal (stored with its reason), human review and urgent flag.',
-              '**Decision:** the analyst sees each candidate with score, match reasons and source link, then confirms or dismisses with a written rationale. Decisions can be reversed, never deleted.',
-              '**Case file:** identity, screenings, decisions, inconsistencies and sources in one PDF/Word file, sealed with SHA-256 and bound to a retention period.',
-              '**Audit trail:** every risk-relevant action goes to an append-only, hash-chained log that is re-verified on every view.',
+              '**Entity register:** company, directors, beneficial owners, each value with its source and time. ID numbers in an encrypted column, duplicates found via a blind index.',
+              '**Suggestions from documents:** a signature circular is turned into text with Docling and directors arrive as **suggestions**; nothing enters the register unapproved.',
+              '**Local screening:** a self-hosted OpenSanctions engine; personal data never leaves. Results fall into three bands: reasoned auto-dismissal, review, urgent.',
+              '**Reasoned decisions, sealed file:** the analyst sees each candidate with match reasons and dismisses with a written rationale; the case file is sealed with SHA-256 and the audit trail is hash-chained.',
             ],
           },
         },
@@ -98,34 +94,18 @@ export const aegis: Proje = {
       id: 'yapay-zeka',
       bloklar: [
         {
-          tur: 'p',
-          metin: {
-            tr: 'Kod Claude Code ile, epik epik (E1.1 → E1.5) yazıldı. Ürünü güvenilir yapan, her uyum vaadinin bir cümle değil bir **test kapısı** olması:',
-            en: 'The code was written with Claude Code, epic by epic (E1.1 → E1.5). What makes it trustworthy is that every compliance promise is a **test gate**, not a sentence:',
-          },
-        },
-        {
-          tur: 'sirali',
+          tur: 'liste',
           ogeler: {
             tr: [
-              '**Kiracı izolasyonu kanıtlanır, varsayılmaz.** İki kiracı, her uçta ve uygulama rolü altında doğrudan SQL ile sıfır sızıntı testinden geçer.',
-              '**Yanlış negatif en tehlikeli hatadır.** Türkçe değerlendirme seti gerçek tarama motoru üzerinden %100 recall tutturmak zorunda. Motor ulaşılamazsa sonuç “temiz” değil, “sonuç YOK” olarak gösterilir.',
-              '**Kararlar yazılı ve revize edilebilir.** 8 ADR ve numaralı revizyonlar: MERSİS’e bağımlı olmayan doğrulama, Docling’in erkene çekilmesi, pgvector’ün çıkarılması. Model neyin neden yapıldığını her oturumda aynı belgeden okudu.',
-              '**Ürün ilk kez uçtan uca çalıştırıldı.** Testlerin göremediği şeyler gerçek koşuda çıktı: Docling satırları paragrafta birleştirince çıkarım ikinci yetkiliye birincinin TCKN’sini bağlıyordu; öneri gövdesi TCKN’yi şifresiz tutuyordu; başarısız bir çıkarım yeniden denenemiyordu; gerekçeyle elenen aday taramayı sonsuza dek “acil”de tutuyordu; üretim bağımlılığında kimlik doğrulamasız bir RCE vardı ve CI’daki güvenlik adımı hiç kırılamayacak biçimde yazılmıştı.',
+              '**Kiracı izolasyonu bir test kapısı:** iki kiracı, her uç, doğrudan SQL; sıfır sızıntı yoksa birleştirme yapılamaz.',
+              '**Yanlış negatif en tehlikeli hata:** Türkçe değerlendirme seti gerçek motor üzerinden %100 recall tutturmak zorunda; motor yoksa sonuç “temiz” değil “sonuç YOK”.',
+              '**İlk uçtan uca koşu testlerin göremediğini buldu:** çıkarım ikinci yöneticiye birincinin TCKN’sini bağlıyordu, öneri gövdesi TCKN’yi şifresiz tutuyordu, CI güvenlik adımı hiç kırılamıyordu. Hepsi regresyon testiyle kilitlendi.',
             ],
             en: [
-              '**Tenant isolation is proven, not assumed.** Two tenants, every endpoint, under the application role, with direct SQL: zero leakage or the merge is blocked.',
-              '**A false negative is the most dangerous bug.** A Turkish evaluation set must hit 100% recall through the real screening engine. If the engine is unreachable, the result shows “NO result”, never “clear”.',
-              '**Decisions are written down and revisable.** 8 ADRs and numbered revisions: verification without depending on the trade registry, pulling Docling forward, removing pgvector. The model read what was done and why from the same record every session.',
-              '**The product was run end to end for the first time.** A real run surfaced what tests could not: when Docling merged lines into a paragraph, extraction attached the first director’s ID to the second; the suggestion payload stored IDs unencrypted; a failed extraction could never be retried; a dismissed candidate kept a screening in “urgent” forever; a production dependency carried an unauthenticated RCE, and the CI security step could never fail.',
+              '**Tenant isolation is a test gate:** two tenants, every endpoint, direct SQL; without zero leakage nothing merges.',
+              '**A false negative is the worst bug:** a Turkish evaluation set must hit 100% recall through the real engine; if the engine is down the result is “NO result”, never “clear”.',
+              '**The first end-to-end run found what tests could not:** extraction attached the first director’s ID to the second, the suggestion payload stored IDs unencrypted, the CI security step could never fail. All locked with regression tests.',
             ],
-          },
-        },
-        {
-          tur: 'p',
-          metin: {
-            tr: 'Her biri ölçüldü, düzeltildi ve regresyon testiyle kilitlendi.',
-            en: 'Each was measured, fixed and locked with a regression test.',
           },
         },
       ],
@@ -136,8 +116,8 @@ export const aegis: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Açık tema, sakin bir çalışma alanı. Renk yalnız risk durumunu taşır: kırmızı onaylanmış eşleşme ya da yapılamayan tarama, amber inceleme bekleyen ya da bayat veri, yeşil eşik üstü eşleşme yok. Ekran önce sonucu, sonra gerekçeyi, en son eylemi gösterir. Denetçinin karakter karakter karşılaştıracağı her değer (kimlik, skor, özet) eş aralıklı yazılır.',
-            en: 'A light, calm workspace. Colour carries risk state only: red for a confirmed match or a screening that could not run, amber for pending review or stale data, green for no match above threshold. Each screen shows the result first, then the rationale, then the action. Every value an auditor compares character by character (ID, score, hash) is set in monospace.',
+            tr: 'Açık, sakin bir çalışma alanı; renk yalnız risk durumunu taşır. Ekran önce sonucu, sonra gerekçeyi, en son eylemi gösterir; denetçinin karşılaştıracağı değerler eş aralıklı.',
+            en: 'A light, calm workspace; colour carries risk state only. Each screen shows the result, then the rationale, then the action; values an auditor compares are monospaced.',
           },
         },
       ],

@@ -72,8 +72,8 @@ export const tenderiq: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Bir teklif ekibi 300 sayfalık bir şartnameyi okurken tek bir soruya cevap arar: “Bu dokümanda beni eleyecek ya da riske atacak madde hangisi, ve tam olarak nerede yazıyor?” Genel amaçlı bir sohbet modeli bu soruya akıcı bir cevap verir ama hangi maddeye dayandığını gösteremez. Hukuki sonucu olan bir karar için “model öyle dedi” yetmez; ekip maddeyi kendi gözüyle görmek ister.',
-            en: 'A bid team reading a 300-page tender is looking for one answer: “Which clause here disqualifies us or puts us at risk, and exactly where is it written?” A general-purpose chat model answers fluently but cannot show the clause it relied on. For a decision with legal consequences, “the model said so” is not enough. The team wants to see the clause with their own eyes.',
+            tr: 'Teklif ekibi 300 sayfalık bir şartnamede tek şeyi arar: beni eleyecek ya da riske atacak madde hangisi, tam olarak nerede yazıyor? Sohbet modeli akıcı cevap verir ama dayandığı maddeyi gösteremez; hukuki sonucu olan bir kararda bu yetmez.',
+            en: 'A bid team searches a 300-page tender for one thing: which clause disqualifies us or puts us at risk, and exactly where is it written? A chat model answers fluently but cannot show the clause it relied on, which is not enough for a decision with legal consequences.',
           },
         },
       ],
@@ -85,20 +85,18 @@ export const tenderiq: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Hibrit ayrıştırma:** dijital PDF, taranmış PDF, DOCX ve XLSX. Her sayfa için “dijital mi, taranmış mı” kararı verilir; taranmış sayfalar OCR’a gider.',
-              '**Kaynağa bağlı çıkarım:** beş uzman ajan (gereksinim, belge, risk, takvim, uygunluk) tek bir LangGraph akışında çalışır. Her bulgu bir kaynak pasaja bağlanmak zorundadır. Bağlanamayan bulgu rapora girmez; bu kural prompt’ta değil kodda.',
-              '**Hibrit getirim:** yoğun vektör (BGE-M3) + BM25, RRF füzyonu ve yeniden sıralama.',
-              '**İnsan döngüde:** her bulgu onaylanır, düzeltilir ya da reddedilir. Toplu işlem, yorum, değişiklik geçmişi. Her karar geri alınabilir ve denetim izine yazılır. Onaylı bulgular kaynak referanslarıyla Word ve Excel’e aktarılır.',
-              '**Uygunluk:** firmanın yetkinlik profili (sertifikalar, referanslar) şartnameyle karşılaştırılır. Demo şartnamede “ISO 27001 karşılanmıyor” boşluğunu doğru buluyor.',
-              '**SaaS katmanı:** kiracı izolasyonu veritabanı satır düzeyinde (PostgreSQL RLS), organizasyon, davet, rol, abonelik ve kota. Kiracı başına LLM bütçe tavanı Redis rezervasyonuyla eşzamanlı isteklere dayanıklı. KVKK’ya göre tasarlandı: yüklenen doküman model eğitiminde kullanılmaz.',
+              '**Kaynağa bağlı bulgu:** beş uzman ajan (gereksinim, belge, risk, takvim, uygunluk) tek bir LangGraph akışında çalışır. Kaynak pasaja bağlanamayan bulgu rapora girmez; kural prompt’ta değil kodda.',
+              '**Her biçim:** dijital ve taranmış PDF (OCR), DOCX, XLSX. Getirim BGE-M3 + BM25, RRF füzyonu ve yeniden sıralama.',
+              '**İnsan döngüde:** her bulgu onaylanır, düzeltilir ya da reddedilir; karar geri alınabilir, denetim izine yazılır, kaynaklarıyla Word ve Excel’e aktarılır.',
+              '**Uygunluk:** firmanın yetkinlik profili şartnameyle karşılaştırılır; demo şartnamede eksik ISO 27001’i buluyor.',
+              '**SaaS:** PostgreSQL RLS ile kiracı izolasyonu, rol, abonelik ve kota; kiracı başına LLM bütçe tavanı.',
             ],
             en: [
-              '**Hybrid parsing:** digital PDF, scanned PDF, DOCX and XLSX. Each page is classified as digital or scanned; scanned pages go to OCR.',
-              '**Grounded extraction:** five specialist agents (requirements, documents, risk, timeline, eligibility) run in one LangGraph flow. Every finding must be grounded in a source passage. Ungrounded findings never reach the report, and that rule lives in code, not in the prompt.',
-              '**Hybrid retrieval:** dense vectors (BGE-M3) + BM25, RRF fusion and reranking.',
-              '**Human in the loop:** every finding is approved, corrected or rejected, with bulk actions, comments and change history. Every decision is reversible and written to an audit trail. Approved findings export to Word and Excel with their source references.',
-              '**Eligibility:** the company’s capability profile (certificates, references) is matched against the tender. On the demo tender it correctly flags the missing ISO 27001.',
-              '**SaaS layer:** row-level tenant isolation (PostgreSQL RLS), organisations, invites, roles, plans and quotas. A per-tenant LLM budget cap uses Redis reservations and holds under concurrent requests. Designed for Turkish data-protection law: uploaded documents are never used for training.',
+              '**Grounded findings:** five specialist agents (requirements, documents, risk, timeline, eligibility) run in one LangGraph flow. A finding that cannot be tied to a source passage never reaches the report; the rule lives in code, not in the prompt.',
+              '**Any format:** digital and scanned PDF (OCR), DOCX, XLSX. Retrieval is BGE-M3 + BM25 with RRF fusion and reranking.',
+              '**Human in the loop:** every finding is approved, corrected or rejected; decisions are reversible, audited, and export to Word and Excel with their sources.',
+              '**Eligibility:** the company’s capability profile is matched against the tender; on the demo tender it flags the missing ISO 27001.',
+              '**SaaS:** tenant isolation with PostgreSQL RLS, roles, plans and quotas; a per-tenant LLM budget cap.',
             ],
           },
         },
@@ -108,26 +106,17 @@ export const tenderiq: Proje = {
       id: 'yapay-zeka',
       bloklar: [
         {
-          tur: 'p',
-          metin: {
-            tr: 'TenderIQ tek geliştirici olarak Claude Code ile eşli çalışarak geliştirildi. Buradaki beceri, modelin hızını kalıcı sözleşmelerle ve ölçümle dengelemek:',
-            en: 'TenderIQ was built by one developer pairing with Claude Code. The skill here is balancing the model’s speed with durable contracts and measurement:',
-          },
-        },
-        {
-          tur: 'sirali',
+          tur: 'liste',
           ogeler: {
             tr: [
-              '**Kurallar kodda, hafıza dosyada.** `CLAUDE.md` bağlayıcı kuralları, `DURUM.md` her oturumun giriş noktasını (kalıcı gerçekler, tuzaklar, doğrulanmamış varsayımlar) taşır. Her mimari seçim bir ADR. Model bağlamı her oturumda sıfırdan kurmuyor, kayıttan okuyor.',
-              '**Yapay zekâ kalitesi bir CI kapısı.** Prompt ya da model değiştiğinde altın set değerlendirmesi CI’ı durdurur. “Daha iyi görünüyor” değil, aynı sette ölçülmüş sonuç.',
-              '**Tasarım sözleşmesi ve görsel döngü.** `DESIGN.md` brif, token sistemi ve “şablon gibi durma” yasaklarını tanımlar. Her arayüz görevi Playwright ile dört ekran genişliğinde çekilip doğrulanır.',
-              '**Model seçimi ölçümle.** Eylül 2026’da geliştirme modeli sağlayıcıda emekliye ayrıldı (410 Gone). Beş aday denendi; halef, test şartnamesinde 4/4 bulguyu birebir alıntıyla veren model oldu.',
+              '**Yapay zekâ kalitesi bir CI kapısı:** prompt ya da model değişince altın set değerlendirmesi CI’ı durdurur.',
+              '**Model seçimi ölçümle:** geliştirme modeli sağlayıcıda emekliye ayrılınca (410 Gone) beş aday denendi; halef, test şartnamesinde 4/4 bulguyu birebir alıntıyla veren model oldu.',
+              '**Karar kaydı:** her mimari seçim bir ADR; her oturum `DURUM.md` ile başlar.',
             ],
             en: [
-              '**Rules in code, memory in files.** `CLAUDE.md` holds binding rules and `DURUM.md` is every session’s entry point (durable facts, traps, unverified assumptions). Every architectural choice is an ADR. The model does not rebuild context each session; it reads it from the record.',
-              '**AI quality is a CI gate.** A golden-set evaluation blocks CI whenever a prompt or model changes. Not “looks better”, but a result measured on the same set.',
-              '**Design contract and visual loop.** `DESIGN.md` defines the brief, the token system and the anti-template rules. Every UI task is captured with Playwright at four screen widths and checked.',
-              '**Model choice by measurement.** In September 2026 the development model was retired by its provider (410 Gone). Five candidates were tried; the successor was the one that returned 4/4 findings with verbatim quotes on the test tender.',
+              '**AI quality is a CI gate:** a golden-set evaluation blocks CI whenever a prompt or model changes.',
+              '**Model choice by measurement:** when the development model was retired by its provider (410 Gone), five candidates were tried; the successor returned 4/4 findings with verbatim quotes on the test tender.',
+              '**Decisions on record:** every architectural choice is an ADR; every session starts from `DURUM.md`.',
             ],
           },
         },
@@ -139,8 +128,8 @@ export const tenderiq: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'CV öncesi yeniden ölçüldüğünde testler yerelde yeşildi, ama ürün çalışmıyordu. Yapay zekâ hattı ölüydü (model emekliye ayrılmıştı), CI bir aydır kırmızıydı (2 kritik + 6 yüksek güvenlik açığı), boş bırakılan bir ayar altı test dosyasının hiç toplanmamasına yol açıyordu ve kullanıcıya on yerde ham “Failed to fetch” sızıyordu. Hepsi kapatıldı: CI 9/9 yeşil, trivy’de 0 yüksek/kritik, erişilebilirlikte 18 rotanın 18’i 100, kurgusal bir şartnameyle uçtan uca koşu 34 kaynaklı bulgu.',
-            en: 'When I re-measured it before writing the CV, the tests were green locally but the product did not work. The AI pipeline was dead (its model had been retired), CI had been red for a month (2 critical + 6 high vulnerabilities), one empty setting meant six test files were never collected, and a raw “Failed to fetch” leaked to users in ten places. All closed: CI 9/9 green, 0 high/critical in trivy, 18 of 18 routes at 100 for accessibility, and an end-to-end run on a fictional tender producing 34 cited findings.',
+            tr: 'Yeniden ölçüldüğünde testler yeşildi ama ürün çalışmıyordu: model emekliye ayrılmıştı, CI bir aydır kırmızıydı (2 kritik + 6 yüksek açık), boş bir ayar altı test dosyasını devre dışı bırakıyordu, on yerde ham “Failed to fetch” görünüyordu. Sonra: CI 9/9 yeşil, trivy’de 0 yüksek/kritik, 18 rotanın 18’i erişilebilirlikte 100, kurgusal bir şartnamede 34 kaynaklı bulgu.',
+            en: 'When re-measured, the tests were green but the product did not work: the model had been retired, CI had been red for a month (2 critical + 6 high advisories), one empty setting disabled six test files, and a raw “Failed to fetch” showed in ten places. After: CI 9/9 green, 0 high/critical in trivy, 18 of 18 routes at 100 for accessibility, 34 cited findings on a fictional tender.',
           },
         },
       ],
@@ -151,8 +140,8 @@ export const tenderiq: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: '“Testler yeşil” ile “ürün çalışıyor” ayrı ölçümler. Dışarıdaki bir modele dayanan her sistem, o model emekliye ayrıldığında sessizce ölür. Bunu yakalayan şey birim testi değil, gerçek bir dokümanla uçtan uca koşu.',
-            en: '“Tests pass” and “the product works” are separate measurements. Any system that depends on an external model dies quietly when that model is retired. What catches it is not a unit test but an end-to-end run on a real document.',
+            tr: 'Dışarıdaki bir modele dayanan sistem, o model emekliye ayrılınca sessizce ölür. Bunu birim testi değil, gerçek bir dokümanla uçtan uca koşu yakalar.',
+            en: 'A system that depends on an external model dies quietly when that model is retired. A unit test does not catch it; an end-to-end run on a real document does.',
           },
         },
       ],

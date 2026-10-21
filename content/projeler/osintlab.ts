@@ -77,8 +77,8 @@ export const osintlab: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Haber takip panelleri ve arama motorları her soruda dünyayı sıfırdan arar, hiçbir şeyi hatırlamaz. Bir konuyu haftalarca izleyen bir araştırmacı için asıl sorun kaynak bulmak değil; hangi iddianın kaç **bağımsız** kaynaktan geldiğini, hangisinin çürütüldüğünü ve geçen ay neyin araştırıldığını kaybetmek. OsintLab bu yüzden aramadan önce hafızaya bakar.',
-            en: 'News dashboards and search engines search the world from scratch on every question and remember nothing. For a researcher following a topic for weeks, the problem is not finding sources; it is losing track of how many **independent** sources back each claim, which ones were debunked and what was researched last month. So OsintLab checks memory before it searches.',
+            tr: 'Haber panelleri ve arama motorları her soruda dünyayı sıfırdan arar. Bir konuyu haftalarca izleyen araştırmacının sorunu kaynak bulmak değil; hangi iddianın kaç **bağımsız** kaynaktan geldiğini, hangisinin çürütüldüğünü kaybetmek. OsintLab aramadan önce hafızaya bakar.',
+            en: 'News dashboards and search engines search the world from scratch on every question. For a researcher following a topic for weeks, the problem is not finding sources but losing track of how many **independent** sources back each claim and which were debunked. OsintLab checks memory before it searches.',
           },
         },
       ],
@@ -90,20 +90,16 @@ export const osintlab: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Toplama:** RSS ve web kaynakları zamanlanmış olarak taranır. Her istek bir allowlist’ten ve her yönlendirmede yeniden yapılan bir SSRF denetiminden (özel, CGNAT ve NAT64 aralıkları) geçer. Toplanan içerik hiçbir kod yolunda çalıştırılmaz.',
-              '**Ayıklama kuyruğu:** ham gözlemler önce kuyruğa düşer; bilinen entity’lere değen ve güvenilir kaynaktan gelenler üste çıkar, eşiği geçenler “claim”e yükseltilir.',
-              '**Güvenilirlik formülü:** her claim kaynak kalitesi, bağımsızlık, kanıt ve teyit bileşenlerinden **deterministik** bir puan alır. Puan REPORTED → SUPPORTED → CORROBORATED basamaklarında görünür, çelişki ayrıca işaretlenir.',
-              '**Kaynak bağımsızlığı:** bir ajans haberini kopyalayan iki site iki kaynak sayılmaz. Metin n-gram örtüşmesi (Szymkiewicz–Simpson) ve ajans atfı ile türetilmiş kaynaklar tek köke bağlanır.',
-              '**Bilgi grafı, soruşturma, kanıt kasası:** entity, olay, kaynak, claim ve kanıt gömülü bir graf veritabanında yaşar. Soruşturma kapanınca yalnız doğrulanmış bulgular kalıcı bilgiye yükselir. Yüklenen belgeler SHA-256 ile mühürlenir; kaynak sayfalar arşivlenip sonra canlı sayfaya karşı doğrulanır.',
-              '**Gelen kutusu ve Obsidian çıktısı:** izlenen bir entity değişince öncelik seviyesiyle bildirim düşer; graf her değişiklikte okunabilir bir Obsidian vault’una da yazılır.',
+              '**Toplama ve ayıklama:** RSS ve web kaynakları zamanlanmış taranır (allowlist + her yönlendirmede SSRF denetimi); gözlemler kuyruğa düşer, eşiği geçenler “claim”e yükselir.',
+              '**Deterministik güvenilirlik:** her claim kaynak kalitesi, bağımsızlık, kanıt ve teyitten puan alır; REPORTED → SUPPORTED → CORROBORATED, çelişki ayrıca işaretlenir.',
+              '**Kaynak bağımsızlığı:** aynı ajans haberini kopyalayan iki site tek köke bağlanır (n-gram örtüşmesi + ajans atfı).',
+              '**Bilgi grafı ve kanıt kasası:** entity, olay, claim ve kanıt gömülü graf veritabanında; belgeler SHA-256 ile mühürlenir, arşivlenen sayfalar sonra canlıya karşı doğrulanır.',
             ],
             en: [
-              '**Collection:** RSS and web sources are scanned on a schedule. Every request passes an allowlist and an SSRF check repeated on every redirect (private, CGNAT and NAT64 ranges). Collected content is never executed on any code path.',
-              '**Triage queue:** raw observations land in a queue first; those touching known entities and coming from reliable sources rise to the top, and those above the threshold are promoted to “claims”.',
-              '**Reliability formula:** each claim gets a **deterministic** score from source quality, independence, evidence and corroboration, shown as REPORTED → SUPPORTED → CORROBORATED, with contradictions flagged separately.',
-              '**Source independence:** two sites copying one wire story are not two sources. Text n-gram overlap (Szymkiewicz–Simpson) plus agency attribution links derived sources to one root.',
-              '**Knowledge graph, investigations, evidence vault:** entities, events, sources, claims and evidence live in an embedded graph database. When an investigation closes, only verified findings become permanent knowledge. Uploaded documents are sealed with SHA-256; source pages are archived and later re-verified against the live page.',
-              '**Inbox and Obsidian export:** a change on a watched entity raises a prioritised notification, and the graph is also written to a readable Obsidian vault on every change.',
+              '**Collection and triage:** RSS and web sources are scanned on a schedule (allowlist + SSRF check on every redirect); observations queue up and those above the threshold become “claims”.',
+              '**Deterministic reliability:** each claim is scored from source quality, independence, evidence and corroboration; REPORTED → SUPPORTED → CORROBORATED, contradictions flagged separately.',
+              '**Source independence:** two sites copying one wire story are linked to one root (n-gram overlap + agency attribution).',
+              '**Knowledge graph and evidence vault:** entities, events, claims and evidence in an embedded graph database; documents sealed with SHA-256, archived pages later re-verified against the live page.',
             ],
           },
         },
@@ -113,30 +109,19 @@ export const osintlab: Proje = {
       id: 'yapay-zeka',
       bloklar: [
         {
-          tur: 'p',
-          metin: {
-            tr: 'Buradaki beceri kodu yapay zekâya yazdırmak değil, onu **ölçümle yönetmek**:',
-            en: 'The skill here is not getting AI to write code; it is **steering it with measurement**:',
-          },
-        },
-        {
-          tur: 'sirali',
+          tur: 'liste',
           ogeler: {
             tr: [
-              '**Riskli kararlar kod yazılmadan önce ölçüldü.** Aynı OSINT şeması KùzuDB ve Neo4j’de kurulup yarıştırıldı. Collector izolasyonu ve kaynak bağımsızlığı yöntemi de finalizasyondan önce gerçek veriyle denendi.',
-              '**Kapsamı plan değil ölçüm belirledi.** Her sürüm sonunda bir ölçüm betiği bağlantısız düğümü, teyitsiz claim oranını, tek kaynak baskınlığını ve kuyruk birikimini saydı. v3, v4 ve v5’in kapsamı bu sayılardan türedi; kapıyı geçemeyen domain’ler açılmadı.',
-              '**LLM gerekmeyen yerde kullanılmadı ve bu da ölçüldü.** Entity çıkarımı deterministik kuruldu; güvenilirlik puanı da bilerek modelden bağımsız tutuldu.',
-              '**Gerçek kullanım test edildi.** Bir “dogfooding” turunda araç gerçek bir araştırmada kullanıldı: 46 sürtünme kaydı, 22’si kritik. RSS yayın tarihinin sessizce atılması (1.164 kaydın tamamı “bugün gözlendi” görünüyordu) ve HTTP hata sayfasının içerik sanılması gibi. 35’i o fazda kapatıldı.',
-              '**Dış denetime körü körüne güvenilmedi.** Bağımsız bir denetimin SSRF önerisi 25 durumluk bir IP matrisiyle sınandı; öneri bir açığı kapatıp NAT64 üzerinden yenisini açıyordu. Doğru düzeltme yazıldı, iki açık da kapandı.',
-              '**Ajan katmanında güven sınırı var.** Claude Code grafı proje skill’i üzerinden sorguluyor; toplanan metin güvenilmeyen veri sayılıyor ve içindeki talimat uygulanmıyor. Kural gerçek bir prompt-injection denemesiyle sınandı.',
+              '**Riskli karar kod yazılmadan önce ölçüldü:** aynı şema KùzuDB ve Neo4j’de yarıştırıldı.',
+              '**Kapsamı ölçüm belirledi:** her sürüm sonunda bir betik teyitsiz claim oranını ve tek kaynak baskınlığını saydı; kapıyı geçemeyen domain’ler (GEOINT, SOCMINT) açılmadı.',
+              '**Gerçek kullanım test edildi:** dogfooding turunda 46 sürtünme kaydı, 22’si kritik; ör. RSS yayın tarihi sessizce atılıyordu ve 1.164 kaydın hepsi “bugün gözlendi” görünüyordu.',
+              '**Dış denetime kör güven yok:** bir denetimin SSRF önerisi 25 durumluk IP matrisiyle sınandı; NAT64 üzerinden yeni açık açıyordu, doğru düzeltme yazıldı.',
             ],
             en: [
-              '**Risky decisions were measured before any code.** The same OSINT schema was built in KùzuDB and Neo4j and benchmarked. Collector isolation and the independence method were also tried on real data before finalising.',
-              '**Measurement, not the plan, set the scope.** At the end of every version a measurement script counted orphan nodes, unconfirmed-claim ratio, single-source dominance and queue backlog. The scope of v3, v4 and v5 came from those numbers; domains that failed the gate were not opened.',
-              '**No LLM where none was needed, and that was measured too.** Entity extraction is deterministic, and the reliability score is deliberately model-free.',
-              '**Real use was tested.** In a dogfooding round the tool was used for an actual investigation: 46 friction records, 22 critical. For example, RSS publish dates were silently dropped (all 1,164 records looked “observed today”) and HTTP error pages were taken as content. 35 were closed in that phase.',
-              '**External audit was not trusted blindly.** An independent audit’s SSRF fix was tested against a 25-case IP matrix; it closed one hole and opened another via NAT64. The correct fix was written and both were closed.',
-              '**The agent layer has a trust boundary.** Claude Code queries the graph through a project skill; collected text is treated as untrusted data and instructions inside it are not followed. The rule was tested with a real prompt-injection attempt.',
+              '**The risky decision was measured before any code:** the same schema was benchmarked in KùzuDB and Neo4j.',
+              '**Measurement set the scope:** after every version a script counted unconfirmed-claim ratio and single-source dominance; domains that failed the gate (GEOINT, SOCMINT) were not opened.',
+              '**Real use was tested:** a dogfooding round logged 46 friction records, 22 critical; e.g. RSS publish dates were silently dropped and all 1,164 records looked “observed today”.',
+              '**No blind trust in external audit:** an audit’s SSRF fix was tested against a 25-case IP matrix; it opened a new hole via NAT64, and the correct fix was written.',
             ],
           },
         },
@@ -148,8 +133,8 @@ export const osintlab: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Koyu, sakin bir analist masası. Renk dekorasyon için değil, **bilginin ne kadar sağlam olduğunu** taşımak için var: güvenilirlik basamakları soğuk maviden (gözlendi) altına (yüksek güven) doğru ısınır, çelişki gül kırmızısıyla ayrılır. Mor yalnız “bu etkileşimli” işaretidir.',
-            en: 'A dark, calm analyst desk. Colour is not decoration; it carries **how solid a piece of information is**: reliability steps warm from cold blue (observed) to gold (high confidence), and contradictions stand apart in rose. Purple only means “this is interactive”.',
+            tr: 'Koyu, sakin bir analist masası. Renk **bilginin ne kadar sağlam olduğunu** taşır: güvenilirlik basamakları soğuk maviden altına ısınır, çelişki gül kırmızısıyla ayrılır.',
+            en: 'A dark, calm analyst desk. Colour carries **how solid a piece of information is**: reliability steps warm from cold blue to gold, and contradictions stand apart in rose.',
           },
         },
       ],

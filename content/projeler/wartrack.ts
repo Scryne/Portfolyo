@@ -61,8 +61,8 @@ export const wartrack: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Bir kriz masasındaki analist her sabah aynı soruyu sorar: “Son bir saatte yeni bir kritik gelişme var mı, ve haritada nerede yoğunlaşıyor?” Haber siteleri bunu ayrı ayrı, kronolojik ve tekrarlarla dolu bir akış olarak verir. Bir “tehdit seviyesi” göstergesi ise ancak neden o seviyede olduğunu söyleyebiliyorsa işe yarar; yoksa ya alarm yorgunluğu yaratır ya da güveni yok eder.',
-            en: 'An analyst at a crisis desk asks the same question every morning: “Has anything critical happened in the last hour, and where on the map is it concentrated?” News sites answer separately, chronologically and full of duplicates. A “threat level” gauge helps only if it can say why it is at that level; otherwise it breeds alarm fatigue or destroys trust.',
+            tr: 'Kriz masasındaki analist her sabah sorar: son bir saatte kritik bir gelişme var mı, haritada nerede yoğunlaşıyor? Haber siteleri bunu kronolojik ve tekrarla dolu bir akış olarak verir. Bir tehdit göstergesi de ancak neden o seviyede olduğunu söyleyebiliyorsa işe yarar.',
+            en: 'A crisis-desk analyst asks every morning: has anything critical happened in the last hour, and where on the map is it concentrated? News sites answer with a chronological feed full of duplicates. A threat gauge helps only if it can say why it is at that level.',
           },
         },
       ],
@@ -74,20 +74,16 @@ export const wartrack: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Toplama:** 15 RSS kaynağı (Al Jazeera, BBC, Guardian, Haaretz, ISW ve diğerleri); her istekte SSRF denetimi, devre kesici, yeniden deneme ve süre sınırı.',
-              '**Haritaya bağlama:** yer adları sözlüğü haberi bölgedeki bir noktaya yerleştirir; aynı noktaya düşen haberler tek işarette sayıyla toplanır.',
-              '**Açıklanabilir tehdit seviyesi:** seviye (1–5) son 1/24 saatin kritik olay sayısından, 6 saatlik eğilimden, coğrafi dağılımdan ve çok kaynaklı teyitten hesaplanır. Panel yalnız “3 · GERİLİM” demez, bunu hangi ölçümün belirlediğini de yazar.',
-              '**Türkçe özet, veri makinede:** her habere yerel modelle bir iki cümlelik tarafsız Türkçe özet. Dil denetiminden geçmeyen çıktı yazılmaz; model kapalıysa özet boş kalır.',
-              '**Hesap kodun, metin modelin işi:** durum özetinde “kritik gelişme” ve “trend” sayımdan gelir, model yalnız haber maddelerini yazar.',
-              '**Operatör araçları:** elle işaret ve çizim, nükleer tesis ve hava savunma katmanları, izlenen kelimeler, canlı yayın, komut paleti, Markdown durum raporu, çalışırken veritabanı yedeği.',
+              '**Toplama:** 15 RSS kaynağı; her istekte SSRF denetimi, devre kesici ve süre sınırı.',
+              '**Haritaya bağlama:** yer adları sözlüğü haberi bir noktaya yerleştirir, aynı noktadakiler tek işarette toplanır.',
+              '**Açıklanabilir tehdit seviyesi:** 1–5 seviye son 1/24 saatin kritik olaylarından, eğilimden, yayılımdan ve çok kaynaklı teyitten hesaplanır; panel seviyeyi hangi ölçümün belirlediğini yazar.',
+              '**Hesap kodda, metin modelde:** sayımlar koddan gelir; yerel model her habere tarafsız bir Türkçe özet yazar, dil denetiminden geçmeyen çıktı atılır.',
             ],
             en: [
-              '**Collection:** 15 RSS feeds (Al Jazeera, BBC, Guardian, Haaretz, ISW and more), with an SSRF check, circuit breaker, retries and timeouts on every request.',
-              '**Mapping:** a gazetteer places each story at a point in the region; stories at the same point collapse into one marker with a count.',
-              '**Explainable threat level:** the 1–5 level is computed from critical events in the last 1/24 hours, the 6-hour trend, geographic spread and multi-source confirmation. The panel does not just say “3 · TENSION”; it states which measurement set it.',
-              '**Turkish summaries, data stays local:** a local model writes a neutral one-or-two-sentence Turkish summary per story. Output that fails the language check is discarded; if the model is off, the summary stays empty.',
-              '**Counting is code’s job, wording is the model’s:** “critical developments” and “trend” in the situation summary come from counts; the model only writes the story bullets.',
-              '**Operator tools:** manual markers and drawing, nuclear-site and air-defence layers, watch words, live streams, a command palette, a Markdown situation report and hot database backup.',
+              '**Collection:** 15 RSS feeds, with an SSRF check, circuit breaker and timeout on every request.',
+              '**Mapping:** a gazetteer places each story at a point; stories at the same point collapse into one marker.',
+              '**Explainable threat level:** the 1–5 level comes from critical events in the last 1/24 hours, trend, spread and multi-source confirmation; the panel states which measurement set it.',
+              '**Counting in code, wording in the model:** counts come from code; a local model writes a neutral Turkish summary per story, and output that fails the language check is discarded.',
             ],
           },
         },
@@ -97,17 +93,15 @@ export const wartrack: Proje = {
       id: 'yapay-zeka',
       bloklar: [
         {
-          tur: 'sirali',
+          tur: 'liste',
           ogeler: {
             tr: [
-              '**Tasarım sözleşmesi.** `DESIGN.md` brifi (cerrahi, sakin, taktiksel; emoji yasak), token sistemini ve “şablon gibi durma” yasaklarını tanımlar. Her arayüz turu dört ekran genişliğinde doğrulanır.',
-              '**Model seçimi ölçümle.** Yerel özet modeli gerçek haberlerle kıyaslandı: `llama3.2:3b` Türkçe özete İngilizce ve Çince sözcük karıştırdı; `gemma3:4b` temiz Türkçe ve yaklaşık 2 saniye.',
-              '**Ajan çıktısına kör güven yok.** Önceki bir turda yapay zekânın kendi kendini değerlendirdiği bir rapor “bağımsız sertifika” başlığıyla repoya girmişti. Denetimde başına bunun bir öz değerlendirme olduğunu söyleyen bir not kondu.',
+              '**Model seçimi ölçümle:** `llama3.2:3b` Türkçe özete İngilizce ve Çince sözcük karıştırdı; `gemma3:4b` temiz Türkçe, yaklaşık 2 saniye.',
+              '**Ajan çıktısına kör güven yok:** yapay zekânın kendi yazdığı “bağımsız sertifika” başlıklı rapora, bunun bir öz değerlendirme olduğunu söyleyen not kondu.',
             ],
             en: [
-              '**Design contract.** `DESIGN.md` defines the brief (surgical, calm, tactical; no emoji), the token system and anti-template rules. Every UI round is verified at four screen widths.',
-              '**Model choice by measurement.** Local summary models were compared on real stories: `llama3.2:3b` mixed English and Chinese words into Turkish; `gemma3:4b` produced clean Turkish in about 2 seconds.',
-              '**No blind trust in agent output.** In an earlier round, an AI self-assessment had entered the repo titled “independent certificate”. The audit added a note at the top saying it is a self-assessment.',
+              '**Model choice by measurement:** `llama3.2:3b` mixed English and Chinese words into Turkish summaries; `gemma3:4b` gave clean Turkish in about 2 seconds.',
+              '**No blind trust in agent output:** an AI-written report titled “independent certificate” now opens with a note saying it is a self-assessment.',
             ],
           },
         },
@@ -119,34 +113,23 @@ export const wartrack: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Yerelde 231 + 55 test yeşildi; CI ise beş haftadır kırmızıydı. Ölçünce ortaya çıkanlar:',
-            en: 'Locally, 231 + 55 tests were green; CI had been red for five weeks. Measuring it revealed:',
+            tr: 'Yerelde 231 + 55 test yeşildi; CI beş haftadır kırmızıydı. Ölçünce:',
+            en: 'Locally, 231 + 55 tests were green; CI had been red for five weeks. Measuring it showed:',
           },
         },
         {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Testler gerçek yedeği silmek üzereydi.** API testleri gerçek yedek dizinine yazıyor, rotasyonla operatörün tek gerçek yedeğini silmeye bir koşu uzaktaydı. Testler geçici veritabanına alındı, bir koruma testi eklendi.',
-              '**RSS hiç çekmiyordu (0/15).** SSRF denetimi ve istek aynı alan adını iki kez çözüyor, yavaş DNS’te iş parçacığı havuzu tıkanıyordu. Denetim bağlantı anına taşındı: 15/15 kaynak, ~430 haber 25 saniyede.',
-              '**Sahte alarm.** Olaylar okunma anıyla tarihleniyordu; bir ay kapalı kalan pano açılınca “5 · KRİTİK” gösterdi. Bir deve yarışı haberi (“intercepted”) füze olayı sayılıyordu. Üç ayrı tehdit hesabı teke indirildi.',
-              '**Sahte yapay zekâ özeti.** Model yokken beş kalıp cümle “AI özeti” diye kaydediliyordu; kaldırıldı.',
-              '**Arayüz:** harita katmanı anahtar istediği için boştu, canlı yayınların yarısı ölüydü, 71 emoji ve 94 ham renk kodu tasarım sistemini deliyordu.',
+              '**Testler gerçek yedeği silmek üzereydi:** gerçek yedek dizinine yazıyorlardı; geçici veritabanına alındı, koruma testi eklendi.',
+              '**RSS hiç çekmiyordu (0/15):** aynı alan adı iki kez çözülüyor, yavaş DNS havuzu tıkıyordu. Sonra 15/15 kaynak, ~430 haber 25 saniyede.',
+              '**Sahte alarm ve sahte özet:** bir ay kapalı kalan pano “5 · KRİTİK” açılıyordu, bir deve yarışı haberi füze olayı sayılıyordu; model yokken kalıp cümleler “AI özeti” diye kaydediliyordu.',
             ],
             en: [
-              '**Tests were about to delete the real backup.** API tests wrote into the real backup directory; one more run and rotation would have deleted the operator’s only real backup. Tests moved to a temporary database, with a guard test.',
-              '**RSS never fetched (0/15).** The SSRF check and the request resolved the same host twice, and slow DNS stalled the thread pool. The check moved to connect time: 15/15 feeds, ~430 stories in 25 seconds.',
-              '**False alarm.** Events were dated by read time, so after a month offline the board opened at “5 · CRITICAL”. A camel-race story (“intercepted”) counted as a missile event. Three separate threat calculations were merged into one.',
-              '**Fake AI summary.** With no model running, five canned sentences were saved as the “AI summary”; removed.',
-              '**Interface:** the map layer was empty because it needed an API key, half the live streams were dead, and 71 emoji and 94 raw colour codes were punching holes in the design system.',
+              '**Tests were about to delete the real backup:** they wrote into the real backup directory; moved to a temporary database, with a guard test.',
+              '**RSS never fetched (0/15):** the same host was resolved twice and slow DNS stalled the pool. After: 15/15 feeds, ~430 stories in 25 seconds.',
+              '**False alarm, fake summary:** after a month offline the board opened at “5 · CRITICAL”, a camel-race story counted as a missile event, and with no model running canned sentences were saved as the “AI summary”.',
             ],
-          },
-        },
-        {
-          tur: 'p',
-          metin: {
-            tr: 'Her düzeltme regresyon testiyle geldi. Push öncesi her seferinde temiz bir `node:22` konteynerinde tam CI simülasyonu koşuldu.',
-            en: 'Every fix came with a regression test. Before each push, the full CI was simulated in a clean `node:22` container.',
           },
         },
       ],
@@ -157,8 +140,8 @@ export const wartrack: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Bir izleme aracının en tehlikeli hatası çökmek değil, yanlış ama inandırıcı bir şey göstermek: boş bir akış, bayat bir alarm, uydurma bir “AI özeti”. Doğruluğu sayıma, dili modele bırakmak bu yüzden bir tasarım kararı.',
-            en: 'A monitoring tool’s most dangerous failure is not crashing but showing something wrong yet convincing: an empty feed, a stale alarm, a made-up “AI summary”. Leaving accuracy to counting and wording to the model is therefore a design decision.',
+            tr: 'Bir izleme aracının en tehlikeli hatası çökmek değil, yanlış ama inandırıcı bir şey göstermek. Doğruluğu sayıma, dili modele bırakmak bu yüzden bir tasarım kararı.',
+            en: 'A monitoring tool’s most dangerous failure is not crashing but showing something wrong yet convincing. Leaving accuracy to counting and wording to the model is a design decision.',
           },
         },
       ],

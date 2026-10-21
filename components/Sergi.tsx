@@ -67,12 +67,9 @@ export function Sergi({ dil }: { dil: Dil }) {
   return (
     <section id="work" aria-labelledby="sergi-baslik" className="bolum">
       <div className="kap">
-        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
-          <h2 id="sergi-baslik" className="gosterge text-[clamp(2.25rem,4.6vw,3.75rem)] lg:col-span-6">
-            {M.seciliIsler[dil]}
-          </h2>
-          <p className="metin text-yazi-2 lg:col-span-5 lg:col-start-8">{M.seciliIslerGiris[dil]}</p>
-        </div>
+        <h2 id="sergi-baslik" className="gosterge text-[clamp(2.25rem,4.6vw,3.75rem)]">
+          {M.seciliIsler[dil]}
+        </h2>
 
         {/* A: tam genişlik şekil, altında 5/7 künye. */}
         <article className="mt-16 grid gap-x-10 gap-y-8 lg:mt-24 lg:grid-cols-12">

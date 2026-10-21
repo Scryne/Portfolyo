@@ -12,7 +12,6 @@ export function Yontem({ dil }: { dil: Dil }) {
           <h2 id="yontem-baslik" className="gosterge text-[clamp(2.25rem,4.6vw,3.75rem)]">
             {M.yontemBaslik[dil]}
           </h2>
-          <p className="mt-6 max-w-[36ch] text-lg leading-relaxed text-yazi-2">{M.yontemGiris[dil]}</p>
         </div>
         {/* Sıra gerçek: her adım bir öncekinin çıktısını kullanır. */}
         <ol className="lg:col-span-7 lg:col-start-6">
@@ -25,8 +24,7 @@ export function Yontem({ dil }: { dil: Dil }) {
                 </span>
                 <div>
                   <h3 className="baslik text-2xl text-yazi">{a.baslik[dil]}</h3>
-                  <p className="metin mt-3 text-yazi-2">{a.metin[dil]}</p>
-                  <p className="mt-4 flex flex-col gap-1 text-[0.9375rem] sm:flex-row sm:gap-3">
+                  <p className="mt-3 flex flex-col gap-1 text-[0.9375rem] sm:flex-row sm:gap-3">
                     <span className="etiket shrink-0 pt-0.5 text-yazi-3">{M.ornek[dil]}</span>
                     <span className="text-yazi">
                       {p && a.ornek[dil].startsWith(`${p.ad}:`) ? (

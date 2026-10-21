@@ -65,8 +65,8 @@ export const fabrikaos: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Orta ölçekli bir metal fabrikasında üretim verisi makinenin başındaki kâğıtta, bakım bir Excel’de, stok ERP’de, kalite ayrı bir dosyada yaşar. Operatör bir arızayı ancak biri haber verince görür; yönetici “bu hafta neden OEE düştü” sorusunu cevaplamak için dört tabloyu birleştirir. FabrikaOS bu dağınıklığı tek ürüne indirir: sahadan veri kendiliğinden akar, her modül aynı veriyi görür, karar tek ekrandan verilir.',
-            en: 'In a mid-sized metal factory, production data lives on paper next to the machine, maintenance in a spreadsheet, stock in the ERP and quality in another file. An operator sees a fault only when someone reports it; a manager joins four tables to answer “why did OEE drop this week?”. FabrikaOS collapses this into one product: data flows in from the floor by itself, every module sees the same data, and decisions are made from one screen.',
+            tr: 'Orta ölçekli bir fabrikada üretim verisi makinenin başındaki kâğıtta, bakım Excel’de, stok ERP’de, kalite ayrı bir dosyada yaşar. Yönetici “bu hafta OEE neden düştü” sorusu için dört tabloyu birleştirir. FabrikaOS bunu tek ürüne indirir: veri sahadan kendiliğinden akar, her modül aynı veriyi görür.',
+            en: 'In a mid-sized factory, production data lives on paper by the machine, maintenance in a spreadsheet, stock in the ERP and quality in another file. A manager joins four tables to answer “why did OEE drop this week?”. FabrikaOS collapses this into one product: data flows in from the floor, and every module sees the same data.',
           },
         },
       ],
@@ -78,20 +78,18 @@ export const fabrikaos: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Sahadan canlı OEE.** Edge ajanı (simülatör + OPC-UA/Modbus iskeleti) ölçümleri MQTT ile gönderir; bağlantı koparsa yerelde biriktirip sonra iletir. Bulutta bir worker ölçümü doğru fabrikanın şemasına idempotent yazar, pano WebSocket ile elle giriş olmadan güncellenir.',
-              '**Veri sızıntısına yapısal engel.** Her fabrika kendi PostgreSQL şemasında yaşar; bağlantı havuza dönmeden şema bağlamı sıfırlanır. Bu kural ayrı bir test ailesiyle korunur.',
-              '**Üretimden sevkiyata zincir.** İş emri durum makinesi, ürün reçetesi (BOM): üretim emri kapanınca reçete stoktan otomatik düşer. Lot numarasıyla geriye ve ileriye izlenir.',
-              '**Modüller:** bakım planı, vardiya/duruş + Pareto, stok + çok kalemli satınalma onayı (talep eden onaylayamaz), kalite + 6 aşamalı CAPA, enerji (TimescaleDB), İSG risk matrisi, İK, CRM, sözleşme, sürümlü belge yönetimi.',
-              '**Zekâ katmanı.** Kestirimci bakım riski, anomali taraması, OEE ufuk tahmini ve stok bitiş tahmini; modeller sürümlü artefakt olarak saklanır.',
-              '**SaaS iskeleti ve kurumsal güvenlik.** Dört plan × modül hakları, koltuk limiti, ayrı kimlik düzleminde platform yöneticisi, imzalı webhook, TOTP 2FA, OIDC SSO, değiştirilemez denetim kaydı, KVKK self-servis ihraç ve anonimleştirme.',
+              '**Sahadan canlı OEE:** edge ajanı ölçümleri MQTT ile gönderir, bağlantı koparsa biriktirir; pano WebSocket ile elle giriş olmadan güncellenir.',
+              '**Yapısal izolasyon:** her fabrika kendi PostgreSQL şemasında; bu kural ayrı bir test ailesiyle korunur.',
+              '**Üretimden sevkiyata:** iş emri durum makinesi, reçete (BOM) stoktan otomatik düşer, lot geriye ve ileriye izlenir.',
+              '**Modüller:** bakım, duruş + Pareto, stok ve satınalma onayı, kalite + CAPA, enerji, İSG, İK, CRM, sözleşme, belge yönetimi.',
+              '**Zekâ ve SaaS:** kestirimci bakım, anomali ve OEE tahmini; plan × modül hakları, 2FA, OIDC SSO, değiştirilemez denetim kaydı, KVKK ihraç ve anonimleştirme.',
             ],
             en: [
-              '**Live OEE from the floor.** An edge agent (simulator + OPC-UA/Modbus skeleton) sends measurements over MQTT and stores-and-forwards when the link drops. A cloud worker writes each reading idempotently into the right factory’s schema; the dashboard updates over WebSocket with no manual entry.',
-              '**Structural barrier against data leaks.** Every factory lives in its own PostgreSQL schema, and the schema context is reset before a connection returns to the pool. A dedicated test family guards the rule.',
-              '**Production to shipment.** Work-order state machine and bill of materials: closing a production order consumes the BOM from stock automatically. Lots trace backwards and forwards.',
-              '**Modules:** maintenance planning, shifts/downtime + Pareto, stock + multi-line purchase approval (requesters cannot approve), quality + 6-step CAPA, energy (TimescaleDB), safety risk matrix, HR, CRM, contracts, versioned documents.',
-              '**Intelligence layer.** Predictive maintenance risk, anomaly scans, OEE horizon forecast and stock-out forecast; models stored as versioned artefacts.',
-              '**SaaS skeleton and enterprise security.** Four plans × module entitlements, seat limits, a platform admin on a separate identity plane, signed webhooks, TOTP 2FA, OIDC SSO, an immutable audit log, self-service GDPR-style export and anonymisation.',
+              '**Live OEE from the floor:** an edge agent sends measurements over MQTT and stores-and-forwards when the link drops; the dashboard updates over WebSocket with no manual entry.',
+              '**Structural isolation:** every factory lives in its own PostgreSQL schema; a dedicated test family guards the rule.',
+              '**Production to shipment:** a work-order state machine, a bill of materials consumed from stock automatically, lots traced backwards and forwards.',
+              '**Modules:** maintenance, downtime + Pareto, stock and purchase approval, quality + CAPA, energy, safety, HR, CRM, contracts, document management.',
+              '**Intelligence and SaaS:** predictive maintenance, anomaly and OEE forecasts; plan × module entitlements, 2FA, OIDC SSO, an immutable audit log, data export and anonymisation.',
             ],
           },
         },
@@ -101,24 +99,17 @@ export const fabrikaos: Proje = {
       id: 'yapay-zeka',
       bloklar: [
         {
-          tur: 'p',
-          metin: {
-            tr: '180 commit’in 179’u Claude ortak yazarlı. Hızı model verdi; ürünü sağlam yapan süreçti:',
-            en: '179 of 180 commits are co-authored with Claude. The model provided the speed; the process made the product solid:',
-          },
-        },
-        {
-          tur: 'sirali',
+          tur: 'liste',
           ogeler: {
             tr: [
-              '**Önce şartname, sonra kod.** 8 faz / 33 sprintlik yol haritası, her sprint için tasarım belgesi ve adım adım uygulama planı, 24 ADR. Model yazmadan önce ne yazacağı ve neden yazacağı kayıttaydı; TDD ile uygulandı.',
-              '**“Yanlış olursa veri sızar” kuralları testle kilitlendi.** Tenant izolasyonu, provizyon, görev ayrımı, OEE hesabı, yapay zekâ çıktısı, migrasyon ve KVKK imha sırası için yedi korunan test ailesi var. Bir sözleşme testi, KVKK artefaktına paylaşılabilir URL eklenirse kırılır: güvenlik kararı hafızayla değil kodla korunuyor.',
-              '**Model çıktısı denetlendi.** Sprint sonu inceleme turları gerçek hatalar buldu: webhook URL’sinde SSRF önek hilesi, yetki restorasyonu, imha sırası. Her biri kendi commit’iyle kapatıldı.',
+              '**Önce şartname, sonra kod:** 180 commit’in 179’u Claude ortak yazarlı; her sprint için tasarım belgesi ve uygulama planı, 24 ADR, test önce yazıldı.',
+              '**Veri sızdıracak kurallar testle kilitli:** tenant izolasyonu, görev ayrımı, OEE hesabı, KVKK imha sırası dahil yedi korunan test ailesi.',
+              '**Model çıktısı denetlendi:** sprint sonu incelemeler webhook URL’sinde SSRF önek hilesi ve yetki restorasyonu hatası buldu; her biri kendi commit’iyle kapandı.',
             ],
             en: [
-              '**Spec first, code second.** An 8-phase / 33-sprint roadmap, a design document and step-by-step plan per sprint, 24 ADRs. Before the model wrote anything, what and why were on record; implemented test-first.',
-              '**“If this is wrong, data leaks” rules are locked by tests.** Seven protected test families cover tenant isolation, provisioning, segregation of duties, OEE maths, AI output, migrations and deletion order. A contract test breaks if a shareable URL is ever added to a data-export artefact: the security decision is guarded by code, not memory.',
-              '**Model output was reviewed.** End-of-sprint reviews found real bugs: an SSRF prefix trick in webhook URLs, a permission-restoration flaw, a deletion-order issue. Each closed in its own commit.',
+              '**Spec first, code second:** 179 of 180 commits are co-authored with Claude; a design document and plan per sprint, 24 ADRs, tests written first.',
+              '**Leak-prone rules locked by tests:** seven protected test families, including tenant isolation, segregation of duties, OEE maths and deletion order.',
+              '**Model output was reviewed:** end-of-sprint reviews found an SSRF prefix trick in webhook URLs and a permission-restoration flaw; each closed in its own commit.',
             ],
           },
         },
@@ -130,8 +121,8 @@ export const fabrikaos: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Ürün ekran ekran çalıştırılıp tarandı. CI iki aydır kırmızıydı (testler gerçek nesne deposuna çıkıyordu); anomali ekranının her açılışı tüm yetkililere yeni bildirim gönderiyordu; beklenmeyen hatalar tarayıcıda “CORS hatası” diye görünüyordu; WebSocket token’ı loga düşüyordu; mobilde her sayfa yatay taşıyordu; bildirim ve webhook süreçleri dağıtımda yoktu; demo verisi birkaç günde “yaşlanıyordu”. Her bulgu ölçüldü, düzeltildi ve mümkün olanı regresyon testiyle kilitlendi.',
-            en: 'The product was run and inspected screen by screen. CI had been red for two months (tests were hitting a real object store); every visit to the anomaly screen sent a fresh notification to every manager; unexpected errors surfaced in the browser as “CORS error”; the WebSocket token leaked into logs; every page overflowed horizontally on mobile; notification and webhook workers were missing from deployment; demo data “aged” within days. Each finding was measured, fixed and, where possible, locked with a regression test.',
+            tr: 'Ekran ekran yeniden ölçüldü: CI iki aydır kırmızıydı (testler gerçek nesne deposuna çıkıyordu), anomali ekranının her açılışı tüm yetkililere bildirim gönderiyordu, WebSocket token’ı loga düşüyordu, mobilde her sayfa yatay taşıyordu. Hepsi düzeltildi; mümkün olanı regresyon testiyle kilitlendi.',
+            en: 'Re-measured screen by screen: CI had been red for two months (tests hit a real object store), every visit to the anomaly screen notified every manager, the WebSocket token leaked into logs, every page overflowed on mobile. All fixed; where possible, locked with a regression test.',
           },
         },
       ],
@@ -142,8 +133,8 @@ export const fabrikaos: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: '“Kontrol odası”: nötr antrasit zemin, mavi yalnız aksiyon için, renk yalnız durum için. Her menü bölümü endüstriyel boru renk kodlarından gelen bir **hat rengi** taşır; sayfa başlığında, menü grubunda ve KPI ikonunda küçük bir sinyal olarak görünür. Sayılar tabular mono yazılır ki sütunlarda hizalı okunsun. Durum hiçbir zaman yalnız renkle anlatılmaz.',
-            en: 'A “control room”: neutral anthracite, blue only for actions, colour only for status. Each menu section carries a **line colour** borrowed from industrial pipe colour codes, shown as a small signal in the page title, the menu group and the KPI icon. Numbers are set in tabular mono so columns align. Status is never conveyed by colour alone.',
+            tr: '“Kontrol odası”: antrasit zemin, mavi yalnız aksiyon, renk yalnız durum için. Her menü bölümü endüstriyel boru renk kodlarından bir **hat rengi** taşır; sayılar hizalı okunsun diye tabular mono.',
+            en: 'A “control room”: anthracite, blue only for actions, colour only for status. Each menu section carries a **line colour** from industrial pipe colour codes; numbers are set in tabular mono so columns align.',
           },
         },
       ],

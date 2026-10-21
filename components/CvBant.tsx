@@ -43,7 +43,6 @@ export function CvBant({ dil }: { dil: Dil }) {
           <h2 id="cv-baslik" className="gosterge text-[clamp(2.25rem,4.6vw,3.75rem)]">
             {M.cvBaslik[dil]}
           </h2>
-          <p className="mt-6 max-w-[40ch] text-lg leading-relaxed text-yazi-2">{M.cvGiris[dil]}</p>
         </div>
         <ul className="border-t border-cizgi-guclu lg:col-span-6 lg:col-start-7">
           <Satir href={yol.cv('tr')} ad={M.cvTr[dil]} deger={boyut(dil, 'tr')} indir lang="tr" />

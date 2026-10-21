@@ -9,12 +9,9 @@ export function Dizin({ dil }: { dil: Dil }) {
   return (
     <section aria-labelledby="dizin-baslik" className="bolum border-t border-cizgi">
       <div className="kap">
-        <div className="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between">
-          <h2 id="dizin-baslik" className="gosterge text-[clamp(2.25rem,4.6vw,3.75rem)]">
-            {M.tumProjeler[dil]}
-          </h2>
-          <p className="etiket text-yazi-2">{M.tumProjelerGiris[dil]}</p>
-        </div>
+        <h2 id="dizin-baslik" className="gosterge text-[clamp(2.25rem,4.6vw,3.75rem)]">
+          {M.tumProjeler[dil]}
+        </h2>
         <ol className="mt-12 border-t border-cizgi-guclu">
           {PROJELER.map((p) => (
             <li key={p.slug} className="border-b border-cizgi">

@@ -56,15 +56,8 @@ export const politikdesk: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Politik ve ekonomik gündemi takip eden biri için sorun bilgiye ulaşmak değil, hangi bilginin **doğrulandığını** bilmek. Aynı haber beş gazetede çıkınca beş kaynak gibi görünür, oysa hepsi aynı medya grubundadır. Viral bir iddia resmî bir belgeye hiç dayanmayabilir. Yapay zekâ bu tabloyu özetlemekte çok iyidir, ama bir iddianın doğru olup olmadığına karar vermesine izin verilirse sistemin bütün güvenilirliği modelin o günkü tahminine bağlanır.',
-            en: 'For someone following the political and economic agenda, the problem is not access to information but knowing which information is **verified**. The same story in five newspapers looks like five sources, yet all belong to one media group. A viral claim may rest on no official document at all. AI is excellent at summarising this picture, but if it is allowed to decide whether a claim is true, the system’s whole credibility hangs on that day’s model guess.',
-          },
-        },
-        {
-          tur: 'p',
-          metin: {
-            tr: 'Ürünün sözleşmesi bu yüzden tek cümle: **“AI senin yerine konuşmaz; senin daha iyi konuşabilmen için gündemi senin adına takip eder.”**',
-            en: 'So the product’s contract is one sentence: **“AI does not speak for you; it follows the agenda for you so that you can speak better.”**',
+            tr: 'Gündemi takip eden biri için sorun bilgiye ulaşmak değil, hangisinin **doğrulandığını** bilmek. Aynı haber beş gazetede çıkınca beş kaynak gibi görünür, oysa hepsi aynı medya grubundandır. Yapay zekâ özetlemekte iyidir, ama doğruluk kararını ona bırakmak sistemin güvenilirliğini modelin o günkü tahminine bağlar.',
+            en: 'For someone following the agenda, the problem is not access to information but knowing which of it is **verified**. One story in five newspapers looks like five sources, yet all belong to one media group. AI summarises well, but letting it decide what is true ties the whole system’s credibility to that day’s model guess.',
           },
         },
       ],
@@ -75,26 +68,24 @@ export const politikdesk: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Her beş dakikada bir beş adımlık bir döngü çalışır:',
-            en: 'Every five minutes a five-step loop runs:',
+            tr: 'Her beş dakikada bir döngü çalışır:',
+            en: 'Every five minutes a loop runs:',
           },
         },
         {
           tur: 'sirali',
           ogeler: {
             tr: [
-              '**Topla:** TCMB, TÜİK, Resmî Gazete, TBMM, Sayıştay, haber siteleri ve X listelerinden kibar bot ilkeleriyle (hız sınırı, robots.txt, geri çekilme) veri çeker; SimHash ile tekilleştirir.',
-              '**Kümele:** haberleri yerel embedding’lerle olaylara bağlar; sayısal çelişkiler insan denetimine düşer.',
-              '**Kanıtla:** iddialar R0–R8 kurallarıyla bağımsız teyit havuzlarında sınanır. Aynı medya grubunun gazeteleri tek kaynak sayılır. Resmî veri ya da kurumsal belge yoksa bir iddia ne kadar yayılırsa yayılsın “doğrulandı” olamaz.',
-              '**Bağlamlandır:** yeni olayı geçmiş vaatler, TBMM oylamaları, Sayıştay bulguları ve aktörlerin eski beyanlarıyla ilişkilendirir.',
-              '**Taslak:** yalnız kanıtlı olaylar için dört editoryal açıda kaynaklı taslak üretir. Kanıtta olmayan hiçbir sayı ya da alıntı taslağa giremez. Otomatik yayın kod yolu yoktur.',
+              '**Topla:** TCMB, TÜİK, Resmî Gazete, TBMM, Sayıştay, haber siteleri ve X listeleri; SimHash ile tekilleştirme.',
+              '**Kümele:** haberler yerel embedding’lerle olaylara bağlanır.',
+              '**Kanıtla:** iddialar R0–R8 kurallarıyla bağımsız teyit havuzlarında sınanır; resmî veri ya da belge yoksa ne kadar yayılırsa yayılsın “doğrulandı” olamaz.',
+              '**Taslak:** yalnız kanıtlı olaylar için kaynaklı taslak; kanıtta olmayan sayı ya da alıntı giremez, otomatik yayın yolu yok.',
             ],
             en: [
-              '**Collect:** pulls from the central bank, statistics office, official gazette, parliament, the court of accounts, news sites and X lists with polite-bot rules (rate limits, robots.txt, backoff); deduplicates with SimHash.',
-              '**Cluster:** links stories into events with local embeddings; numerical conflicts go to human review.',
-              '**Evidence:** claims are tested against independent corroboration pools with rules R0–R8. Newspapers of one media group count as one source. Without official data or an institutional document, a claim cannot become “verified”, however far it spreads.',
-              '**Context:** relates a new event to past promises, parliamentary votes, audit findings and the actors’ earlier statements.',
-              '**Draft:** writes sourced drafts from four editorial angles, only for evidenced events. No number or quote absent from the evidence may enter a draft. There is no automatic publishing code path.',
+              '**Collect:** central bank, statistics office, Official Gazette, parliament, court of accounts, news sites and X lists; SimHash deduplication.',
+              '**Cluster:** stories are linked into events with local embeddings.',
+              '**Evidence:** claims are tested against independent corroboration pools with rules R0–R8; without official data or a document a claim cannot become “verified”, however far it spreads.',
+              '**Draft:** sourced drafts only for evidenced events; no number or quote absent from the evidence may enter, and there is no automatic publishing path.',
             ],
           },
         },
@@ -104,19 +95,15 @@ export const politikdesk: Proje = {
       id: 'yapay-zeka',
       bloklar: [
         {
-          tur: 'sirali',
+          tur: 'liste',
           ogeler: {
             tr: [
-              '**Sınır kodda kilitli, sözde değil.** Kanıt motorunun LLM modülünü import edememesi bir CI adımı (`check_architecture.py`); denetleyicinin kendisi de ayrıca sınanıyor. Model bir gün o sınırı aşan bir kod yazsa build kırılır.',
-              '**Model seçimi projenin kendi kıyaslamasıyla.** LLM, Türkçe altın set üzerinde alıntı sadakati, şema uyumu ve taslakta kanıt dışı sayı oranıyla seçilir.',
-              '**Kalıcı bağlam.** `CLAUDE.md` pazarlıksız kısıtları, `DESIGN.md` tasarım sözleşmesini, `design/decisions.md` her arayüz turunun gerekçesini taşır.',
-              '**Görsel doğrulama döngüsü.** Arayüz işleri dört ekran genişliğinde çekilip yatay taşma ve konsol hatası ölçülerek kapatılır.',
+              '**Sınır kodda kilitli:** kanıt motorunun LLM modülünü import edememesi bir CI adımı; model o sınırı aşan kod yazarsa build kırılır.',
+              '**Model seçimi kendi kıyaslamasıyla:** Türkçe altın sette alıntı sadakati, şema uyumu ve taslakta kanıt dışı sayı oranı.',
             ],
             en: [
-              '**The boundary is locked in code, not in words.** The evidence engine being unable to import the LLM module is a CI step (`check_architecture.py`), and the checker itself is tested. If the model ever wrote code crossing that line, the build would break.',
-              '**Model choice by the project’s own benchmark.** The LLM is chosen on a Turkish golden set by quote fidelity, schema compliance and the rate of out-of-evidence numbers in drafts.',
-              '**Durable context.** `CLAUDE.md` holds non-negotiable constraints, `DESIGN.md` the design contract, `design/decisions.md` the reasoning behind every UI round.',
-              '**Visual verification loop.** UI work is captured at four screen widths and closed only after horizontal overflow and console errors are measured.',
+              '**The boundary is locked in code:** the evidence engine being unable to import the LLM module is a CI step; if the model wrote code crossing it, the build would break.',
+              '**Model choice by its own benchmark:** quote fidelity, schema compliance and out-of-evidence numbers in drafts, on a Turkish golden set.',
             ],
           },
         },
@@ -128,8 +115,8 @@ export const politikdesk: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: '“2711 test geçiyor” diye kaydedilmiş bir proje CI’da en az beş haftadır kırmızıydı: sayı yerel, veriyle dolu bir veritabanına karşı ölçülmüştü. Testler gerçek kaynaklara çıkıyor, gerçek API anahtarı istiyor, boş veritabanında çöküyordu. Hepsi hermetik hale getirildi: boş veritabanı ve sırsız ortamda 2.695 test, 0 hata, 49 saniye. Ölmüş LLM modeli değiştirildi; `pd update` komutunun resmî gösterge adımını hiç çağırmadığı bulundu ve düzeltildi.',
-            en: 'A project recorded as “2,711 tests pass” had been red in CI for at least five weeks: the number was measured against a local database full of data. Tests hit real sources, demanded a real API key and crashed on an empty database. All made hermetic: 2,695 tests, 0 failures, 49 seconds on an empty database with no secrets. The dead LLM was replaced, and `pd update` was found never to call the official-indicator step, and fixed.',
+            tr: '“2711 test geçiyor” diye kayıtlı proje CI’da en az beş haftadır kırmızıydı: sayı veriyle dolu yerel bir veritabanına karşı ölçülmüştü, testler gerçek kaynaklara çıkıyor ve gerçek API anahtarı istiyordu. Hepsi hermetik hale getirildi: boş veritabanı ve sırsız ortamda 2.701 test, 0 hata, ~50 saniye.',
+            en: 'A project recorded as “2,711 tests pass” had been red in CI for at least five weeks: the number was measured against a local database full of data, and the tests hit real sources and demanded a real API key. All made hermetic: 2,701 tests, 0 failures, ~50 seconds on an empty database with no secrets.',
           },
         },
       ],
@@ -140,8 +127,8 @@ export const politikdesk: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Bir test sayısı, hangi ortamda ölçüldüğü söylenmeden bir şey kanıtlamaz. Hermetik test, CI’ın yeşil olmasından önce gelir.',
-            en: 'A test count proves nothing until you say where it was measured. Hermetic tests come before a green CI.',
+            tr: 'Bir test sayısı, hangi ortamda ölçüldüğü söylenmeden bir şey kanıtlamaz.',
+            en: 'A test count proves nothing until you say where it was measured.',
           },
         },
       ],

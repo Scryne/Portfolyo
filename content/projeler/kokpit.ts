@@ -10,8 +10,8 @@ export const kokpit: Proje = {
     en: 'A desktop app that shows every project on one screen and opens and watches Claude Code sessions',
   },
   tekCumle: {
-    tr: 'Bütün projelerin aşamasını, roadmap ilerlemesini ve git durumunu tek panoda toplar; tek tıkla o klasörde gömülü terminalde `claude` açar, her oturumun ne yaptığını Claude Code’un kancalarından canlı izler; ekranın üstünde hep açık duran küçük bir pencere (Ada) soruları cevaplatır, limitleri gösterir ve arka planda yeni görev başlatır. Kendi veritabanı yok: projeler hakkında gösterdiği her şey git’in zaten takip ettiği dosyalardan türetilir.',
-    en: 'Brings every project’s stage, roadmap progress and git status into one board; opens `claude` in an embedded terminal in that folder with one click, watches what each session is doing through Claude Code’s hooks; a small always-on window at the top of the screen (Ada) answers its questions, shows the usage limits and starts new tasks in the background. It has no database of its own: everything it shows about projects is derived from files git already tracks.',
+    tr: 'Bütün projelerin aşamasını, roadmap ilerlemesini ve git durumunu tek panoda toplar; tek tıkla o klasörde gömülü terminalde `claude` açar ve her oturumun ne yaptığını Claude Code’un kancalarından canlı izler. Kendi veritabanı yok: gösterdiği her şey git’in takip ettiği dosyalardan türetilir.',
+    en: 'Brings every project’s stage, roadmap progress and git status into one board; opens `claude` in an embedded terminal in that folder with one click and watches what each session does through Claude Code’s hooks. It has no database of its own: everything it shows comes from files git already tracks.',
   },
   donem: { tr: 'Eyl 2026 – Eki 2026', en: 'Sep 2026 – Oct 2026' },
   yil: 202610,
@@ -69,8 +69,8 @@ export const kokpit: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: 'Yapay zekâ ile çok sayıda projeyi paralel yürütünce darboğaz kod yazmak değil, bağlam oluyor: hangi proje hangi aşamada, nerede kalmıştım, hangi repoda commit’lenmemiş iş var, dünkü oturum not sistemine kaydedildi mi? Her soru ayrı bir terminal, ayrı bir dosya. Üstelik bir Claude Code oturumunu pencereyi kapatarak öldürmek, oturum sonu kancasının çalışmamasına, yani o oturumun hafızaya hiç düşmemesine yol açıyordu.',
-            en: 'Running many projects in parallel with AI, the bottleneck is not writing code but context: which project is at which stage, where did I stop, which repo has uncommitted work, did yesterday’s session reach the notes system? Every question is another terminal, another file. And killing a Claude Code session by closing its window skipped the session-end hook, so that session never reached memory at all.',
+            tr: 'Yapay zekâyla çok sayıda projeyi paralel yürütünce darboğaz kod değil bağlam oluyor: hangi proje hangi aşamada, hangi repoda commit’lenmemiş iş var, dünkü oturum not sistemine kaydedildi mi? Üstelik bir Claude Code oturumunu pencereyi kapatarak öldürmek, oturum sonu kancasını atlatıp o oturumu hafızadan siliyordu.',
+            en: 'Running many projects in parallel with AI, the bottleneck is context, not code: which project is at which stage, which repo has uncommitted work, did yesterday’s session reach the notes system? And killing a Claude Code session by closing its window skipped the session-end hook, so that session never reached memory.',
           },
         },
       ],
@@ -82,20 +82,18 @@ export const kokpit: Proje = {
           tur: 'liste',
           ogeler: {
             tr: [
-              '**Lens, depo değil:** pano kendi verisini tutmuyor; git durumunu, proje aşamasını ve roadmap ilerlemesini dosyalardan okuyor. Uygulama silinse hiçbir şey kaybolmuyor.',
-              '**Karttan oturuma:** “Aç” o klasörde gömülü terminalde `claude` başlatır; sekmeler ve yan yana bölmeler. “Çalıştır” projenin uygulamasını yan bölmede açıp adresini yakalar, kapatınca süreç ağacının tamamı ölür. “Sürdür” `--resume` ile tam o konuşmayı açar; biten bölme yerinde sürdürülür, Ctrl+Shift+T son kapatılanı geri açar. Git sütunu push edilmemiş commit’i de gösterir.',
-              '**Canlı etkinlik:** Kokpit’in açtığı claude’a `--settings` ile HTTP hook’ları verilir; projenin kendi hook’larıyla birleşir, global ayara dokunulmaz. Bölmenin üstünde “ne yapıyor” şeridi (son araç, dosya, `+N −M`, süre), “bitti” ile “seni bekliyor” ayrı zil, kenarda 5 saatlik ve haftalık limit.',
-              '**Ada:** ekranın üst ortasında hep açık küçük bir pencere; Kokpit’in penceresi kapatılınca tepsiye iner, Windows açılışında arka planda başlar. Bekleyen oturumları (Kokpit dışında açılan terminal oturumları dahil), claude’un son mesajını ve sorusunu gösterir; seçenekler (çok sorulu formlar dahil) ve serbest cevap Kokpit öne gelmeden gönderilir, klavyeden de. 5 saatlik ve haftalık limit hiç oturum açmadan görünür. Bir proje seçip yazılan görev, arka planda yeni bir claude oturumu başlatır. Gümüş bir göz kanca durumuna göre davranır: araca göre bakar, soruda amber halkayla bekler, bitince sevinir, 30 dakika sessizlikte uyur; yanındaki noktalar çalışan alt ajanlar. Her uygulamanın üstünde durur; istenince ekranın kenarına çekilip yalnız çenesini gösterir, tam ekran video ya da oyun öndeyken kendiliğinden kaybolur.',
-              '**Hafıza koruması:** canlı süreç varken kapatmada “Güvenli kapat” claude’a çıkış tuşlarını gönderip oturum sonu kancasını bekler; her oturum satırında “beyne düştü / düşmedi” ve tek oturumluk geri doldurma.',
-              '**Sağlık ve Envanter:** not sisteminin boru hattı, sağlık nöbeti (CI, Dependabot, AI modelleri), 7 günlük token bütçesi, skill/MCP envanteri.',
+              '**Lens, depo değil:** pano kendi verisini tutmaz; aşama, roadmap, git ve push durumunu dosyalardan okur.',
+              '**Karttan oturuma:** “Aç” gömülü terminalde `claude` başlatır; “Çalıştır” uygulamayı yan bölmede açar, kapatınca süreç ağacı ölür; “Sürdür” ve Ctrl+Shift+T tam o konuşmayı `--resume` ile geri getirir.',
+              '**Canlı etkinlik:** claude’a `--settings` ile verilen HTTP hook’ları; bölmede son araç, dosya ve `+N −M`, “bitti” ile “seni bekliyor” ayrı.',
+              '**Ada:** ekranın üstünde hep açık küçük pencere; soruları Kokpit öne gelmeden cevaplatır, limitleri gösterir, arka planda görev başlatır.',
+              '**Hafıza koruması:** “Güvenli kapat” claude’a çıkış tuşlarını gönderip oturum sonu kancasını bekler; her oturumda “beyne düştü / düşmedi”.',
             ],
             en: [
-              '**A lens, not a store:** the board keeps no data of its own; it reads git status, project stage and roadmap progress from files. Delete the app and nothing is lost.',
-              '**From card to session:** “Open” starts `claude` in an embedded terminal in that folder, with tabs and split panes. “Run” starts the project’s app in a side pane and captures its address; closing it kills the whole process tree. “Resume” reopens exactly that conversation with `--resume`; a finished pane resumes in place and Ctrl+Shift+T reopens the last closed one. The git column also shows commits that were not pushed.',
-              '**Live activity:** claude started by Kokpit gets HTTP hooks via `--settings`; they merge with the project’s own hooks and never touch global settings. Each pane has a “what it is doing” strip (last tool, file, `+N −M`, duration), separate bells for “done” and “waiting for you”, and the 5-hour and weekly limits at the edge.',
-              '**Ada:** a small always-on window at the top centre of the screen; closing Kokpit’s window sends it to the tray, and it starts in the background when Windows starts. It shows waiting sessions (including terminal sessions opened outside Kokpit), claude’s last message and its question; options (including multi-question forms) and free-text answers are sent without bringing Kokpit forward, keyboard included. The 5-hour and weekly limits are visible without opening any session. Picking a project and typing a task starts a new claude session in the background. A silver eye behaves from hook state: it looks according to the tool, waits with an amber ring on a question, cheers when done, sleeps after 30 quiet minutes; the dots beside it are running subagents. It stays above every app; on request it tucks behind the screen edge showing only its chin, and it disappears on its own while a full-screen video or game is in front.',
-              '**Memory protection:** closing over a live process offers “Safe close”, which sends claude its exit keys and waits for the session-end hook; every session row shows whether it reached memory, with a one-session backfill.',
-              '**Health and Inventory:** the notes pipeline, a health watch (CI, Dependabot, AI models), a 7-day token budget and the skill/MCP inventory.',
+              '**A lens, not a store:** the board keeps no data of its own; it reads stage, roadmap, git and push status from files.',
+              '**From card to session:** “Open” starts `claude` in an embedded terminal; “Run” starts the app in a side pane and kills the whole process tree on close; “Resume” and Ctrl+Shift+T bring back exactly that conversation with `--resume`.',
+              '**Live activity:** HTTP hooks given to claude via `--settings`; each pane shows the last tool, file and `+N −M`, with “done” and “waiting for you” kept apart.',
+              '**Ada:** a small always-on window at the top of the screen; it answers claude’s questions without bringing Kokpit forward, shows the usage limits and starts tasks in the background.',
+              '**Memory protection:** “Safe close” sends claude its exit keys and waits for the session-end hook; every session shows whether it reached memory.',
             ],
           },
         },
@@ -106,10 +104,16 @@ export const kokpit: Proje = {
       baslik: { tr: 'Nasıl kuruldu', en: 'How it was built' },
       bloklar: [
         {
-          tur: 'p',
-          metin: {
-            tr: 'Plan → spike → final doküman → faz faz roadmap; her fazın “bitti” kriteri ölçülerek kapandı. Riskli her karar önce gerçek claude ile ölçüldü: ConPTY + Electron ayrı süreç (beş spawn varyantı), `--settings` hook’larının proje hook’larıyla birleşmesi, soru formunun tuş dizisi, `--resume`’un aynı dosyaya devam etmesi. PTY sunucusu ayrı süreçte ve token’lı. test:ui gerçek Electron’u ve Ada penceresini CDP ile sürüyor; test ve ekran koşucuları geçici bir dizinde çalışıyor, kullanıcının gerçek dosyalarına dokunmuyor. Testlerin hatayı yakalayıp yakalamadığı mutasyonla da sınandı (v2.3 15/15, v2.4 7/7, v2.5 4/4, v2.6 14/14, v2.7 8/8, v2.9 2/2).',
-            en: 'Plan → spike → final document → phased roadmap, each phase closed only when its “done” criterion was measured. Every risky decision was first measured against real claude: ConPTY + Electron in a separate process (five spawn variants), `--settings` hooks merging with project hooks, the question form’s key sequence, and `--resume` continuing the same file. The PTY server runs in a separate, token-protected process. test:ui drives real Electron and the Ada window over CDP; test and screenshot runners work in a temporary directory and never touch the user’s real files. Whether the tests catch bugs was checked with mutations too (v2.3 15/15, v2.4 7/7, v2.5 4/4, v2.6 14/14, v2.7 8/8, v2.9 2/2).',
+          tur: 'liste',
+          ogeler: {
+            tr: [
+              '**Riskli karar önce gerçek claude ile ölçüldü:** ConPTY için beş spawn varyantı, `--settings` hook’larının proje hook’larıyla birleşmesi, soru formunun tuş dizisi.',
+              '**Testler gerçek uygulamayı sürüyor:** test:ui gerçek Electron’u ve Ada penceresini CDP ile kullanıyor, geçici dizinde çalışıp gerçek dosyalara dokunmuyor; testlerin hatayı yakaladığı mutasyonla sınandı.',
+            ],
+            en: [
+              '**Risky decisions measured against real claude first:** five spawn variants for ConPTY, `--settings` hooks merging with project hooks, the question form’s key sequence.',
+              '**Tests drive the real app:** test:ui drives real Electron and the Ada window over CDP in a temporary directory, never touching real files; mutations checked that the tests catch bugs.',
+            ],
           },
         },
       ],
@@ -120,8 +124,8 @@ export const kokpit: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: '“Hiçbir yere yazmaz” kuralı ancak test ve ekran betikleri de ona uyunca tamamlanıyor: önce ekran betiği bekleyen bir geri yükleme teklifini tüketti, sonra test koşucusu açık Kokpit’in defterine sahte bir “kapandı” satırı yazdı. Çözüm dosyaları geri koymak değil, ayrı dizin oldu. Aynı ders v2.4’te tekrarlandı: testin kurmadığı pencere, testin göremediği hatadır. v2.9 denetiminde yine: bütün testler yeşilken altı haftalık kullanım logu, Ada’nın Alt+Tab’da kaybolup geri geldiğini gösterdi.',
-            en: 'A “writes nothing anywhere” rule is complete only when the test and screenshot scripts obey it too: first the screenshot script consumed a pending restore offer, then the test runner wrote a fake “closed” line into a running Kokpit’s log. The fix was not restoring files but a separate directory. The lesson came back in v2.4: a window the test does not set up is a bug the test cannot see. And again in the v2.9 audit: with every test green, six weeks of usage logs showed Ada vanishing and reappearing on Alt+Tab.',
+            tr: 'Testin kurmadığı pencere, testin göremediği hatadır. v2.9 denetiminde yine: bütün testler yeşilken altı haftalık kullanım logu, Ada’nın Alt+Tab’da kaybolup geri geldiğini gösterdi.',
+            en: 'A window the test does not set up is a bug the test cannot see. And again in the v2.9 audit: with every test green, six weeks of usage logs showed Ada vanishing and reappearing on Alt+Tab.',
           },
         },
       ],

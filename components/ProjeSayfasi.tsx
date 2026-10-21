@@ -167,7 +167,6 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
           ))}
 
           <Bolum id="sinirlar" baslik={M.sinirlar[dil]}>
-            <p className="metin mb-6 text-yazi-2">{M.sinirlarGiris[dil]}</p>
             <Bloklar bloklar={[{ tur: 'liste', ogeler: p.sinirlar }]} dil={dil} />
           </Bolum>
 
