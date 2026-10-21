@@ -11,7 +11,6 @@
     "tokens": "node scripts/tokens.mjs",
     "design:lint": "designmd lint DESIGN.md",
     "gorseller": "node scripts/gorseller.mjs",
-    "harita": "node scripts/harita.mjs",
     "postbuild": "node scripts/duzlestir.mjs && node scripts/og.mjs",
     "cv": "node scripts/cv.mjs",
     "yayinla": "node scripts/yayinla.mjs"
@@ -30,7 +29,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "axe-core": "^4.13.0",
-    "dotted-map": "^3.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
     "playwright-core": "^1.63.0",

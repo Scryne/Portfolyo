@@ -438,118 +438,163 @@ body {
   }
 }
 
-/* ---------- Atlas (tüm projeler) ---------- */
 
-/* Noktalı dünya: public/harita.svg maske, renk temadan. Destek yoksa hiç görünmez (iğneler kalır). */
-.harita-zemin {
-  background: color-mix(in oklab, var(--yazi) 30%, transparent);
-  -webkit-mask: url('/harita.svg') center / 100% 100% no-repeat;
-  mask: url('/harita.svg') center / 100% 100% no-repeat;
-}
-.harita-zemin-sik {
-  background: color-mix(in oklab, var(--yazi) 30%, transparent);
-  -webkit-mask: url('/harita-sik.svg') center / 100% 100% no-repeat;
-  mask: url('/harita-sik.svg') center / 100% 100% no-repeat;
-}
+/* ---------- Sahne (tüm projeler) ---------- */
 
-.atlas-cizgi {
-  position: absolute;
-  pointer-events: none;
-  background: color-mix(in oklab, var(--murekkep) 38%, transparent);
+/* Dar ekran: kart listesi. Her kayıt kendi karesiyle. */
+.sahne-liste {
+  border-top: 1px solid var(--cizgi-guclu);
 }
-.atlas-cizgi-y {
-  top: 0;
-  bottom: 0;
-  width: 1px;
+.sahne-kayit {
+  border-bottom: 1px solid var(--cizgi);
 }
-.atlas-cizgi-x {
-  left: 0;
-  right: 0;
-  height: 1px;
+.sahne-satir {
+  padding-block: 1.5rem;
 }
-
-.atlas-pin {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 9999px;
-  translate: -50% -50%;
-  background: var(--yazi-3);
-  box-shadow: 0 0 0 2px var(--zemin);
+.sahne-satir-kare {
+  aspect-ratio: 1.6;
 }
-.atlas-pin[data-aktif] {
-  width: 10px;
-  height: 10px;
-  background: var(--murekkep);
-  z-index: 1;
-}
-
-.atlas-etiket {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 6px 10px;
-  white-space: nowrap;
-  border-radius: var(--radius-sm);
-  background: var(--zemin-3);
-  border: 1px solid var(--cizgi);
-  translate: 14px -50%;
-}
-.atlas-etiket[data-yan='sol'] {
-  translate: calc(-100% - 14px) -50%;
-  align-items: flex-end;
-}
-
-/* Kaydın adı üstüne gelince genişler: Archivo'nun wdth ekseni (DESIGN.md imzası). Yalnız fareli geniş
-   ekranda: dokunmatikte üstüne gelme yok, dar satırda genişleyen ad depo etiketine çarpıyordu. */
-.atlas-ad {
+.sahne-ad {
+  color: var(--yazi);
   font-variation-settings: 'wdth' 106;
 }
-.atlas-satir[data-aktif] .atlas-ad,
-.atlas-satir:focus-visible .atlas-ad {
+.sahne-satir:focus-visible .sahne-ad {
   color: var(--murekkep);
 }
-@media (hover: hover) and (width >= 64rem) {
-  .atlas-satir[data-aktif] .atlas-ad,
-  .atlas-satir:hover .atlas-ad,
-  .atlas-satir:focus-visible .atlas-ad {
+.sahne-imlec {
+  display: none;
+}
+
+/* Sahne kareleri üst üste; görünen yalnız aktif ve (perde açılırken altında kalan) önceki. */
+.sahne-kare {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+.sahne-kare[data-durum] {
+  visibility: visible;
+}
+.sahne-kare[data-durum='onceki'] {
+  z-index: 1;
+}
+.sahne-kare[data-durum='aktif'] {
+  z-index: 2;
+}
+
+/* Geniş ekran: bölüm kaydırma boyunca sabit; her projeye --pay kadar kaydırma payı. */
+@media (width >= 64rem) {
+  .sahne-iz {
+    --pay: 26svh;
+    height: calc(100svh - 4rem + var(--n) * var(--pay));
+  }
+  .sahne-yapisik {
+    position: sticky;
+    top: 4rem;
+    height: calc(100svh - 4rem);
+    align-content: center;
+  }
+  .sahne-liste {
+    display: grid;
+    grid-auto-rows: 1fr;
+    border-top: 0;
+    border-left: 1px solid var(--cizgi);
+  }
+  .sahne-kayit {
+    border-bottom: 0;
+  }
+  .sahne-satir {
+    padding: 0.625rem 0 0.625rem 1.5rem;
+  }
+  .sahne-ad {
+    color: var(--yazi-3);
+    font-variation-settings: 'wdth' 100;
+  }
+  .sahne-satir:hover .sahne-ad {
+    color: var(--yazi);
+  }
+  .sahne-satir[data-aktif] .sahne-ad {
+    color: var(--murekkep);
     font-variation-settings: 'wdth' 125;
   }
-}
-/* Küçük haritada imleç ve etiket kalabalık: yalnız iğneler (konum satırda yazılı). */
-@media (width < 64rem) {
-  .atlas .atlas-cizgi,
-  .atlas .atlas-etiket {
-    display: none;
+  /* İmleç: listenin sol çizgisinde aktif satırın yüksekliği kadar mürekkep. */
+  .sahne-imlec {
+    display: block;
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 2px;
+    height: calc(100% / var(--n));
+    background: var(--murekkep);
+  }
+  /* Sahne ekrana sığsın: kare 16:10, yüksekliği üst ve alt yazılara yer bırakır. */
+  .sahne {
+    width: min(100%, calc((100svh - 18rem) * 1.6));
+    margin-left: auto;
+  }
+  .sahne-cerceve {
+    aspect-ratio: 1.6;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .atlas-ad {
+  .sahne-ad {
     transition:
-      font-variation-settings 260ms cubic-bezier(0.2, 0.7, 0.2, 1),
-      color 150ms;
+      font-variation-settings 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      color 200ms;
   }
-  .atlas-cizgi-y {
-    transition: left 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  .sahne-imlec {
+    transition: translate 520ms cubic-bezier(0.7, 0, 0.2, 1);
   }
-  .atlas-cizgi-x {
-    transition: top 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Perde: yeni kare kaydırma yönünde açılır, içindeki görüntü yerine oturur; eskisi geri çekilir. */
+  .sahne-kare[data-durum='aktif'] {
+    animation: perde-asagi 760ms cubic-bezier(0.7, 0, 0.2, 1) both;
   }
-  .atlas-etiket {
-    transition:
-      left 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
-      top 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  .sahne-kare[data-durum='aktif'][data-yon='yukari'] {
+    animation-name: perde-yukari;
   }
-  .atlas-pin[data-aktif]::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: inherit;
-    border: 1.5px solid var(--murekkep);
-    animation: halka-nabiz 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+  .sahne-kare[data-durum='aktif'] img {
+    animation: kare-otur 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .sahne-kare[data-durum='onceki'] img {
+    animation: kare-cekil 760ms cubic-bezier(0.7, 0, 0.2, 1) both;
+  }
+  .sahne-metin {
+    animation: metin-gel 480ms cubic-bezier(0.2, 0.7, 0.2, 1) 140ms both;
+  }
+}
+
+@keyframes perde-asagi {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes perde-yukari {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes kare-otur {
+  from {
+    scale: 1.14;
+  }
+}
+@keyframes kare-cekil {
+  to {
+    scale: 0.94;
+    opacity: 0.35;
+  }
+}
+@keyframes metin-gel {
+  from {
+    opacity: 0;
+    translate: 0 12px;
   }
 }
 
@@ -592,12 +637,14 @@ body {
   }
 }
 
-/* ---------- Kaydırma hareketi (2026-10-21, Scryne: "scroll animasyonu olsun") ----------
-   Yalnız CSS kaydırma zaman çizelgesi (animation-timeline): JS yok, yalnız transform / opacity /
-   clip-path. Her hareket bir şey anlatır: harita taranır, ölçülen değer eski yerinden yenisine
-   yürür, yöntem hattı çizilir. Desteklemeyen tarayıcıda ve hareket azaltmada her şey son halinde
-   durur: aşağıdaki taban kuralları animasyonsuz da doğrudur. Bitiş kırpmaları negatif: etiket,
-   gölge ve aksan işaretleri (İ, Ö) kesilmesin. */
+/* ---------- Kaydırma hareketi (2026-10-21, Scryne: "scroll animasyonu olsun", "profesyonel ve eşsiz") ----------
+   Yalnız CSS kaydırma zaman çizelgesi (animation-timeline), yalnız transform / opacity / clip-path (başlıktaki
+   wdth ekseni hariç: tek satır, yalnız geniş ekranda). Her hareket bir şey anlatır: hero geri çekilir, işler
+   perdeyle açılır, sahne kurulur, ölçülen değer eski yerinden yenisine yürür, yöntem hattı çizildikçe adımlar
+   gelir. Desteklemeyen tarayıcıda ve hareket azaltmada her şey son halinde durur: taban kurallar animasyonsuz
+   da doğrudur. Bitiş kırpmaları negatif: gölge ve aksan işaretleri (İ, Ö) kesilmesin. Sabitlenen alanlarda
+   (sahne) view() kullanılmaz: yapışık öğe kımıldamaz, çizelgesi yarıda kalır (ölçüldü); onlar bölümün
+   çizelgesine bağlanır. */
 
 /* Taban: "sonra" noktası ölçülen yerinde (yol fark kadar kaymış). */
 .cetvel-yol {
@@ -611,42 +658,79 @@ body {
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
+    /* Hero: sayfa kaydıkça küre küçülüp geri çekilir, metin daha hızlı yukarı kayar (derinlik). */
+    .kure-zemin {
+      view-timeline: --hero;
+    }
+    .kure-cik {
+      animation: kure-cik linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 100%;
+    }
+    .hero-metin {
+      animation: hero-metin linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 70%;
+    }
+
     /* Bölüm başlıkları satır tabanından yukarı açılır. */
     h2.gosterge {
       animation: baslik-ac linear both;
       animation-timeline: view();
-      animation-range: entry 10% cover 28%;
+      animation-range: entry 10% cover 30%;
     }
 
-    /* Öne çıkan proje görselleri kırpılmış halden açılır. */
+    /* İşler: görsel perdeyle açılır, içindeki ekran kaydırmadan biraz yavaş akar. */
     #work figure.sekil {
+      view-timeline: --sekil;
       animation: sekil-ac linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 35%;
     }
-
-    /* Atlas: harita soldan sağa taranır, iğneler sonra düşer, kayıtlar sırayla gelir. Zaman çizelgesi
-       bölümün: harita geniş ekranda yapışkan, kendi view() çizelgesi yapıştığı an duruyordu (ölçüldü). */
-    #atlas {
-      view-timeline: --atlas;
-    }
-    .atlas-tara {
-      animation: harita-tara linear both;
-      animation-timeline: --atlas;
-      animation-range: entry 15% entry 65%;
-    }
-    .atlas-tara .atlas-pin {
-      animation: igne-gel linear both;
-      animation-timeline: --atlas;
-      animation-range: entry 60% entry 85%;
-    }
-    .kayit-gel {
-      animation: kayit-gel linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 90%;
+    /* Çerçeve overflow:hidden; görselin kendi view() çizelgesi çerçeveye göre ölçülür ve hiç ilerlemez. */
+    #work figure.sekil > img {
+      scale: 1.06;
+      animation: kare-kay linear both;
+      animation-timeline: --sekil;
+      animation-range: cover 0% cover 100%;
     }
 
-    /* Yöntem hattı çizilir, adımlar hat geçtikçe gelir. */
+    /* Tüm projeler, dar ekran: kartlar sırayla gelir, kareleri perdeyle açılır. */
+    @media (width < 64rem) {
+      .sahne-kayit {
+        animation: kayit-gel linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 80%;
+      }
+      .sahne-satir-kare {
+        animation: sekil-ac linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 40%;
+      }
+    }
+    /* Geniş ekran: bölüm ekrana girerken sahne açılır, liste satır satır kurulur. */
+    @media (width >= 64rem) {
+      #projeler {
+        view-timeline: --projeler;
+      }
+      .sahne {
+        animation: sekil-ac linear both;
+        animation-timeline: --projeler;
+        animation-range: entry 25% entry 75%;
+      }
+      .sahne-kayit {
+        animation: kayit-gel linear both;
+        animation-timeline: --projeler;
+        animation-range: entry calc(28% + var(--i) * 4%) entry calc(42% + var(--i) * 4%);
+      }
+      .sahne-imlec {
+        animation: belir linear both;
+        animation-timeline: --projeler;
+        animation-range: entry 70% entry 85%;
+      }
+    }
+
+    /* Yöntem: hat çizilir, her adım hat ona ulaşınca gelir (geniş ekranda soldan sağa sırayla). */
     .yontem-hat {
       view-timeline: --hat;
     }
@@ -656,15 +740,27 @@ body {
       animation-timeline: --hat;
       animation-range: entry 30% cover 60%;
     }
-    .yontem-adim {
-      animation: kayit-gel linear both;
+    /* İşaret hatta kalır (yalnız belirir); kaydırılan, adımın yazıları. */
+    .yontem-adim > :not(.yontem-isaret) {
+      animation: adim-gel linear both;
       animation-timeline: view();
-      animation-range: entry 10% cover 35%;
+      animation-range: entry 20% cover 35%;
+    }
+    .yontem-isaret {
+      animation: isaret-yan linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 30%;
     }
     @media (width >= 64rem) {
       .yontem-hat::before {
         transform-origin: left;
         animation-name: hat-ciz-yatay;
+        animation-range: cover 15% cover 45%;
+      }
+      .yontem-adim > :not(.yontem-isaret),
+      .yontem-isaret {
+        animation-timeline: --hat;
+        animation-range: cover calc(17% + var(--i) * 6%) cover calc(27% + var(--i) * 6%);
       }
     }
 
@@ -698,6 +794,29 @@ body {
   }
 }
 
+/* Başlık geniş ekranda açılırken daralmış halinden tam genişliğine de yayılır: Archivo'nun wdth ekseni
+   (DESIGN.md imzası). Tek satırlık başlıklarda; dar ekranda satır kırılımı değişip alttakileri itebilirdi. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (width >= 64rem) {
+    h2.gosterge {
+      animation-name: baslik-ac, baslik-yayil;
+    }
+  }
+}
+
+@keyframes kure-cik {
+  to {
+    scale: 0.84;
+    opacity: 0.2;
+    translate: 0 14%;
+  }
+}
+@keyframes hero-metin {
+  to {
+    opacity: 0;
+    translate: 0 -40%;
+  }
+}
 @keyframes baslik-ac {
   from {
     clip-path: inset(100% -0.3em -0.3em -0.3em);
@@ -706,6 +825,14 @@ body {
   to {
     clip-path: inset(-0.3em);
     translate: 0 0;
+  }
+}
+@keyframes baslik-yayil {
+  from {
+    font-variation-settings: 'wdth' 70;
+  }
+  to {
+    font-variation-settings: 'wdth' 125;
   }
 }
 @keyframes sekil-ac {
@@ -718,24 +845,40 @@ body {
     scale: 1;
   }
 }
-@keyframes harita-tara {
+@keyframes kare-kay {
   from {
-    clip-path: inset(-20% 100% -20% -20%);
+    translate: 0 -2.5%;
   }
   to {
-    clip-path: inset(-20% -5% -20% -20%);
-  }
-}
-@keyframes igne-gel {
-  from {
-    opacity: 0;
-    scale: 0.3;
+    translate: 0 2.5%;
   }
 }
 @keyframes kayit-gel {
   from {
     opacity: 0;
-    translate: 0 14px;
+    translate: 0 16px;
+  }
+}
+@keyframes adim-gel {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+}
+@keyframes belir {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes isaret-yan {
+  from {
+    scale: 0;
+  }
+  60% {
+    scale: 1.5;
+  }
+  to {
+    scale: 1;
   }
 }
 @keyframes hat-ciz-dikey {

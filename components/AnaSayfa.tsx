@@ -23,7 +23,7 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
       {/* Hero: renk ağı zemininde küre; projelerin geçtiği yerler. Ad görünür başlık değil, nav'da duruyor. */}
       <section className="kure-zemin relative overflow-hidden border-b border-cizgi">
         <div className="kap grid items-center gap-10 pt-28 pb-14 lg:min-h-[max(40rem,100svh)] lg:grid-cols-12 lg:gap-6 lg:pt-24 lg:pb-10">
-          <div className="relative z-10 lg:col-span-5">
+          <div className="hero-metin relative z-10 lg:col-span-5">
             <h1 className="sr-only">
               {KISI.ad} · {HERO.ust[dil]}
             </h1>
@@ -43,7 +43,7 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
               </Dugme>
             </div>
           </div>
-          <Kure yerler={kureYerleri(dil)} dil={dil} className="mx-auto w-full max-w-[36rem] lg:col-span-7 lg:mr-0 lg:max-w-[45rem]" />
+          <Kure yerler={kureYerleri(dil)} dil={dil} className="kure-cik mx-auto w-full max-w-[36rem] lg:col-span-7 lg:mr-0 lg:max-w-[45rem]" />
         </div>
       </section>
       <Sergi dil={dil} />

@@ -21,7 +21,7 @@ export function Yontem({ dil }: { dil: Dil }) {
           {YONTEM.map((a, i) => {
             const p = a.slug ? projeBul(a.slug) : undefined;
             return (
-              <li key={i} className="yontem-adim relative pl-10 lg:pt-10 lg:pl-0">
+              <li key={i} className="yontem-adim relative pl-10 lg:pt-10 lg:pl-0" style={{ '--i': i } as React.CSSProperties}>
                 <span className="yontem-isaret" aria-hidden />
                 <span className="okuma text-[0.9375rem] text-murekkep" aria-hidden>
                   {String(i + 1).padStart(2, '0')}

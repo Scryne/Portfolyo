@@ -76,8 +76,8 @@ spacing:
 
 **Brief.** Alan: yazılım mühendisliği portfolyosu. Kitle: işe alım yapan mühendis ve teknik
 lider, TR ve yurt dışı. Kazanılacak sıfat: **kesin**. Hareket derinliği: hero'da canlı küre (tek
-sürekli hareket), gerisi sessiz geri bildirim. Layout ailesi: asimetrik küre hero'su → defter →
-asimetrik sergi → tam genişlik görsel → dizin tablosu → numaralı yöntem yığını → bant.
+sürekli hareket), gerisi kaydırmaya bağlı ve anlamlı (2026-10-21'den beri; aşağıda). Layout ailesi: asimetrik
+küre hero'su → asimetrik sergi → defter → sabitlenen sahne → yöntem hattı → CV bandı.
 
 **Hero (2026-09-28, Scryne seçti; küre v2 aşağıda).** Renk ağı zemininde noktalı bir dünya küresi (`cobe`,
 WebGL, tembel yüklenir). Küre projelerin gerçekten geçtiği yerlere sırayla döner (Levant,
@@ -106,19 +106,19 @@ Kurallar:
 - Mobilde on çubuk sığmaz: önceki / sayaç / sonraki; masaüstünde çubuklar. Kartta `04 / 10` sayacı.
 - Tur sırası coğrafidir (Türkiye → Levant → Mısır → Fransa → San Francisco), `content/site.ts`.
 
-**Atlas (2026-10-21, Scryne: "frontend'i çok daha eşsiz yap, sınır yok").** Kürenin dili sayfanın geri kalanına
-yayıldı: her proje dünyada bir yer, site bir atlas. Küre aynen kaldı (Scryne'ın seçimi); altındakiler değişti:
-- **Tüm projeler = atlas dizini.** Solda numaralı kayıtlar (ad, tek satır, yer, koordinat, repo), sağda aynı yerlerin
-  düz izdüşümü: noktalı Equal Earth haritası (`public/harita.svg`, CSS maskesi, renk temadan). Satırın üstüne gelmek
-  ya da klavyeyle odaklanmak iğneyi yakar; ince artı imleci ve etiket oraya kayar, ad `wdth` 106 → 125 genişler
-  (yalnız fareli geniş ekranda). Dar ekranda harita yalnız iğneler; bilgi satırda yazılı, harita `aria-hidden`.
-- **Vaka künyesi = konum kesiti.** Başlıkta projenin yerine 4× yakınlaşmış kesit (sık harita `harita-sik.svg`, yalnız
-  vaka sayfaları yükler), komşu projeler soluk iğne; künyede "Konum" satırı (yer + koordinat).
-- **Rota.** "Sonraki proje" bağlantısı iki yer arasındaki büyük daire mesafesini ve ilk yönü yazar (`lib/konum.ts`
-  `rota`, ör. "3.090 km kuzeybatı"). Gerçek hesap, süs değil.
-- **Koordinat dili.** TR "39,93° K · 32,85° D", EN "39.93° N · 32.85° E"; mono, tabular. Öne çıkan projelerin etiket
-  satırında da. Kaynak tek: `content/site.ts` → `KURE`; harita ve iğneler `npm run harita` ile üretilir.
-- **Ritim kırıldı.** Üç bölüm artık üç ayrı düzen: atlas (liste + yapışkan harita), yöntem (beş adım tek bir hat
+**Sahne (2026-10-21, Scryne: "frontend'i çok daha eşsiz yap", "proje-ülke şeyi saçma duruyor").** Aynı gün kurulan
+atlas (noktalı dünya haritası, proje başına konum ve koordinat, vaka sayfasında konum kesiti, "Sonraki proje · 3.090 km
+kuzeybatı" rotası) kaldırıldı. Scryne'a iki yol soruldu: konumları uzak ülkelere dağıtmak (uydurma koordinat olurdu)
+ya da fikri değiştirmek; "ekran sahnesi"ni seçti. Küre aynen kaldı (Scryne: "küre kalsın"); konum dili yalnız orada.
+- **Tüm projeler = sahne.** Geniş ekranda bölüm kaydırma boyunca sabitlenir (proje başına 26svh kaydırma payı):
+  solda kompakt numaralı liste, sol çizgisinde mürekkep imleç; sağda sahne: alan + `05 / 10` sayacı, 16:10 kare,
+  altında tek satır ve öne çıkan ölçüm (önce üstü çizili → sonra). Kaydırma dilimi, üstüne gelmek ya da klavye odağı
+  aktif projeyi seçer; yeni kare kaydırma yönünde perdeyle açılır, içindeki ekran 1,14'ten yerine oturur, eskisi
+  geri çekilir. Aktif ad `primary` + `wdth` 125, diğerleri `yazi-3`. Sahne `aria-hidden`: aynı bilgi satırda
+  (`lg:sr-only`). Dar ekranda sabitleme yok: her proje kendi karesiyle kart, kaydırdıkça gelir.
+- **Kare kaynağı tek:** `content/site.ts` → `KURE.kare` (kürenin kartıyla aynı ekran). Ölçüm seçimi `lib/olcum.ts`
+  (İşler bölümüyle aynı kural).
+- **Ritim kırıldı.** Üç bölüm üç ayrı düzen: sahne (sabitlenen liste + perde), yöntem (beş adım tek bir hat
   üstünde; geniş ekranda yatay, dar ekranda dikey), CV (iki büyük indirme kutusu + üç iletişim satırı).
 
 **Reddedilenler (tekrarlama).** Aynı gün: "Yapay zekâyla kuruyorum. Sonra ölçüyorum." başlığı
@@ -211,14 +211,18 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
 - **Dürüst sınırlar:** her vaka sayfasında ayrı bölüm; stil olarak sade liste, uyarı kutusu değil.
 - **Nav:** üstte sabit cam şerit. Ad solda, bölümler, dil ve tema sağda.
 - **Lightbox:** yerel `<dialog>`, ok tuşlarıyla gezinme, Escape kapatır, odak geri döner.
-- **Atlas:** `components/Atlas.tsx` (istemci; yalnız hangi iğnenin yandığı), veri sunucuda `lib/konum.ts`. İğne nötr
-  `yazi-3`, seçili `primary` + nabız halkası (hareket azaltmada yok). Etiket zemin üstü kart, sağ kenara yakınsa solda.
-- **Konum kesiti:** `components/HaritaKesiti.tsx`, statik; artı imleci ortada, seçili iğne merkezde.
-- **Kaydırma hareketi (2026-10-21, Scryne istedi):** yalnız CSS `animation-timeline` (JS yok), yalnız
-  transform / opacity / clip-path. Her hareket bir şey anlatır: atlas haritası soldan sağa taranır, iğneler sonra
-  düşer; cetvelde "sonra" noktası "önce" halkasından kalkıp ölçülen yerine yürür; yöntem hattı çizilir; başlıklar
-  satır tabanından açılır; vaka sayfasında nav altında 2px okuma çizgisi. Taban kurallar son hali taşır: hareket
-  azaltmada ve desteklemeyen tarayıcıda her şey yerinde durur, okuma çizgisi hiç görünmez.
+- **Sahne:** `components/Sahne.tsx` (istemci; kaydırma dilimi → aktif proje), veri ve kareler sunucuda
+  `components/Dizin.tsx`. Sabitlenen alanda `view()` kullanılmaz (yapışık öğe kımıldamaz, çizelge yarıda kalır);
+  giriş hareketi bölümün çizelgesine (`--projeler`) bağlı.
+- **Kaydırma hareketi (2026-10-21, Scryne: "scroll animasyonu olsun", "profesyonel ve eşsiz"):** CSS
+  `animation-timeline` ile, yalnız transform / opacity / clip-path (başlıkta geniş ekranda `wdth` 70 → 125 yayılma;
+  tek satır, alttakini itmez). Her hareket bir şey anlatır: hero geri çekilir (küre küçülür, metin daha hızlı
+  kalkar); İşler görselleri perdeyle açılır, içindeki ekran yavaş akar; sahne kurulur, satırlar sırayla gelir;
+  cetvelde "sonra" noktası "önce" halkasından kalkıp ölçülen yerine yürür; yöntem hattı çizilir, her adım hat ona
+  ulaşınca gelir; vaka sayfasında nav altında 2px okuma çizgisi. Taban kurallar son hali taşır: hareket azaltmada
+  ve desteklemeyen tarayıcıda her şey yerinde durur, okuma çizgisi hiç görünmez. `overflow:hidden` kap içindeki
+  öğenin `view()` çizelgesi kaba göre ölçülür ve ilerlemez: kabın adlı çizelgesini kullan.
+
 
 ## Do's and Don'ts
 

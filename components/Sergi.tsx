@@ -2,18 +2,13 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { projeBul } from '@/content/projeler';
 import { SERGI } from '@/content/site';
-import { projeYeri } from '@/lib/konum';
 import { M, yol } from '@/lib/metin';
+import { oneCikanOlcum } from '@/lib/olcum';
 import type { Dil, Proje } from '@/lib/tipler';
 import { Gorsel } from './Gorsel';
 
 function OnceSonra({ p, dil }: { p: Proje; dil: Dil }) {
-  // Kısa ve sayısal olanı seç: cetveli ve "önce" değeri olan ilk ölçüm.
-  const sayisal = (s: string) => /^[\d.,%/ ]+$/.test(s);
-  const o =
-    p.olcumler.find((x) => x.once && sayisal(x.once[dil]) && sayisal(x.sonra[dil])) ??
-    p.olcumler.find((x) => x.once) ??
-    p.olcumler[0];
+  const o = oneCikanOlcum(p, dil);
   return (
     <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-cizgi pt-4">
       <span className="text-[0.9375rem] text-yazi-2">{o.ne[dil]}</span>
@@ -47,11 +42,7 @@ function VakaBaglantisi({ p, dil }: { p: Proje; dil: Dil }) {
 function Kunye({ p, dil, adBoyu = 'text-[clamp(2.125rem,5.5vw,4.5rem)]' }: { p: Proje; dil: Dil; adBoyu?: string }) {
   return (
     <>
-      {/* Alan ve konum: atlasla aynı koordinat dili (lib/konum.ts). */}
-      <p className="etiket flex flex-wrap gap-x-3 text-yazi-2">
-        <span>{p.alan[dil]}</span>
-        <span className="text-yazi-3 tabular-nums">{projeYeri(p.slug, dil).koordinat}</span>
-      </p>
+      <p className="etiket text-yazi-2">{p.alan[dil]}</p>
       <h3 className={`gosterge mt-3 ${adBoyu}`}>
         <Link href={yol.proje(dil, p.slug)} className="transition-colors duration-150 hover:text-murekkep">
           {p.ad}
