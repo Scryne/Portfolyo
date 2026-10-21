@@ -103,8 +103,8 @@ export const fabrikaos: Proje = {
         {
           tur: 'p',
           metin: {
-            tr: '173 commit’in 172’si Claude ortak yazarlı. Hızı model verdi; ürünü sağlam yapan süreçti:',
-            en: '172 of 173 commits are co-authored with Claude. The model provided the speed; the process made the product solid:',
+            tr: '180 commit’in 179’u Claude ortak yazarlı. Hızı model verdi; ürünü sağlam yapan süreçti:',
+            en: '179 of 180 commits are co-authored with Claude. The model provided the speed; the process made the product solid:',
           },
         },
         {

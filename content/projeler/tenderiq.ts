@@ -34,7 +34,7 @@ export const tenderiq: Proje = {
     { ad: { tr: 'Test', en: 'Tests' }, deger: { tr: '415 birim + 183 entegrasyon', en: '415 unit + 183 integration' } },
     { ad: { tr: 'CI', en: 'CI' }, deger: { tr: '9 iş', en: '9 jobs' } },
     { ad: { tr: 'Mimari karar', en: 'Decision records' }, deger: { tr: '13 ADR', en: '13 ADRs' } },
-    { ad: { tr: 'Commit', en: 'Commits' }, deger: { tr: '81', en: '81' } },
+    { ad: { tr: 'Commit', en: 'Commits' }, deger: { tr: '82', en: '82' } },
   ],
   olcumler: [
     {

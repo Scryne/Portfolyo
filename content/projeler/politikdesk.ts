@@ -37,14 +37,14 @@ export const politikdesk: Proje = {
     {
       ne: { tr: 'CI', en: 'CI' },
       once: { tr: 'en az 5 hafta kırmızı', en: 'red for 5+ weeks' },
-      sonra: { tr: '2.695 test, 0 hata, 49 sn', en: '2,695 tests, 0 failures, 49 s' },
+      sonra: { tr: '2.701 test, 0 hata, ~50 sn', en: '2,701 tests, 0 failures, ~50 s' },
       not: { tr: '“2711 test geçiyor” sayısı veriyle dolu yerel bir veritabanına karşı ölçülmüştü.', en: 'The “2,711 tests pass” figure had been measured against a local database full of data.' },
       kaynak: 'PolitikDesk.md · Denetim',
     },
     {
-      ne: { tr: 'Halef modelde alıntı sadakati', en: 'Quote fidelity of the successor model' },
+      ne: { tr: 'Halef modelde iddia çıkarımı (altın set)', en: 'Claim extraction by the successor model (golden set)' },
       sonra: { tr: '10/10', en: '10/10' },
-      not: { tr: 'Model emekliye ayrılınca halef aynı Türkçe altın setle seçildi.', en: 'When the model was retired, its successor was chosen on the same Turkish golden set.' },
+      not: { tr: 'Model emekliye ayrılınca halef aynı Türkçe altın setle seçildi; alıntı sadakati %100, taslak dayanağı 7/8.', en: 'When the model was retired, its successor was chosen on the same Turkish golden set; quote fidelity 100%, draft grounding 7/8.' },
       cetvel: { min: 0, max: 10, sonra: 10, yon: 'yukari' },
       kaynak: 'PolitikDesk.md · Yapay zekâ 2',
     },

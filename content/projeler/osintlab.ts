@@ -15,7 +15,7 @@ export const osintlab: Proje = {
   },
   donem: { tr: 'Eyl 2026 (8 günlük inşa)', en: 'Sep 2026 (built in 8 days)' },
   yil: 202609,
-  durum: { tr: 'Tamamlandı; 28 faz, v1–v5', en: 'Complete; 28 phases, v1–v5' },
+  durum: { tr: 'Tamamlandı; 28 faz, v1–v5, Ekim 2026’da denetim ve sertleştirme', en: 'Complete; 28 phases, v1–v5, audited and hardened in October 2026' },
   repo: { acik: false },
   demo: {
     tr: 'Yok. Yerelde, Windows servisi olarak otomatik tarar.',
@@ -27,9 +27,9 @@ export const osintlab: Proje = {
     { grup: { tr: 'Yapay zekâ', en: 'AI' }, ogeler: 'Claude Code (proje skill’i + hook’lar), Obsidian vault çıktısı' },
   ],
   olcek: [
-    { ad: { tr: 'Kod', en: 'Code' }, deger: { tr: '~12.700 satır Python + ~16.100 satır TypeScript', en: '~12,700 lines Python + ~16,100 lines TypeScript' } },
-    { ad: { tr: 'Commit', en: 'Commits' }, deger: { tr: '79', en: '79' } },
-    { ad: { tr: 'Roadmap', en: 'Roadmap' }, deger: { tr: '28 faz, 3.370 satırlık karar kaydı', en: '28 phases, a 3,370-line decision log' } },
+    { ad: { tr: 'Kod', en: 'Code' }, deger: { tr: '~13.900 satır Python + ~16.000 satır TypeScript', en: '~13,900 lines Python + ~16,000 lines TypeScript' } },
+    { ad: { tr: 'Commit', en: 'Commits' }, deger: { tr: '80', en: '80' } },
+    { ad: { tr: 'Roadmap', en: 'Roadmap' }, deger: { tr: '28 faz + denetim turu, ~3.450 satırlık karar kaydı', en: '28 phases + an audit round, a ~3,450-line decision log' } },
   ],
   olcumler: [
     {
@@ -60,6 +60,14 @@ export const osintlab: Proje = {
       sonra: { tr: '81/83', en: '81/83' },
       cetvel: { min: 0, max: 83, sonra: 81, yon: 'yukari' },
       kaynak: 'OsintLab.md · Ne yapıyor',
+    },
+    {
+      ne: { tr: 'Gözlem kuyruğu, gerçek veride (3.918 gözlem)', en: 'Observation queue on real data (3,918 observations)' },
+      once: { tr: '292 sn', en: '292 s' },
+      sonra: { tr: '3,7 sn', en: '3.7 s' },
+      not: { tr: 'Altı haftalık kullanımdan sonraki denetimde: her aramada 582 aday ad için düzenli ifade yeniden derleniyordu. Küçük veride görünmüyordu; sonuçlar eskisiyle birebir aynı (261/261 claim).', en: 'Found in the audit after six weeks of use: a regular expression for 582 candidate names was recompiled on every search. Invisible on small data; results are identical to before (261/261 claims).' },
+      cetvel: { min: 0, max: 300, once: 292, sonra: 3.7, yon: 'asagi' },
+      kaynak: 'OsintLab Roadmap · Denetim ve sertleştirme turu (2026-10-18)',
     },
   ],
   bolumler: [
@@ -150,12 +158,12 @@ export const osintlab: Proje = {
   sinirlar: {
     tr: [
       'Tek kullanıcılı ve yerel; barındırılan demo yok, repo gizli.',
-      'Otomatik test ve CI yok. Doğrulama fazların elle yürütülen kabul senaryoları ve ölçüm betiğiyle yapıldı.',
+      'CI yok. Fazlar elle yürütülen kabul senaryoları ve ölçüm betiğiyle doğrulandı; otomatik testler (67) ancak Ekim 2026 denetiminde eklendi.',
       'Deneysel domain’ler (GEOINT, SOCMINT, MEDIAINT) bilinçli olarak kapsam dışında.',
     ],
     en: [
       'Single-user and local; no hosted demo, private repository.',
-      'No automated tests or CI. Verification used hand-run acceptance scenarios per phase and the measurement script.',
+      'No CI. Phases were verified with hand-run acceptance scenarios and the measurement script; automated tests (67) were only added in the October 2026 audit.',
       'Experimental domains (GEOINT, SOCMINT, MEDIAINT) are deliberately out of scope.',
     ],
   },
