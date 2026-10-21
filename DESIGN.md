@@ -214,6 +214,11 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
 - **Atlas:** `components/Atlas.tsx` (istemci; yalnız hangi iğnenin yandığı), veri sunucuda `lib/konum.ts`. İğne nötr
   `yazi-3`, seçili `primary` + nabız halkası (hareket azaltmada yok). Etiket zemin üstü kart, sağ kenara yakınsa solda.
 - **Konum kesiti:** `components/HaritaKesiti.tsx`, statik; artı imleci ortada, seçili iğne merkezde.
+- **Kaydırma hareketi (2026-10-21, Scryne istedi):** yalnız CSS `animation-timeline` (JS yok), yalnız
+  transform / opacity / clip-path. Her hareket bir şey anlatır: atlas haritası soldan sağa taranır, iğneler sonra
+  düşer; cetvelde "sonra" noktası "önce" halkasından kalkıp ölçülen yerine yürür; yöntem hattı çizilir; başlıklar
+  satır tabanından açılır; vaka sayfasında nav altında 2px okuma çizgisi. Taban kurallar son hali taşır: hareket
+  azaltmada ve desteklemeyen tarayıcıda her şey yerinde durur, okuma çizgisi hiç görünmez.
 
 ## Do's and Don'ts
 
@@ -222,4 +227,5 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
 - UI metninde uzun tire (—) kullanma; nokta ya da virgül kullan.
 - Emoji yok; ikonlar lucide.
 - Gizli repoya bağlantı verme; "özel repo" yaz.
-- Kalem çizgisi dışında sayfa açılışında anime edilen öğe ekleme.
+- Kalem çizgisi dışında sayfa açılışında anime edilen öğe ekleme. Kaydırmaya bağlı hareket yalnız yukarıdaki
+  kurallarla; sürekli döngü, zıplama, yay yok.

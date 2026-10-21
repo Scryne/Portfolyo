@@ -26,7 +26,7 @@ export function Atlas({ yerler, baslik, oran }: { yerler: AtlasYeri[]; baslik: s
         </h2>
 
         <figure aria-hidden className="atlas lg:sticky lg:top-28 lg:col-span-7 lg:col-start-6 lg:row-start-2 lg:self-start">
-          <div className="relative w-full" style={{ aspectRatio: oran }}>
+          <div className="atlas-tara relative w-full" style={{ aspectRatio: oran }}>
             <div className="harita-zemin absolute inset-0" />
             <span className="atlas-cizgi atlas-cizgi-y" style={{ left: `${ax}%` }} />
             <span className="atlas-cizgi atlas-cizgi-x" style={{ top: `${ay}%` }} />
@@ -55,7 +55,7 @@ export function Atlas({ yerler, baslik, oran }: { yerler: AtlasYeri[]; baslik: s
 
         <ol className="border-t border-cizgi-guclu lg:col-span-5 lg:row-start-2">
           {yerler.map((y, i) => (
-            <li key={y.slug} className="border-b border-cizgi">
+            <li key={y.slug} className="kayit-gel border-b border-cizgi">
               <Link
                 href={y.href}
                 onMouseEnter={() => setAktif(y.slug)}

@@ -19,7 +19,7 @@ export function Cetvel({ o, dil }: { o: Olcum; dil: Dil }) {
   const esikYeri = c?.esik ? yuzde(c.esik.deger, c.min, c.max) : 0;
   const esikHiza = esikYeri > 85 ? '-translate-x-full' : esikYeri < 15 ? 'translate-x-0' : '-translate-x-1/2';
   return (
-    <figure className="border-t border-cizgi py-7">
+    <figure className="cetvel border-t border-cizgi py-7">
       <figcaption
         className={`flex flex-col gap-3 ${uzun ? '' : 'sm:flex-row sm:items-baseline sm:justify-between sm:gap-8'}`}
       >
@@ -61,10 +61,12 @@ export function Cetvel({ o, dil }: { o: Olcum; dil: Dil }) {
             )}
             {c.once !== undefined && (
               <span
-                className="absolute top-1/2 h-0.5 -translate-y-1/2 bg-[color-mix(in_oklab,var(--murekkep)_45%,transparent)]"
+                className="cetvel-bag absolute top-1/2 h-0.5 -translate-y-1/2 bg-[color-mix(in_oklab,var(--murekkep)_45%,transparent)]"
                 style={{
                   left: `${Math.min(yuzde(c.once, c.min, c.max), yuzde(c.sonra, c.min, c.max))}%`,
                   width: `${Math.abs(yuzde(c.sonra, c.min, c.max) - yuzde(c.once, c.min, c.max))}%`,
+                  // Bağ "önce"den "sonra"ya uzar (kaydırma animasyonu, globals.css).
+                  transformOrigin: c.sonra < c.once ? 'right' : 'left',
                 }}
               />
             )}
@@ -74,10 +76,17 @@ export function Cetvel({ o, dil }: { o: Olcum; dil: Dil }) {
                 style={{ left: `${yuzde(c.once, c.min, c.max)}%` }}
               />
             )}
+            {/* "Sonra" noktası cetvel genişliğindeki bir yolun içinde, "önce"nin yerinde durur; yol fark
+                kadar kayar. Kaydırma animasyonu yalnız transform'u oynatır (layout yok). */}
             <span
-              className="absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-murekkep ring-4 ring-zemin"
-              style={{ left: `${yuzde(c.sonra, c.min, c.max)}%` }}
-            />
+              className="cetvel-yol absolute inset-0"
+              style={{ '--fark': `${c.once !== undefined ? yuzde(c.sonra, c.min, c.max) - yuzde(c.once, c.min, c.max) : 0}%` } as React.CSSProperties}
+            >
+              <span
+                className="absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-murekkep ring-4 ring-zemin"
+                style={{ left: `${yuzde(c.once ?? c.sonra, c.min, c.max)}%` }}
+              />
+            </span>
           </div>
           <div className="etiket mt-2 flex justify-between text-yazi-3">
             <span>{uc(c.min)}</span>

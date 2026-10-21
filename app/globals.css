@@ -591,3 +591,175 @@ body {
     top: 0;
   }
 }
+
+/* ---------- Kaydırma hareketi (2026-10-21, Scryne: "scroll animasyonu olsun") ----------
+   Yalnız CSS kaydırma zaman çizelgesi (animation-timeline): JS yok, yalnız transform / opacity /
+   clip-path. Her hareket bir şey anlatır: harita taranır, ölçülen değer eski yerinden yenisine
+   yürür, yöntem hattı çizilir. Desteklemeyen tarayıcıda ve hareket azaltmada her şey son halinde
+   durur: aşağıdaki taban kuralları animasyonsuz da doğrudur. Bitiş kırpmaları negatif: etiket,
+   gölge ve aksan işaretleri (İ, Ö) kesilmesin. */
+
+/* Taban: "sonra" noktası ölçülen yerinde (yol fark kadar kaymış). */
+.cetvel-yol {
+  translate: var(--fark, 0%) 0;
+}
+
+/* Okuma çizgisi: yalnız animasyon destekleniyorsa görünür; yoksa hep dolu bir çizgi yanıltırdı. */
+.okuma-izi {
+  display: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Bölüm başlıkları satır tabanından yukarı açılır. */
+    h2.gosterge {
+      animation: baslik-ac linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 28%;
+    }
+
+    /* Öne çıkan proje görselleri kırpılmış halden açılır. */
+    #work figure.sekil {
+      animation: sekil-ac linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+
+    /* Atlas: harita soldan sağa taranır, iğneler sonra düşer, kayıtlar sırayla gelir. Zaman çizelgesi
+       bölümün: harita geniş ekranda yapışkan, kendi view() çizelgesi yapıştığı an duruyordu (ölçüldü). */
+    #atlas {
+      view-timeline: --atlas;
+    }
+    .atlas-tara {
+      animation: harita-tara linear both;
+      animation-timeline: --atlas;
+      animation-range: entry 15% entry 65%;
+    }
+    .atlas-tara .atlas-pin {
+      animation: igne-gel linear both;
+      animation-timeline: --atlas;
+      animation-range: entry 60% entry 85%;
+    }
+    .kayit-gel {
+      animation: kayit-gel linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+
+    /* Yöntem hattı çizilir, adımlar hat geçtikçe gelir. */
+    .yontem-hat {
+      view-timeline: --hat;
+    }
+    .yontem-hat::before {
+      transform-origin: top;
+      animation: hat-ciz-dikey linear both;
+      animation-timeline: --hat;
+      animation-range: entry 30% cover 60%;
+    }
+    .yontem-adim {
+      animation: kayit-gel linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+    @media (width >= 64rem) {
+      .yontem-hat::before {
+        transform-origin: left;
+        animation-name: hat-ciz-yatay;
+      }
+    }
+
+    /* Ölçüm cetveli: ölçülen değer eski yerinden yenisine yürür, aradaki bağ uzar. */
+    .cetvel {
+      view-timeline: --cetvel;
+    }
+    .cetvel-yol,
+    .cetvel-bag {
+      animation: cetvel-yuru linear both;
+      animation-timeline: --cetvel;
+      animation-range: entry 60% cover 45%;
+    }
+    .cetvel-bag {
+      animation-name: cetvel-bag;
+    }
+
+    /* Vaka sayfası: nav'ın hemen altında okuma ilerlemesi. */
+    .okuma-izi {
+      display: block;
+      position: fixed;
+      inset-inline: 0;
+      top: 4rem;
+      z-index: 39;
+      height: 2px;
+      background: var(--murekkep);
+      transform-origin: left;
+      animation: okuma-ilerle linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes baslik-ac {
+  from {
+    clip-path: inset(100% -0.3em -0.3em -0.3em);
+    translate: 0 0.35em;
+  }
+  to {
+    clip-path: inset(-0.3em);
+    translate: 0 0;
+  }
+}
+@keyframes sekil-ac {
+  from {
+    clip-path: inset(6% 4% round var(--radius-md));
+    scale: 1.03;
+  }
+  to {
+    clip-path: inset(-3rem round var(--radius-md));
+    scale: 1;
+  }
+}
+@keyframes harita-tara {
+  from {
+    clip-path: inset(-20% 100% -20% -20%);
+  }
+  to {
+    clip-path: inset(-20% -5% -20% -20%);
+  }
+}
+@keyframes igne-gel {
+  from {
+    opacity: 0;
+    scale: 0.3;
+  }
+}
+@keyframes kayit-gel {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+@keyframes hat-ciz-dikey {
+  from {
+    scale: 1 0;
+  }
+}
+@keyframes hat-ciz-yatay {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes cetvel-yuru {
+  from {
+    translate: 0 0;
+  }
+}
+@keyframes cetvel-bag {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes okuma-ilerle {
+  from {
+    scale: 0 1;
+  }
+}

@@ -92,6 +92,8 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
 
   return (
     <article>
+      {/* Okuma ilerlemesi: nav'ın altında ince mürekkep çizgisi, kaydırmaya bağlı (globals.css). */}
+      <div aria-hidden className="okuma-izi" />
       <header className="izgara border-b border-cizgi">
         <div className="kap pt-28 pb-14 md:pt-32 lg:pb-20">
           <Link href={`${yol.ana(dil)}#work`} className="group etiket inline-flex items-center gap-2 text-yazi-2 hover:text-yazi">
