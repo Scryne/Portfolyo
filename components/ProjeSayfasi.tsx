@@ -1,11 +1,13 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { sonraki } from '@/content/projeler';
+import { projeYeri, rota } from '@/lib/konum';
 import { BOLUM_BASLIK, M, yol } from '@/lib/metin';
 import type { Blok, Dil, Proje } from '@/lib/tipler';
 import { Cetvel } from './Cetvel';
 import { Galeri, type GaleriKaresi } from './Galeri';
 import { Gorsel, gorselKaydi, gorselYolu } from './Gorsel';
+import { HaritaKesiti } from './HaritaKesiti';
 import { Satir } from './Satir';
 
 function Bloklar({ bloklar, dil }: { bloklar: Blok[]; dil: Dil }) {
@@ -57,7 +59,9 @@ function Bolum({ id, baslik, children }: { id: string; baslik: string; children:
 
 export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
   const kapak = p.galeri[0];
+  const yer = projeYeri(p.slug, dil);
   const s = sonraki(p.slug);
+  const yolculuk = rota(p.slug, s.slug, dil);
 
   // Ölçümler "Ne yapıyor"dan sonra gelir; o bölüm yoksa ilk bölümden sonra.
   const olcumSonrasi = p.bolumler.some((b) => b.id === 'ne-yapiyor') ? 'ne-yapiyor' : p.bolumler[0].id;
@@ -98,7 +102,14 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
           <h1 className="gosterge mt-4 text-[clamp(2.25rem,9vw,7.5rem)]">{p.ad}</h1>
           <div className="mt-8 grid gap-12 lg:grid-cols-12 lg:gap-10">
             <p className="baslik max-w-[30ch] text-[clamp(1.375rem,2.4vw,1.875rem)] text-yazi-2 lg:col-span-6">{p.baslik[dil]}</p>
-            <dl className="grid content-start gap-x-6 gap-y-4 border-t border-cizgi-guclu pt-5 sm:grid-cols-[7rem_1fr] lg:col-span-5 lg:col-start-8">
+            <div className="lg:col-span-5 lg:col-start-8">
+            <HaritaKesiti slug={p.slug} dil={dil} />
+            <dl className="mt-5 grid content-start gap-x-6 gap-y-4 border-t border-cizgi-guclu pt-5 sm:grid-cols-[7rem_1fr]">
+              <dt className="etiket pt-0.5 text-yazi-3">{M.konum[dil]}</dt>
+              <dd className="text-[0.9375rem] text-yazi">
+                {yer.yer}
+                <span className="etiket block pt-0.5 text-yazi-3 tabular-nums">{yer.koordinat}</span>
+              </dd>
               <dt className="etiket pt-0.5 text-yazi-3">{M.donem[dil]}</dt>
               <dd className="text-[0.9375rem] text-yazi">{p.donem[dil]}</dd>
               <dt className="etiket pt-0.5 text-yazi-3">{M.durum[dil]}</dt>
@@ -117,6 +128,7 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
               <dt className="etiket pt-0.5 text-yazi-3">{M.demo[dil]}</dt>
               <dd className="text-[0.9375rem] text-yazi">{p.demo[dil]}</dd>
             </dl>
+            </div>
           </div>
         </div>
       </header>
@@ -199,7 +211,10 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
       <nav aria-label={M.sonrakiProje[dil]} className="border-t border-cizgi bg-zemin-2">
         <Link href={yol.proje(dil, s.slug)} className="group kap flex items-end justify-between gap-6 py-16 lg:py-24">
           <span>
-            <span className="etiket text-yazi-3">{M.sonrakiProje[dil]}</span>
+            <span className="etiket text-yazi-3">
+              {M.sonrakiProje[dil]}
+              {yolculuk && <span className="tabular-nums"> · {yolculuk}</span>}
+            </span>
             <span className="gosterge mt-3 block text-[clamp(2.125rem,7vw,5.5rem)] transition-colors duration-150 group-hover:text-murekkep">
               {s.ad}
             </span>

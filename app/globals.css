@@ -437,3 +437,157 @@ body {
     opacity: 0;
   }
 }
+
+/* ---------- Atlas (tüm projeler) ---------- */
+
+/* Noktalı dünya: public/harita.svg maske, renk temadan. Destek yoksa hiç görünmez (iğneler kalır). */
+.harita-zemin {
+  background: color-mix(in oklab, var(--yazi) 30%, transparent);
+  -webkit-mask: url('/harita.svg') center / 100% 100% no-repeat;
+  mask: url('/harita.svg') center / 100% 100% no-repeat;
+}
+.harita-zemin-sik {
+  background: color-mix(in oklab, var(--yazi) 30%, transparent);
+  -webkit-mask: url('/harita-sik.svg') center / 100% 100% no-repeat;
+  mask: url('/harita-sik.svg') center / 100% 100% no-repeat;
+}
+
+.atlas-cizgi {
+  position: absolute;
+  pointer-events: none;
+  background: color-mix(in oklab, var(--murekkep) 38%, transparent);
+}
+.atlas-cizgi-y {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+.atlas-cizgi-x {
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.atlas-pin {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  translate: -50% -50%;
+  background: var(--yazi-3);
+  box-shadow: 0 0 0 2px var(--zemin);
+}
+.atlas-pin[data-aktif] {
+  width: 10px;
+  height: 10px;
+  background: var(--murekkep);
+  z-index: 1;
+}
+
+.atlas-etiket {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 10px;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  background: var(--zemin-3);
+  border: 1px solid var(--cizgi);
+  translate: 14px -50%;
+}
+.atlas-etiket[data-yan='sol'] {
+  translate: calc(-100% - 14px) -50%;
+  align-items: flex-end;
+}
+
+/* Kaydın adı üstüne gelince genişler: Archivo'nun wdth ekseni (DESIGN.md imzası). Yalnız fareli geniş
+   ekranda: dokunmatikte üstüne gelme yok, dar satırda genişleyen ad depo etiketine çarpıyordu. */
+.atlas-ad {
+  font-variation-settings: 'wdth' 106;
+}
+.atlas-satir[data-aktif] .atlas-ad,
+.atlas-satir:focus-visible .atlas-ad {
+  color: var(--murekkep);
+}
+@media (hover: hover) and (width >= 64rem) {
+  .atlas-satir[data-aktif] .atlas-ad,
+  .atlas-satir:hover .atlas-ad,
+  .atlas-satir:focus-visible .atlas-ad {
+    font-variation-settings: 'wdth' 125;
+  }
+}
+/* Küçük haritada imleç ve etiket kalabalık: yalnız iğneler (konum satırda yazılı). */
+@media (width < 64rem) {
+  .atlas .atlas-cizgi,
+  .atlas .atlas-etiket {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .atlas-ad {
+    transition:
+      font-variation-settings 260ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      color 150ms;
+  }
+  .atlas-cizgi-y {
+    transition: left 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .atlas-cizgi-x {
+    transition: top 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .atlas-etiket {
+    transition:
+      left 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      top 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .atlas-pin[data-aktif]::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    border: 1.5px solid var(--murekkep);
+    animation: halka-nabiz 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+  }
+}
+
+/* ---------- Yöntem hattı ---------- */
+
+/* Adımları bağlayan tek çizgi: dar ekranda solda dikey, geniş ekranda üstte yatay. */
+.yontem-hat {
+  position: relative;
+}
+.yontem-hat::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--cizgi-guclu);
+}
+.yontem-isaret {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 9999px;
+  background: var(--zemin);
+  border: 1.5px solid var(--murekkep);
+}
+@media (width >= 64rem) {
+  .yontem-hat::before {
+    left: 0;
+    right: 0;
+    top: 5px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+  .yontem-isaret {
+    top: 0;
+  }
+}

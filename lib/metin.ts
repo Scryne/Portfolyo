@@ -27,6 +27,7 @@ export const M = {
   eposta: { tr: 'E-posta', en: 'Email' },
   geri: { tr: 'Tüm işler', en: 'All work' },
   kunye: { tr: 'Künye', en: 'Fact sheet' },
+  konum: { tr: 'Konum', en: 'Location' },
   donem: { tr: 'Dönem', en: 'Period' },
   durum: { tr: 'Durum', en: 'Status' },
   repo: { tr: 'Repo', en: 'Repository' },

@@ -106,6 +106,21 @@ Kurallar:
 - Mobilde on çubuk sığmaz: önceki / sayaç / sonraki; masaüstünde çubuklar. Kartta `04 / 10` sayacı.
 - Tur sırası coğrafidir (Türkiye → Levant → Mısır → Fransa → San Francisco), `content/site.ts`.
 
+**Atlas (2026-10-21, Scryne: "frontend'i çok daha eşsiz yap, sınır yok").** Kürenin dili sayfanın geri kalanına
+yayıldı: her proje dünyada bir yer, site bir atlas. Küre aynen kaldı (Scryne'ın seçimi); altındakiler değişti:
+- **Tüm projeler = atlas dizini.** Solda numaralı kayıtlar (ad, tek satır, yer, koordinat, repo), sağda aynı yerlerin
+  düz izdüşümü: noktalı Equal Earth haritası (`public/harita.svg`, CSS maskesi, renk temadan). Satırın üstüne gelmek
+  ya da klavyeyle odaklanmak iğneyi yakar; ince artı imleci ve etiket oraya kayar, ad `wdth` 106 → 125 genişler
+  (yalnız fareli geniş ekranda). Dar ekranda harita yalnız iğneler; bilgi satırda yazılı, harita `aria-hidden`.
+- **Vaka künyesi = konum kesiti.** Başlıkta projenin yerine 4× yakınlaşmış kesit (sık harita `harita-sik.svg`, yalnız
+  vaka sayfaları yükler), komşu projeler soluk iğne; künyede "Konum" satırı (yer + koordinat).
+- **Rota.** "Sonraki proje" bağlantısı iki yer arasındaki büyük daire mesafesini ve ilk yönü yazar (`lib/konum.ts`
+  `rota`, ör. "3.090 km kuzeybatı"). Gerçek hesap, süs değil.
+- **Koordinat dili.** TR "39,93° K · 32,85° D", EN "39.93° N · 32.85° E"; mono, tabular. Öne çıkan projelerin etiket
+  satırında da. Kaynak tek: `content/site.ts` → `KURE`; harita ve iğneler `npm run harita` ile üretilir.
+- **Ritim kırıldı.** Üç bölüm artık üç ayrı düzen: atlas (liste + yapışkan harita), yöntem (beş adım tek bir hat
+  üstünde; geniş ekranda yatay, dar ekranda dikey), CV (iki büyük indirme kutusu + üç iletişim satırı).
+
 **Reddedilenler (tekrarlama).** Aynı gün: "Yapay zekâyla kuruyorum. Sonra ölçüyorum." başlığı
 ("garip"), dev ad + rol, denetim ölçümlerinden eğim grafiği (`hero-egim` dalı, "saçma ve kötü"),
 statik taslakta dipnotlu büyük paragraf, ürün ekranlarından "şekil masası", Wartrack test
@@ -196,6 +211,9 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
 - **Dürüst sınırlar:** her vaka sayfasında ayrı bölüm; stil olarak sade liste, uyarı kutusu değil.
 - **Nav:** üstte sabit cam şerit. Ad solda, bölümler, dil ve tema sağda.
 - **Lightbox:** yerel `<dialog>`, ok tuşlarıyla gezinme, Escape kapatır, odak geri döner.
+- **Atlas:** `components/Atlas.tsx` (istemci; yalnız hangi iğnenin yandığı), veri sunucuda `lib/konum.ts`. İğne nötr
+  `yazi-3`, seçili `primary` + nabız halkası (hareket azaltmada yok). Etiket zemin üstü kart, sağ kenara yakınsa solda.
+- **Konum kesiti:** `components/HaritaKesiti.tsx`, statik; artı imleci ortada, seçili iğne merkezde.
 
 ## Do's and Don'ts
 
