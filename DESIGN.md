@@ -77,7 +77,7 @@ spacing:
 **Brief.** Alan: yazılım mühendisliği portfolyosu. Kitle: işe alım yapan mühendis ve teknik
 lider, TR ve yurt dışı. Kazanılacak sıfat: **kesin**. Hareket derinliği: hero'da canlı küre (tek
 sürekli hareket), gerisi kaydırmaya bağlı ve anlamlı (2026-10-21'den beri; aşağıda). Layout ailesi: asimetrik
-küre hero'su → asimetrik sergi → defter → sabitlenen sahne → yöntem hattı → CV bandı.
+küre hero'su → kart yığını (seçilmiş işler) → defter → sabitlenen sahne → sabitlenen yöntem hattı → CV bandı.
 
 **Hero (2026-09-28, Scryne seçti; küre v2 aşağıda).** Renk ağı zemininde noktalı bir dünya küresi (`cobe`,
 WebGL, tembel yüklenir). Küre projelerin gerçekten geçtiği yerlere sırayla döner (Levant,
@@ -118,8 +118,16 @@ ya da fikri değiştirmek; "ekran sahnesi"ni seçti. Küre aynen kaldı (Scryne:
   (`lg:sr-only`). Dar ekranda sabitleme yok: her proje kendi karesiyle kart, kaydırdıkça gelir.
 - **Kare kaynağı tek:** `content/site.ts` → `KURE.kare` (kürenin kartıyla aynı ekran). Ölçüm seçimi `lib/olcum.ts`
   (İşler bölümüyle aynı kural).
-- **Ritim kırıldı.** Üç bölüm üç ayrı düzen: sahne (sabitlenen liste + perde), yöntem (beş adım tek bir hat
-  üstünde; geniş ekranda yatay, dar ekranda dikey), CV (iki büyük indirme kutusu + üç iletişim satırı).
+- **Ritim kırıldı.** Bölümler ayrı düzenler: kart yığını, sahne (sabitlenen liste + perde), yöntem (beş adım tek
+  bir hat üstünde; geniş ekranda yatay, dar ekranda dikey), CV (iki büyük indirme kutusu + üç iletişim satırı).
+
+**Kart yığını ve yöntem sahnesi (2026-10-21, Scryne: Yöntem "tek scrollda bitiyor, tüm kartlar zaten açık geliyor",
+"hâlâ istediğim seviyede değil").** Seçilmiş işler asimetrik sergiden kart yığınına geçti: geniş ve yüksek ekranda
+(`64rem` × `36rem`) her proje ekran boyunda yapışık bir kart (solda künye + ölçüm, sağda gerçek ekran; ikinci kare
+köşeye biner, telefon karesi çerçeveli), her kart öncekinden 1,25rem aşağıda durur; sonraki biner, alttaki 0,92'ye
+küçülüp kararır (`timeline-scope` ile sonraki kartın giriş çizelgesi). Yöntem aynı koşulda ~1,4 ekran boyu
+sabitlenir: hat bu yolda çizilir, adım i hat sütununa ulaşınca (`contain` i × 17%) gelir. Dar ekranda ikisi de
+akışta kalır. Sahne ölçümü uzun metin olabilir (PolitikDesk); sahne metni kırılır, `nowrap` yatay taşma yapmıştı.
 
 **Reddedilenler (tekrarlama).** Aynı gün: "Yapay zekâyla kuruyorum. Sonra ölçüyorum." başlığı
 ("garip"), dev ad + rol, denetim ölçümlerinden eğim grafiği (`hero-egim` dalı, "saçma ve kötü"),
@@ -213,11 +221,16 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
 - **Lightbox:** yerel `<dialog>`, ok tuşlarıyla gezinme, Escape kapatır, odak geri döner.
 - **Sahne:** `components/Sahne.tsx` (istemci; kaydırma dilimi → aktif proje), veri ve kareler sunucuda
   `components/Dizin.tsx`. Sabitlenen alanda `view()` kullanılmaz (yapışık öğe kımıldamaz, çizelge yarıda kalır);
-  giriş hareketi bölümün çizelgesine (`--projeler`) bağlı.
+  giriş hareketi bölümün çizelgesine (`--projeler`) bağlı. Sabitleme koşulu CSS ve `SABIT` sabitinde aynı.
+- **Kart yığını:** `components/Sergi.tsx`; yapışık kart içindeki hareketler girişte biter (kart yapışınca `view()`
+  durur). Kaplar `overflow: clip`: `hidden` kaydırma kabı sayılır, içerideki `view()` hiç ilerlemez.
+- **Yöntem sahnesi:** `components/Yontem.tsx` (`yontem-iz` > `yontem-yapisik`); sabitleme yalnız animasyon
+  desteği ve hareket izni varken, yoksa uzun boş kaydırma kalırdı.
 - **Kaydırma hareketi (2026-10-21, Scryne: "scroll animasyonu olsun", "profesyonel ve eşsiz"):** CSS
   `animation-timeline` ile, yalnız transform / opacity / clip-path (başlıkta geniş ekranda `wdth` 70 → 125 yayılma;
   tek satır, alttakini itmez). Her hareket bir şey anlatır: hero geri çekilir (küre küçülür, metin daha hızlı
-  kalkar); İşler görselleri perdeyle açılır, içindeki ekran yavaş akar; sahne kurulur, satırlar sırayla gelir;
+  kalkar); işler kartları aşağıdan gelir, ekran büyükten yerine oturur, sonraki kart binince alttaki geri çekilir;
+  sahne kurulur, satırlar sırayla gelir;
   cetvelde "sonra" noktası "önce" halkasından kalkıp ölçülen yerine yürür; yöntem hattı çizilir, her adım hat ona
   ulaşınca gelir; vaka sayfasında nav altında 2px okuma çizgisi. Taban kurallar son hali taşır: hareket azaltmada
   ve desteklemeyen tarayıcıda her şey yerinde durur, okuma çizgisi hiç görünmez. `overflow:hidden` kap içindeki

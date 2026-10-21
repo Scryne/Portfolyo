@@ -439,6 +439,36 @@ body {
 }
 
 
+/* ---------- Kart yığını (seçilmiş işler) ---------- */
+
+/* Geniş ve yüksek ekranda kartlar yapışık ve ekran boyunda; her biri öncekinden 1,25rem aşağıda durur, alttakilerin
+   üst şeridi görünür kalır. Yığın animasyonsuz da çalışır; küçülme ve kararma kaydırma hareketi bölümünde. */
+.kart-ic {
+  position: relative;
+}
+.kart-ic::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: var(--zemin);
+  opacity: 0;
+}
+@media (width >= 64rem) and (height >= 36rem) {
+  .kart-yigin {
+    gap: 14svh;
+  }
+  .kart {
+    position: sticky;
+    top: calc(5.5rem + var(--i) * 1.25rem);
+    height: calc(100svh - 10rem);
+  }
+  .kart-ic {
+    transform-origin: 50% 0;
+  }
+}
+
 /* ---------- Sahne (tüm projeler) ---------- */
 
 /* Dar ekran: kart listesi. Her kayıt kendi karesiyle. */
@@ -482,8 +512,9 @@ body {
   z-index: 2;
 }
 
-/* Geniş ekran: bölüm kaydırma boyunca sabit; her projeye --pay kadar kaydırma payı. */
-@media (width >= 64rem) {
+/* Geniş ve yeterince yüksek ekran: bölüm kaydırma boyunca sabit; her projeye --pay kadar kaydırma payı.
+   Koşul Sahne.tsx'teki SABIT ile aynı. */
+@media (width >= 64rem) and (height >= 36rem) {
   .sahne-iz {
     --pay: 26svh;
     height: calc(100svh - 4rem + var(--n) * var(--pay));
@@ -494,6 +525,8 @@ body {
     height: calc(100svh - 4rem);
     align-content: center;
   }
+}
+@media (width >= 64rem) {
   .sahne-liste {
     display: grid;
     grid-auto-rows: 1fr;
@@ -529,7 +562,7 @@ body {
   }
   /* Sahne ekrana sığsın: kare 16:10, yüksekliği üst ve alt yazılara yer bırakır. */
   .sahne {
-    width: min(100%, calc((100svh - 18rem) * 1.6));
+    width: min(100%, calc((100svh - 22rem) * 1.6));
     margin-left: auto;
   }
   .sahne-cerceve {
@@ -680,19 +713,23 @@ body {
       animation-range: entry 10% cover 30%;
     }
 
-    /* İşler: görsel perdeyle açılır, içindeki ekran kaydırmadan biraz yavaş akar. */
-    #work figure.sekil {
-      view-timeline: --sekil;
-      animation: sekil-ac linear both;
+    /* İşler: kart aşağıdan gelir, içindeki ekran büyükten yerine oturur. Kaplar overflow:clip; hidden olsaydı
+       kap kaydırma kabı sayılır, içerideki view() hiç ilerlemezdi (ölçüldü). */
+    .kart-ic {
+      animation: kart-gel linear both;
       animation-timeline: view();
-      animation-range: entry 0% cover 35%;
+      animation-range: entry 0% entry 70%;
     }
-    /* Çerçeve overflow:hidden; görselin kendi view() çizelgesi çerçeveye göre ölçülür ve hiç ilerlemez. */
-    #work figure.sekil > img {
-      scale: 1.06;
-      animation: kare-kay linear both;
-      animation-timeline: --sekil;
-      animation-range: cover 0% cover 100%;
+    /* Aralıklar girişte biter: kart yapışınca view() durur, sonrasına kalan hareket yarıda takılırdı. */
+    .kart-ana {
+      animation: kare-otur-k linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+    .kart-ikinci {
+      animation: kayit-gel linear both;
+      animation-timeline: view();
+      animation-range: entry 30% entry 100%;
     }
 
     /* Tüm projeler, dar ekran: kartlar sırayla gelir, kareleri perdeyle açılır. */
@@ -761,6 +798,70 @@ body {
       .yontem-isaret {
         animation-timeline: --hat;
         animation-range: cover calc(17% + var(--i) * 6%) cover calc(27% + var(--i) * 6%);
+      }
+    }
+
+    /* Yöntem sahnesi (geniş ve yüksek ekran): bölüm sabitlenir; hat ~1,4 ekran boyu kaydırmada çizilir, her adım
+       hat sütununa ulaşınca (i × 17%) gelir, işareti o an yanar. Sabitleme yalnız burada: destek yoksa uzun boş
+       kaydırma kalmasın. */
+    @media (width >= 64rem) and (height >= 36rem) {
+      .yontem-iz {
+        height: calc(100svh - 4rem + 140svh);
+        view-timeline: --yontem;
+      }
+      .yontem-yapisik {
+        position: sticky;
+        top: 4rem;
+        height: calc(100svh - 4rem);
+        display: grid;
+        align-content: center;
+      }
+      .yontem-hat::before {
+        animation-timeline: --yontem;
+        animation-range: contain 0% contain 85%;
+      }
+      .yontem-adim > :not(.yontem-isaret) {
+        animation-timeline: --yontem;
+        animation-range: contain calc(var(--i) * 17%) contain calc(var(--i) * 17% + 12%);
+      }
+      .yontem-isaret {
+        animation-timeline: --yontem;
+        animation-range: contain calc(var(--i) * 17%) contain calc(var(--i) * 17% + 6%);
+      }
+    }
+
+    /* Kart yığını: alttaki kart, sonraki üstüne binerken küçülüp kararır (sonraki kartın giriş çizelgesi). */
+    @media (width >= 64rem) and (height >= 36rem) {
+      .kart-yigin {
+        timeline-scope: --kart-2, --kart-3;
+      }
+      .kart:nth-child(2) {
+        view-timeline: --kart-2;
+      }
+      .kart:nth-child(3) {
+        view-timeline: --kart-3;
+      }
+      .kart:nth-child(1) .kart-ic,
+      .kart:nth-child(2) .kart-ic {
+        animation:
+          kart-gel linear both,
+          kart-geri linear both;
+        animation-timeline: view(), --kart-2;
+        animation-range:
+          entry 0% entry 70%,
+          entry 0% entry 100%;
+      }
+      .kart:nth-child(2) .kart-ic {
+        animation-timeline: view(), --kart-3;
+      }
+      .kart:nth-child(1) .kart-ic::after,
+      .kart:nth-child(2) .kart-ic::after {
+        animation: kart-karar linear both;
+        animation-timeline: --kart-2;
+        animation-range: entry 0% entry 100%;
+      }
+      .kart:nth-child(2) .kart-ic::after {
+        animation-timeline: --kart-3;
       }
     }
 
@@ -845,12 +946,25 @@ body {
     scale: 1;
   }
 }
-@keyframes kare-kay {
+@keyframes kart-gel {
   from {
-    translate: 0 -2.5%;
+    opacity: 0;
+    translate: 0 64px;
   }
+}
+@keyframes kare-otur-k {
+  from {
+    scale: 1.15;
+  }
+}
+@keyframes kart-geri {
   to {
-    translate: 0 2.5%;
+    scale: 0.92;
+  }
+}
+@keyframes kart-karar {
+  to {
+    opacity: 0.55;
   }
 }
 @keyframes kayit-gel {

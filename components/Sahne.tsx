@@ -23,6 +23,9 @@ type Props = {
   etiket: { once: string; sonra: string };
 };
 
+/** Sabitleme koşulu; globals.css'teki .sahne-iz kuralıyla aynı olmalı. */
+const SABIT = '(width >= 64rem) and (height >= 36rem)';
+
 const iki = (i: number) => String(i).padStart(2, '0');
 
 /**
@@ -54,7 +57,7 @@ export function Sahne({ projeler, sahneKareleri, satirKareleri, baslik, etiket }
    */
   const odakla = (i: number) => {
     const el = iz.current;
-    if (!el || !matchMedia('(width >= 64rem)').matches) return sec(i);
+    if (!el || !matchMedia(SABIT).matches) return sec(i);
     const yapisik = el.firstElementChild as HTMLElement;
     const r = el.getBoundingClientRect();
     const yol = r.height - yapisik.offsetHeight;
@@ -66,7 +69,7 @@ export function Sahne({ projeler, sahneKareleri, satirKareleri, baslik, etiket }
   useEffect(() => {
     const el = iz.current!;
     const yapisik = el.firstElementChild as HTMLElement;
-    const genis = matchMedia('(width >= 64rem)');
+    const genis = matchMedia(SABIT);
     let kare = 0;
     // Bölümün sabit kaldığı kaydırma yolu n eşit dilime bölünür; hangi dilimdeysek o proje sahnede.
     const olc = () => {
@@ -169,13 +172,16 @@ export function Sahne({ projeler, sahneKareleri, satirKareleri, baslik, etiket }
                 </span>
               ))}
             </Link>
-            <div key={p.slug} className="sahne-metin mt-6 grid grid-cols-[1fr_auto] items-end gap-x-8 gap-y-2">
-              <p className="baslik max-w-[34ch] text-xl leading-snug text-yazi">{p.baslik}</p>
-              <p className="okuma text-right text-[1.75rem] leading-none whitespace-nowrap">
-                {p.olcum.once && <del className="text-yazi-3 decoration-kalem decoration-2">{p.olcum.once}</del>}{' '}
-                <span className="text-murekkep">{p.olcum.sonra}</span>
+            {/* Ölçüm uzun metin olabilir (PolitikDesk: "2.701 test, 0 hata, ~50 sn"): kırılır, sütunu ezmez. */}
+            <div key={p.slug} className="sahne-metin mt-5 min-h-[7.5rem]">
+              <p className="baslik text-xl leading-snug text-balance text-yazi">{p.baslik}</p>
+              <p className="mt-4 flex items-baseline justify-between gap-x-6 gap-y-1 border-t border-cizgi pt-3">
+                <span className="etiket text-yazi-3">{p.olcum.ne}</span>
+                <span className="okuma text-right text-xl leading-tight text-balance">
+                  {p.olcum.once && <del className="text-yazi-3 decoration-kalem decoration-2">{p.olcum.once}</del>}{' '}
+                  <span className="text-murekkep">{p.olcum.sonra}</span>
+                </span>
               </p>
-              <p className="etiket col-span-2 text-right text-yazi-3">{p.olcum.ne}</p>
             </div>
           </div>
         </div>

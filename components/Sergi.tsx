@@ -39,25 +39,19 @@ function VakaBaglantisi({ p, dil }: { p: Proje; dil: Dil }) {
   );
 }
 
-function Kunye({ p, dil, adBoyu = 'text-[clamp(2.125rem,5.5vw,4.5rem)]' }: { p: Proje; dil: Dil; adBoyu?: string }) {
-  return (
-    <>
-      <p className="etiket text-yazi-2">{p.alan[dil]}</p>
-      <h3 className={`gosterge mt-3 ${adBoyu}`}>
-        <Link href={yol.proje(dil, p.slug)} className="transition-colors duration-150 hover:text-murekkep">
-          {p.ad}
-        </Link>
-      </h3>
-    </>
-  );
-}
-
+/**
+ * Seçilmiş işler: üç proje, üst üste binen kartlar. Geniş ekranda her kart ekran boyunda ve yapışık; sonraki
+ * kart kaydırmayla öncekinin üstüne biner, alttaki geri çekilir (globals.css, "Kart yığını"). Kart bir dosya
+ * sayfası gibi: solda künye ve ölçüm, sağda gerçek ekran; ikinci kare (yakın plan ya da telefon) köşeye biner.
+ * Dar ekranda yığın yok: kartlar alt alta, görsel üstte.
+ */
 export function Sergi({ dil }: { dil: Dil }) {
-  const [a, b, c] = SERGI.map((s) => {
+  const isler = SERGI.map((s) => {
     const p = projeBul(s.slug);
     if (!p) throw new Error(`Sergide bilinmeyen proje: ${s.slug}`);
     const aciklama = (ad: string) => p.galeri.find((k) => k.ad === ad)?.aciklama[dil] ?? p.ad;
-    return { ...s, p, aciklama };
+    const mobil = s.ikinci ? Boolean(p.galeri.find((k) => k.ad === s.ikinci)?.mobil) : false;
+    return { ...s, p, aciklama, mobil };
   });
 
   return (
@@ -67,70 +61,64 @@ export function Sergi({ dil }: { dil: Dil }) {
           {M.seciliIsler[dil]}
         </h2>
 
-        {/* A: tam genişlik şekil, altında 5/7 künye. */}
-        <article className="mt-16 grid gap-x-10 gap-y-8 lg:mt-24 lg:grid-cols-12">
-          <figure className="sekil lg:col-span-12">
-            <Gorsel proje={a.p.slug} ad={a.kare} alt={a.aciklama(a.kare)} sizes="(min-width: 1360px) 1280px, 100vw" className="h-auto w-full" />
-          </figure>
-          <div className="lg:col-span-5">
-            <Kunye p={a.p} dil={dil} />
-          </div>
-          <div className="flex flex-col gap-5 lg:col-span-7">
-            <p className="baslik text-xl text-yazi md:text-2xl">{a.p.baslik[dil]}</p>
-            <p className="metin text-yazi-2">{a.p.tekCumle[dil]}</p>
-            <OnceSonra p={a.p} dil={dil} />
-            <VakaBaglantisi p={a.p} dil={dil} />
-          </div>
-        </article>
+        <ol className="kart-yigin mt-14 flex flex-col gap-8 lg:mt-20">
+          {isler.map(({ p, kare, ikinci, aciklama, mobil }, i) => (
+            <li key={p.slug} className="kart" style={{ '--i': i } as React.CSSProperties}>
+              <article className="kart-ic grid overflow-clip rounded-lg border border-cizgi bg-zemin-3 shadow-[var(--golge)] lg:h-full lg:grid-cols-12">
+                {/* Görsel önce gelir (dar ekranda üstte); geniş ekranda sağ sütun. */}
+                <div className="kart-gorsel relative aspect-[1.6] overflow-clip border-b border-cizgi bg-zemin-2 lg:order-2 lg:col-span-7 lg:aspect-auto lg:border-b-0 lg:border-l">
+                  <Gorsel
+                    proje={p.slug}
+                    ad={kare}
+                    alt={aciklama(kare)}
+                    sizes="(min-width: 1024px) 58vw, 100vw"
+                    className="kart-ana absolute inset-0 size-full object-cover object-left-top"
+                  />
+                  {ikinci &&
+                    (mobil ? (
+                      <Gorsel
+                        proje={p.slug}
+                        ad={ikinci}
+                        alt={aciklama(ikinci)}
+                        sizes="(min-width: 1024px) 14vw, 26vw"
+                        className="kart-ikinci absolute right-[6%] bottom-[7%] h-[80%] w-auto rounded-[1.5rem] border-[5px] border-zemin-3 shadow-[var(--golge)] ring-1 ring-cizgi-guclu"
+                      />
+                    ) : (
+                      <Gorsel
+                        proje={p.slug}
+                        ad={ikinci}
+                        alt={aciklama(ikinci)}
+                        sizes="(min-width: 1024px) 26vw, 46vw"
+                        className="kart-ikinci absolute right-[4%] bottom-[6%] h-auto w-[46%] rounded-md border border-cizgi-guclu shadow-[var(--golge)]"
+                      />
+                    ))}
+                </div>
 
-        {/* B: metin solda, iki şekil sağda; ikincisi birincinin köşesine biner. */}
-        <article className="mt-28 grid gap-x-12 gap-y-10 lg:mt-40 lg:grid-cols-12">
-          <div className="flex flex-col gap-5 lg:col-span-5 lg:pt-6">
-            <Kunye p={b.p} dil={dil} adBoyu="text-[clamp(2.125rem,3.9vw,3.5rem)]" />
-            <p className="baslik text-xl text-yazi">{b.p.baslik[dil]}</p>
-            <p className="text-yazi-2">{b.p.tekCumle[dil]}</p>
-            <OnceSonra p={b.p} dil={dil} />
-            <VakaBaglantisi p={b.p} dil={dil} />
-          </div>
-          <div className="relative lg:col-span-7 lg:pb-44">
-            <figure className="sekil">
-              <Gorsel proje={b.p.slug} ad={b.kare} alt={b.aciklama(b.kare)} sizes="(min-width: 1024px) 60vw, 100vw" className="h-auto w-full" />
-            </figure>
-            {b.ikinci && (
-              <figure className="sekil mt-6 shadow-[var(--golge)] lg:absolute lg:-right-4 lg:bottom-0 lg:mt-0 lg:w-[56%] xl:-right-8">
-                <Gorsel proje={b.p.slug} ad={b.ikinci} alt={b.aciklama(b.ikinci)} sizes="(min-width: 1024px) 36vw, 100vw" className="h-auto w-full" />
-                <figcaption className="etiket border-t border-cizgi px-4 py-3 text-yazi-2">{b.aciklama(b.ikinci)}</figcaption>
-              </figure>
-            )}
-          </div>
-        </article>
-
-        {/* C: masaüstü + telefon yan yana, künye üstte geniş satır. */}
-        <article className="mt-28 lg:mt-40">
-          <div className="grid gap-x-10 gap-y-5 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-5">
-              <Kunye p={c.p} dil={dil} />
-            </div>
-            <p className="baslik text-xl text-yazi md:text-2xl lg:col-span-7">{c.p.baslik[dil]}</p>
-          </div>
-          <div className="mt-10 grid grid-cols-[1fr_28%] items-start gap-4 sm:gap-6 lg:grid-cols-12">
-            <figure className="sekil lg:col-span-9">
-              <Gorsel proje={c.p.slug} ad={c.kare} alt={c.aciklama(c.kare)} sizes="(min-width: 1024px) 70vw, 72vw" className="h-auto w-full" />
-            </figure>
-            {c.ikinci && (
-              <figure className="sekil lg:col-span-3">
-                <Gorsel proje={c.p.slug} ad={c.ikinci} alt={c.aciklama(c.ikinci)} sizes="(min-width: 1024px) 22vw, 28vw" className="h-auto w-full" />
-              </figure>
-            )}
-          </div>
-          <div className="mt-10 grid gap-x-10 gap-y-6 lg:grid-cols-12">
-            <p className="metin text-yazi-2 lg:col-span-6">{c.p.tekCumle[dil]}</p>
-            <div className="flex flex-col gap-5 lg:col-span-5 lg:col-start-8">
-              <OnceSonra p={c.p} dil={dil} />
-              <VakaBaglantisi p={c.p} dil={dil} />
-            </div>
-          </div>
-        </article>
+                <div className="flex flex-col justify-between gap-8 p-6 sm:p-8 lg:order-1 lg:col-span-5 xl:p-10">
+                  <div>
+                    <p className="etiket flex justify-between gap-4 text-yazi-2">
+                      <span>{p.alan[dil]}</span>
+                      <span className="text-yazi-3 tabular-nums" aria-hidden>
+                        {String(i + 1).padStart(2, '0')} / {String(isler.length).padStart(2, '0')}
+                      </span>
+                    </p>
+                    <h3 className="gosterge mt-6 text-[clamp(2.25rem,9vw,3.5rem)] lg:text-[clamp(2rem,2.9vw,3.25rem)]">
+                      <Link href={yol.proje(dil, p.slug)} className="transition-colors duration-150 hover:text-murekkep">
+                        {p.ad}
+                      </Link>
+                    </h3>
+                    <p className="baslik mt-4 text-xl text-balance text-yazi">{p.baslik[dil]}</p>
+                    <p className="mt-4 text-yazi-2">{p.tekCumle[dil]}</p>
+                  </div>
+                  <div className="flex flex-col gap-5">
+                    <OnceSonra p={p} dil={dil} />
+                    <VakaBaglantisi p={p} dil={dil} />
+                  </div>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
