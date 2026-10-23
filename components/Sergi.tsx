@@ -30,6 +30,7 @@ function VakaBaglantisi({ p, dil }: { p: Proje; dil: Dil }) {
   return (
     <Link
       href={yol.proje(dil, p.slug)}
+      transitionTypes={['ileri']}
       className="group inline-flex items-center gap-2 font-semibold text-murekkep"
       aria-label={`${M.vakaOku[dil]}: ${p.ad}`}
     >
@@ -103,7 +104,7 @@ export function Sergi({ dil }: { dil: Dil }) {
                       </span>
                     </p>
                     <h3 className="gosterge mt-6 text-[clamp(2.25rem,9vw,3.5rem)] lg:text-[clamp(2rem,2.9vw,3.25rem)]">
-                      <Link href={yol.proje(dil, p.slug)} className="transition-colors duration-150 hover:text-murekkep">
+                      <Link href={yol.proje(dil, p.slug)} transitionTypes={['ileri']} className="transition-colors duration-150 hover:text-murekkep">
                         {p.ad}
                       </Link>
                     </h3>

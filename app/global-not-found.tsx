@@ -2,13 +2,13 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { archivo, plexMono } from '@/lib/fontlar';
+import { TEMA_BETIGI } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: '404 · Berkay Karaca',
   robots: { index: false },
 };
 
-const TEMA_BETIGI = `(function(){try{var t=localStorage.getItem('tema');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}})()`;
 
 // Hangi dilde gelindiği bilinmez; iki dil birlikte.
 export default function GlobalNotFound() {

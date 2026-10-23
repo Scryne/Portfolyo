@@ -4,6 +4,7 @@ import { projeBul } from '@/content/projeler';
 import { DEFTER, DEFTER_METNI } from '@/content/site';
 import { M, yol } from '@/lib/metin';
 import type { Dil } from '@/lib/tipler';
+import { OkumaDegeri } from './OkumaDegeri';
 
 // Elle çekilmiş gibi duran üç kalem izi; satırlar sırayla birini kullanır.
 const IZLER = ['M2 12.5 C 24 10.2, 58 11.8, 98 7.6', 'M2 9 C 30 11.5, 66 8.2, 98 10.8', 'M2 13.4 C 36 12, 62 9.6, 98 8.8'];
@@ -52,6 +53,7 @@ export function Defter({ dil }: { dil: Dil }) {
             <li key={s.slug} className="border-b border-cizgi">
               <Link
                 href={yol.proje(dil, s.slug)}
+                transitionTypes={['ileri']}
                 className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-3 py-5 transition-colors duration-150 hover:bg-[color-mix(in_oklab,var(--zemin-2)_70%,transparent)] focus-visible:outline-offset-0 md:grid-cols-[11rem_1fr_auto_2rem] md:py-6 lg:grid-cols-[13rem_1fr_auto_2.5rem]"
               >
                 <span className="baslik text-lg text-yazi md:text-xl">{p.ad}</span>
@@ -62,7 +64,7 @@ export function Defter({ dil }: { dil: Dil }) {
                   <KalemliDeger deger={s.once[dil]} sira={i} dil={dil} />
                   <span className="kalem-sonra text-murekkep" style={{ '--sira': i } as React.CSSProperties}>
                     <span className="sr-only">{M.sonra[dil]}: </span>
-                    {s.sonra[dil]}
+                    <OkumaDegeri deger={s.sonra[dil]} />
                   </span>
                 </span>
                 <ArrowUpRight

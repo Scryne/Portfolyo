@@ -20,6 +20,11 @@ const cssMetni = readFileSync(css, 'utf8');
 const degisken = (ad) => cssMetni.match(new RegExp(ad + ':([^;}]+)'))?.[1] ?? 'sans-serif';
 
 const SLUGLAR = ['tenderiq', 'fabrikaos', 'aegis', 'ghostbuilding', 'yapirisk', 'wartrack', 'osintlab', 'politikdesk', 'mythatlas', 'kokpit'];
+// index.ts uzantısız import kullandığı için Node doğrudan yükleyemiyor; liste elle. Yeni proje eklenip burası
+// unutulursa o projenin kartı sessizce eksik kalmasın.
+const dosyalar = readdirSync(path.join(KOK, 'content/projeler')).filter((f) => f.endsWith('.ts') && f !== 'index.ts').map((f) => f.slice(0, -3));
+const eksik = dosyalar.filter((d) => !SLUGLAR.includes(d));
+if (eksik.length) throw new Error(`og.mjs SLUGLAR listesinde olmayan proje: ${eksik.join(', ')}`);
 const projeler = await Promise.all(
   SLUGLAR.map(async (s) => Object.values(await import(pathToFileURL(path.join(KOK, `content/projeler/${s}.ts`)).href))[0]),
 );

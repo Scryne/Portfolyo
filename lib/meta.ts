@@ -41,17 +41,57 @@ const kart = (dil: Dil, ad: string, alt: string) => {
   };
 };
 
-/** Ana sayfadaki Person verisi: yalnız sayfada görünen bilgiler. */
+const kisi = (dil: Dil) => ({
+  '@type': 'Person',
+  '@id': `${SITE_URL}/#kisi`,
+  name: KISI.ad,
+  jobTitle: HERO.ust[dil],
+  url: `${SITE_URL}${yol.ana(dil)}`,
+  sameAs: [KISI.github, KISI.linkedin],
+});
+
+/** Ana sayfa: profil sayfası ve kişisi. Yalnız sayfada görünen bilgiler. */
 export function kisiJsonLd(dil: Dil) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: KISI.ad,
-    jobTitle: HERO.ust[dil],
+    '@type': 'ProfilePage',
     url: `${SITE_URL}${yol.ana(dil)}`,
-    sameAs: [KISI.github, KISI.linkedin],
+    inLanguage: dil,
+    name: `${KISI.ad} · ${HERO.ust[dil]}`,
+    mainEntity: kisi(dil),
   };
 }
+
+/** Vaka sayfası: yazılımın vaka çalışması (yazarı Person) ve ana sayfaya dönen gezinti yolu. */
+export function projeJsonLd(p: Proje, dil: Dil) {
+  const url = `${SITE_URL}${yol.proje(dil, p.slug)}`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CreativeWork',
+        '@id': `${url}#vaka`,
+        url,
+        name: `${p.ad}: ${p.baslik[dil]}`,
+        description: p.tekCumle[dil].replace(/[`*]/g, ''),
+        inLanguage: dil,
+        image: `${SITE_URL}/og/${dil}/${p.slug}.png`,
+        author: kisi(dil),
+        about: { '@type': 'SoftwareApplication', name: p.ad, applicationCategory: p.alan[dil], ...(p.repo.acik ? { codeRepository: p.repo.url } : {}) },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: KISI.ad, item: `${SITE_URL}${yol.ana(dil)}` },
+          { '@type': 'ListItem', position: 2, name: p.ad, item: url },
+        ],
+      },
+    ],
+  };
+}
+
+/** JSON-LD'yi <script> içine güvenle yazar (`</script>` kaçışı). */
+export const jsonLd = (veri: object) => JSON.stringify(veri).replace(/</g, '\\u003c');
 
 export function anaSayfaMeta(dil: Dil): Metadata {
   const k = kart(dil, 'index', `${KISI.ad} · ${HERO.ust[dil]}`);

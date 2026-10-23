@@ -413,7 +413,7 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .kure-kart-ic {
-    animation: kart-gel 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation: kure-kart-gel 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
   .kure-halka::after {
     content: '';
@@ -425,7 +425,8 @@ body {
   }
 }
 
-@keyframes kart-gel {
+/* Adı kart yığınındaki kart-gel'den ayrı: aynı adlı iki @keyframes'te sonraki kazanır, hero kartı 64px zıplıyordu. */
+@keyframes kure-kart-gel {
   from {
     opacity: 0;
     translate: 0 6px;
@@ -816,6 +817,11 @@ body {
         display: grid;
         align-content: center;
       }
+      /* Başlık yapışık alanın içinde: kendi view() çizelgesi yapışınca durur, başlık yarı kırpık kalıyordu. */
+      .yontem-yapisik h2.gosterge {
+        animation-timeline: --yontem;
+        animation-range: entry 15% entry 65%;
+      }
       .yontem-hat::before {
         animation-timeline: --yontem;
         animation-range: contain 0% contain 85%;
@@ -841,10 +847,14 @@ body {
       .kart:nth-child(3) {
         view-timeline: --kart-3;
       }
+      /* Yığında kart saydamdan açılmaz: alttaki kartın yazıları içinden görünüp üst üste biniyordu. Yalnız yükselir. */
+      .kart .kart-ic {
+        animation-name: kart-yuksel;
+      }
       .kart:nth-child(1) .kart-ic,
       .kart:nth-child(2) .kart-ic {
         animation:
-          kart-gel linear both,
+          kart-yuksel linear both,
           kart-geri linear both;
         animation-timeline: view(), --kart-2;
         animation-range:
@@ -952,6 +962,11 @@ body {
     translate: 0 64px;
   }
 }
+@keyframes kart-yuksel {
+  from {
+    translate: 0 64px;
+  }
+}
 @keyframes kare-otur-k {
   from {
     scale: 1.15;
@@ -1018,5 +1033,304 @@ body {
 @keyframes okuma-ilerle {
   from {
     scale: 0 1;
+  }
+}
+
+/* ---------- Nav ---------- */
+
+/* Okunan bölümün çizgisi bir bağlantıdan ötekine kayar (components/NavBaglantilari.tsx). */
+@media (prefers-reduced-motion: no-preference) {
+  .nav-cizgi {
+    transition:
+      translate 420ms cubic-bezier(0.7, 0, 0.2, 1),
+      scale 420ms cubic-bezier(0.7, 0, 0.2, 1),
+      opacity 200ms;
+  }
+}
+
+/* ---------- Komut paleti ---------- */
+
+/* Arkasında hero metni olabilir: cam ama neredeyse opak, okunurluk önce. Arama kutusunun odak halkası yerine
+   panelin kenarı mürekkebe döner (tek odaklanabilir alan, imleç orada). */
+.komut-yuzey {
+  background: var(--zemin-2);
+  @supports (backdrop-filter: blur(1px)) {
+    background: color-mix(in oklab, var(--zemin-2) 93%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+}
+.komut-yuzey input:focus-visible {
+  outline: none;
+}
+.komut-yuzey:has(input:focus-visible) {
+  border-color: color-mix(in oklab, var(--murekkep) 55%, transparent);
+}
+
+.komut-oge[aria-selected='true'] {
+  background: color-mix(in oklab, var(--murekkep) 12%, transparent);
+}
+.komut-oge[aria-selected='true'] > svg:first-child {
+  color: var(--murekkep);
+}
+.komut-gir {
+  opacity: 0;
+}
+.komut-oge[aria-selected='true'] .komut-gir {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .komut[open],
+  .pencere[open] {
+    animation: komut-ac 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .komut[open]::backdrop,
+  .pencere[open]::backdrop {
+    animation: belir 220ms ease-out;
+  }
+}
+@keyframes komut-ac {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+    scale: 0.98;
+  }
+}
+
+/* ---------- Sayfa geçişi (components/Gecis.tsx) ----------
+   Vakaya giderken içerik sola, geri dönerken sağa kayar; türsüz geçişte yalnız soluklaşır. Nav sabit kalır: kayan
+   içerik anlaşılsın diye tek bir sabit dayanak. Projenin adı sayfalar arasında uçar (share="ad"). */
+
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(.ad) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+}
+/* Eski ve yeni ad farklı genişlikte (wdth ekseni): gerilmesinler, sol üstten hizalı büyüsünler. Eski görüntü hızlı
+   söner; yoksa iki ad üst üste hayalet bırakır. */
+::view-transition-old(.ad) {
+  animation: 140ms ease-in both gecis-solukla reverse;
+}
+::view-transition-new(.ad) {
+  animation: 260ms ease-out 60ms both gecis-solukla;
+}
+
+.site-nav {
+  view-transition-name: site-nav;
+}
+::view-transition-group(site-nav) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-nav) {
+  display: none;
+}
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+::view-transition-old(.ileri) {
+  --kayma: -48px;
+  animation:
+    160ms ease-in both gecis-solukla reverse,
+    420ms cubic-bezier(0.7, 0, 0.2, 1) both gecis-kay reverse;
+}
+::view-transition-new(.ileri) {
+  --kayma: 48px;
+  animation:
+    240ms ease-out 140ms both gecis-solukla,
+    420ms cubic-bezier(0.7, 0, 0.2, 1) both gecis-kay;
+}
+::view-transition-old(.geri) {
+  --kayma: 48px;
+  animation:
+    160ms ease-in both gecis-solukla reverse,
+    420ms cubic-bezier(0.7, 0, 0.2, 1) both gecis-kay reverse;
+}
+::view-transition-new(.geri) {
+  --kayma: -48px;
+  animation:
+    240ms ease-out 140ms both gecis-solukla,
+    420ms cubic-bezier(0.7, 0, 0.2, 1) both gecis-kay;
+}
+::view-transition-old(.sayfa) {
+  animation: 160ms ease-in both gecis-solukla reverse;
+}
+::view-transition-new(.sayfa) {
+  animation: 240ms ease-out 100ms both gecis-solukla;
+}
+@keyframes gecis-solukla {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes gecis-kay {
+  from {
+    translate: var(--kayma) 0;
+  }
+}
+
+/* Tema perdesi (lib/tema.ts): yalnız yeni görüntü dairesel kırpımla açılır; nav da sayfayla birlikte açılsın. */
+:root[data-vt='tema'] .site-nav {
+  view-transition-name: none;
+}
+:root[data-vt='tema']::view-transition-old(root),
+:root[data-vt='tema']::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* ---------- Açılış ----------
+   Sayfa açılınca bir kez: hero'da rol etiketi, giriş cümlesi kelime kelime, sonra düğmeler; vaka sayfasında künye
+   ve kapak. Toplam ~1 sn, yalnız transform / opacity / clip-path. Hareket azaltmada her şey yerinde. */
+@media (prefers-reduced-motion: no-preference) {
+  .acilis {
+    animation: acilis-gel 720ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+  .giris-kelime {
+    display: inline-block;
+    animation: kelime-gel 680ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(120ms + var(--i) * 26ms);
+  }
+  .kapak-ac {
+    animation: kapak-ac 1100ms cubic-bezier(0.7, 0, 0.2, 1) 220ms both;
+  }
+  .kapak-ac img {
+    animation: kare-otur 1400ms cubic-bezier(0.2, 0.7, 0.2, 1) 220ms both;
+  }
+}
+@keyframes acilis-gel {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+@keyframes kelime-gel {
+  from {
+    opacity: 0;
+    translate: 0 0.5em;
+  }
+}
+@keyframes kapak-ac {
+  from {
+    clip-path: inset(0 0 100% 0 round var(--radius-md));
+  }
+  to {
+    clip-path: inset(0 0 0 0 round var(--radius-md));
+  }
+}
+
+/* Vaka sayfası içindekiler imleci (components/Icindekiler.tsx). */
+@media (prefers-reduced-motion: no-preference) {
+  .icindekiler-imlec {
+    transition:
+      translate 380ms cubic-bezier(0.7, 0, 0.2, 1),
+      height 380ms cubic-bezier(0.7, 0, 0.2, 1);
+  }
+}
+
+/* Vaka sonundaki "Sonraki proje" karesi. */
+.sonraki-kare img {
+  transform-origin: 50% 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sonraki-kare {
+    transition:
+      translate 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 200ms;
+  }
+  .sonraki-kare img {
+    transition: scale 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .group:hover .sonraki-kare {
+    translate: 0 -6px;
+    border-color: var(--murekkep);
+  }
+  .group:hover .sonraki-kare img {
+    scale: 1.06;
+  }
+}
+
+/* Lightbox: yeni kare geçiş yönünden kayarak gelir. */
+@media (prefers-reduced-motion: no-preference) {
+  .galeri-buyuk {
+    animation: galeri-gel 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .galeri-buyuk[data-yon='-1'] {
+    animation-name: galeri-gel-geri;
+  }
+}
+@keyframes galeri-gel {
+  from {
+    opacity: 0;
+    translate: 24px 0;
+  }
+}
+@keyframes galeri-gel-geri {
+  from {
+    opacity: 0;
+    translate: -24px 0;
+  }
+}
+
+/* ---------- Baskı ----------
+   Vaka sayfası kâğıtta da okunsun: açık tema, nav / galeri düğmeleri / süsler yok, bağlantı adresleri yazılır. */
+@media print {
+  :root,
+  :root[data-theme='dark'] {
+    color-scheme: light;
+    --zemin: #fff;
+    --zemin-2: #fff;
+    --zemin-3: #fff;
+    --yazi: var(--color-ink);
+    --yazi-2: var(--color-ink-2);
+    --yazi-3: var(--color-ink-3);
+    --murekkep: var(--color-primary);
+    --kalem: var(--color-pen);
+    --cizgi: #d4d6d2;
+    --cizgi-guclu: #b0b3ae;
+  }
+  .site-nav,
+  .okuma-izi,
+  footer,
+  dialog,
+  a[href^='#icerik'] {
+    display: none !important;
+  }
+  .izgara,
+  .kure-zemin {
+    background: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .metin a[href^='http']::after,
+  dd a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    color: var(--yazi-3);
+  }
+  figure,
+  li,
+  h2 {
+    break-inside: avoid;
+  }
+  h2 {
+    break-after: avoid;
   }
 }

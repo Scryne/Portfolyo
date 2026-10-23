@@ -564,7 +564,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
       d.current.suruk = null;
       if (s && !s.tasindi) {
         const i = yakin(e);
-        if (i >= 0 && i === d.current.aktif) router.push(yerler[i].href);
+        if (i >= 0 && i === d.current.aktif) router.push(yerler[i].href, { transitionTypes: ['ileri'] });
         else if (i >= 0) sec(i, false);
       }
     };
@@ -650,7 +650,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
               className="kure-isaret"
               style={{ opacity: 0, visibility: 'hidden' }}
               onPointerEnter={(e) => e.pointerType === 'mouse' && i !== d.current.aktif && sec(i, false)}
-              onClick={() => (i === d.current.aktif ? router.push(k.href) : sec(i, false))}
+              onClick={() => (i === d.current.aktif ? router.push(k.href, { transitionTypes: ['ileri'] }) : sec(i, false))}
             >
               <span className="kure-nokta" />
               <span className="kure-ad">{k.ad}</span>
@@ -696,6 +696,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
             </p>
             <Link
               href={y.href}
+              transitionTypes={['ileri']}
               className="baslik group mt-1 inline-flex items-center gap-1.5 text-lg text-yazi after:absolute after:inset-0"
             >
               {y.ad}

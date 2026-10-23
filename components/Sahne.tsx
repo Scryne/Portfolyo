@@ -3,6 +3,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { ProjeAdi } from './Gecis';
 
 export type SahneProje = {
   slug: string;
@@ -112,6 +113,7 @@ export function Sahne({ projeler, sahneKareleri, satirKareleri, baslik, etiket }
               <li key={x.slug} className="sahne-kayit" style={{ '--i': i } as React.CSSProperties}>
                 <Link
                   href={x.href}
+                  transitionTypes={['ileri']}
                   onMouseEnter={() => sec(i)}
                   onFocus={() => odakla(i)}
                   data-aktif={i === aktif || undefined}
@@ -123,7 +125,9 @@ export function Sahne({ projeler, sahneKareleri, satirKareleri, baslik, etiket }
                   <span className="grid grid-cols-[2.25rem_1fr_auto] items-baseline gap-x-3">
                     <span className="okuma text-[0.9375rem] text-yazi-3 tabular-nums">{iki(i + 1)}</span>
                     <span className="min-w-0">
-                      <span className="sahne-ad baslik block text-[1.625rem] lg:text-[1.375rem]">{x.ad}</span>
+                      <ProjeAdi slug={x.slug}>
+                        <span className="sahne-ad baslik block w-fit text-[1.625rem] lg:text-[1.375rem]">{x.ad}</span>
+                      </ProjeAdi>
                       <span className="mt-1 block text-[0.9375rem] leading-snug text-yazi-2 lg:sr-only">{x.baslik}</span>
                       <span className="okuma mt-3 block text-[0.9375rem] lg:sr-only">
                         <span className="text-yazi-2">{x.olcum.ne}: </span>
@@ -160,7 +164,7 @@ export function Sahne({ projeler, sahneKareleri, satirKareleri, baslik, etiket }
                 <span className="text-murekkep">{iki(aktif + 1)}</span> / {iki(n)}
               </span>
             </p>
-            <Link href={p.href} tabIndex={-1} className="sahne-cerceve sekil group relative mt-4 block">
+            <Link href={p.href} transitionTypes={['ileri']} tabIndex={-1} className="sahne-cerceve sekil group relative mt-4 block">
               {sahneKareleri.map((k, i) => (
                 <span
                   key={projeler[i].slug}

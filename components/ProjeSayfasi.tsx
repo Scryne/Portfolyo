@@ -1,10 +1,14 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { sonraki } from '@/content/projeler';
+import { KURE } from '@/content/site';
+import { jsonLd, projeJsonLd } from '@/lib/meta';
 import { BOLUM_BASLIK, M, yol } from '@/lib/metin';
 import type { Blok, Dil, Proje } from '@/lib/tipler';
 import { Cetvel } from './Cetvel';
+import { ProjeAdi, SayfaGecisi } from './Gecis';
 import { Galeri, type GaleriKaresi } from './Galeri';
+import { Icindekiler } from './Icindekiler';
 import { Gorsel, gorselKaydi, gorselYolu } from './Gorsel';
 import { Satir } from './Satir';
 
@@ -58,6 +62,7 @@ function Bolum({ id, baslik, children }: { id: string; baslik: string; children:
 export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
   const kapak = p.galeri[0];
   const s = sonraki(p.slug);
+  const sonrakiKare = KURE.find((k) => k.slug === s.slug)?.kare;
 
   // Ölçümler "Ne yapıyor"dan sonra gelir; o bölüm yoksa ilk bölümden sonra.
   const olcumSonrasi = p.bolumler.some((b) => b.id === 'ne-yapiyor') ? 'ne-yapiyor' : p.bolumler[0].id;
@@ -87,20 +92,26 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
   });
 
   return (
+    <SayfaGecisi>
     <article>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(projeJsonLd(p, dil)) }} />
       {/* Okuma ilerlemesi: nav'ın altında ince mürekkep çizgisi, kaydırmaya bağlı (globals.css). */}
       <div aria-hidden className="okuma-izi" />
       <header className="izgara border-b border-cizgi">
         <div className="kap pt-28 pb-14 md:pt-32 lg:pb-20">
-          <Link href={`${yol.ana(dil)}#work`} className="group etiket inline-flex items-center gap-2 text-yazi-2 hover:text-yazi">
+          <Link href={`${yol.ana(dil)}#work`} transitionTypes={['geri']} className="acilis group etiket inline-flex items-center gap-2 text-yazi-2 hover:text-yazi">
             <ArrowLeft aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
             {M.geri[dil]}
           </Link>
-          <p className="etiket mt-10 text-yazi-2">{p.alan[dil]}</p>
-          <h1 className="gosterge mt-4 text-[clamp(2.25rem,9vw,7.5rem)]">{p.ad}</h1>
+          <p className="acilis etiket mt-10 text-yazi-2" style={{ '--d': 60 } as React.CSSProperties}>
+            {p.alan[dil]}
+          </p>
+          <ProjeAdi slug={p.slug}>
+            <h1 className="gosterge mt-4 text-[clamp(2.25rem,9vw,7.5rem)]">{p.ad}</h1>
+          </ProjeAdi>
           <div className="mt-8 grid gap-12 lg:grid-cols-12 lg:gap-10">
-            <p className="baslik max-w-[30ch] text-[clamp(1.375rem,2.4vw,1.875rem)] text-yazi-2 lg:col-span-6">{p.baslik[dil]}</p>
-            <dl className="grid content-start gap-x-6 gap-y-4 border-t border-cizgi-guclu pt-5 sm:grid-cols-[7rem_1fr] lg:col-span-5 lg:col-start-8">
+            <p className="acilis baslik max-w-[30ch] text-[clamp(1.375rem,2.4vw,1.875rem)] text-yazi-2 lg:col-span-6" style={{ '--d': 140 } as React.CSSProperties}>{p.baslik[dil]}</p>
+            <dl style={{ '--d': 220 } as React.CSSProperties} className="acilis grid content-start gap-x-6 gap-y-4 border-t border-cizgi-guclu pt-5 sm:grid-cols-[7rem_1fr] lg:col-span-5 lg:col-start-8">
               <dt className="etiket pt-0.5 text-yazi-3">{M.donem[dil]}</dt>
               <dd className="text-[0.9375rem] text-yazi">{p.donem[dil]}</dd>
               <dt className="etiket pt-0.5 text-yazi-3">{M.durum[dil]}</dt>
@@ -124,24 +135,13 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
       </header>
 
       <div className="kap pt-10 md:pt-14">
-        <figure className="sekil">
+        <figure className="kapak-ac sekil">
           <Gorsel proje={p.slug} ad={kapak.ad} alt={kapak.aciklama[dil]} sizes="(min-width: 1360px) 1280px, 100vw" oncelik className="h-auto w-full" />
         </figure>
       </div>
 
       <div className="kap bolum grid gap-12 lg:grid-cols-12 lg:gap-10">
-        <nav aria-label={M.icindekiler[dil]} className="hidden lg:sticky lg:top-28 lg:col-span-3 lg:block lg:self-start">
-          <p className="etiket text-yazi-3">{M.icindekiler[dil]}</p>
-          <ul className="mt-4 flex flex-col border-l border-cizgi">
-            {icindekiler.map((b) => (
-              <li key={b.id}>
-                <a href={`#${b.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-[0.9375rem] text-yazi-2 transition-colors duration-150 hover:border-murekkep hover:text-yazi">
-                  {b.ad}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <Icindekiler baslik={M.icindekiler[dil]} bolumler={icindekiler} />
 
         <div className="flex flex-col gap-14 lg:col-span-8 lg:col-start-5">
           <p className="baslik text-[clamp(1.375rem,2.2vw,1.75rem)] leading-snug text-yazi [font-variation-settings:'wdth'_100] font-normal">
@@ -199,17 +199,26 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
       </section>
 
       <nav aria-label={M.sonrakiProje[dil]} className="border-t border-cizgi bg-zemin-2">
-        <Link href={yol.proje(dil, s.slug)} className="group kap flex items-end justify-between gap-6 py-16 lg:py-24">
+        <Link href={yol.proje(dil, s.slug)} transitionTypes={['ileri']} className="group kap flex items-end justify-between gap-6 py-16 lg:py-24">
           <span>
             <span className="etiket text-yazi-3">{M.sonrakiProje[dil]}</span>
-            <span className="gosterge mt-3 block text-[clamp(2.125rem,7vw,5.5rem)] transition-colors duration-150 group-hover:text-murekkep">
-              {s.ad}
-            </span>
+            <ProjeAdi slug={s.slug}>
+              <span className="gosterge mt-3 block w-fit text-[clamp(2.125rem,7vw,5.5rem)] transition-colors duration-150 group-hover:text-murekkep">
+                {s.ad}
+              </span>
+            </ProjeAdi>
             <span className="mt-3 block max-w-[48ch] text-yazi-2">{s.baslik[dil]}</span>
           </span>
+          {/* Sonraki projenin ekranı: üstüne gelince yükselir, içindeki görüntü yaklaşır. Süs; bilgi yazıda. */}
+          {sonrakiKare && (
+            <span aria-hidden className="sonraki-kare sekil ml-auto hidden aspect-[1.6] w-[min(26rem,30vw)] shrink-0 lg:block">
+              <Gorsel proje={s.slug} ad={sonrakiKare} alt="" sizes="26rem" className="size-full object-cover object-top" />
+            </span>
+          )}
           <ArrowRight aria-hidden className="mb-4 size-8 shrink-0 text-yazi-3 transition-[color,translate] duration-200 group-hover:translate-x-1 group-hover:text-murekkep" />
         </Link>
       </nav>
     </article>
+    </SayfaGecisi>
   );
 }

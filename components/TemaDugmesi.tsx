@@ -3,6 +3,7 @@
 import { Moon, Sun } from 'lucide-react';
 import { useSyncExternalStore } from 'react';
 import { M } from '@/lib/metin';
+import { temaDegistir } from '@/lib/tema';
 import type { Dil } from '@/lib/tipler';
 
 function abone(bildir: () => void) {
@@ -16,21 +17,15 @@ export function TemaDugmesi({ dil }: { dil: Dil }) {
   // Sunucuda tema bilinmez; ilk boyamadan önce <head>'deki betik data-theme'i koyar.
   const koyu = useSyncExternalStore(abone, koyuMu, () => false);
 
-  function degistir() {
-    const yeni = koyu ? 'light' : 'dark';
-    document.documentElement.dataset.theme = yeni;
-    try {
-      localStorage.setItem('tema', yeni);
-    } catch {
-      // Gizli pencere ya da kapalı depolama: tercih yalnız bu sayfa için geçerli kalır.
-    }
-  }
-
   const etiket = koyu ? M.temaAcik[dil] : M.temaKoyu[dil];
   return (
     <button
       type="button"
-      onClick={degistir}
+      onClick={(e) => {
+        // Klavyeyle basılınca koordinat 0: perde düğmenin ortasından açılsın.
+        const r = e.currentTarget.getBoundingClientRect();
+        temaDegistir({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+      }}
       aria-label={etiket}
       title={etiket}
       className="grid size-10 place-items-center rounded-full border border-cizgi text-yazi-2 transition-colors duration-150 hover:border-cizgi-guclu hover:text-yazi active:scale-[0.96]"

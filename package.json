@@ -16,11 +16,11 @@
     "yayinla": "node scripts/yayinla.mjs"
   },
   "dependencies": {
-    "cobe": "^0.6.3",
+    "cobe": "^0.6.5",
     "lucide-react": "^1.48.0",
-    "next": "16.3.8",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "next": "^16.4.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@google/design.md": "^0.4.0",
@@ -30,7 +30,7 @@
     "@types/react-dom": "^19",
     "axe-core": "^4.13.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.8",
+    "eslint-config-next": "^16.4.2",
     "playwright-core": "^1.63.0",
     "sharp": "^0.35.5",
     "tailwindcss": "^4",

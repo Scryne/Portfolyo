@@ -217,7 +217,8 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
   (renk tek başına anlam taşımaz).
 - **Künye:** iki kolonlu mono tanım listesi (Dönem, Durum, Repo, Demo, Ölçek).
 - **Dürüst sınırlar:** her vaka sayfasında ayrı bölüm; stil olarak sade liste, uyarı kutusu değil.
-- **Nav:** üstte sabit cam şerit. Ad solda, bölümler, dil ve tema sağda.
+- **Nav:** üstte sabit cam şerit. Ad solda; bölümler (okunanın altında çizgi), komut paleti (Ctrl K; dar ekranda menü
+  düğmesi), dil ve tema sağda.
 - **Lightbox:** yerel `<dialog>`, ok tuşlarıyla gezinme, Escape kapatır, odak geri döner.
 - **Sahne:** `components/Sahne.tsx` (istemci; kaydırma dilimi → aktif proje), veri ve kareler sunucuda
   `components/Dizin.tsx`. Sabitlenen alanda `view()` kullanılmaz (yapışık öğe kımıldamaz, çizelge yarıda kalır);
@@ -237,6 +238,30 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
   öğenin `view()` çizelgesi kaba göre ölçülür ve ilerlemez: kabın adlı çizelgesini kullan.
 
 
+## Hareket ve etkileşim katmanı (2026-10-23, Scryne: "en profesyonel ve en eşsiz hale getir, animasyonlar, her şey sana bırakıyorum")
+
+Her parça bir şey anlatır; süs için hareket yok. Hareket azaltmada ve desteklemeyen tarayıcıda hepsi düz çalışır.
+
+- **Açılış.** Sayfa açılınca bir kez: hero'da rol etiketi, giriş cümlesi kelime kelime (26 ms arayla), sonra düğmeler;
+  vaka sayfasında geri bağlantısı, alan, başlık cümlesi, künye ve yukarıdan perdeyle açılan kapak. ~1 sn.
+- **Okuma.** Defterde ölçülen değer, kalem eski değeri çizip soluklaşma başladığında bir ölçü aletinin göstergesi gibi
+  oturur: rakamlar ~0,6 sn taranır, soldan sağa sırayla durur (`components/OkumaDegeri.tsx`). Mono + tabular-nums:
+  genişlik oynamaz; ekran okuyucu ve sunucu HTML'i hep gerçek değeri görür.
+- **Sayfa geçişi.** React `<ViewTransition>` (`components/Gecis.tsx`). Vakaya giden bağlantı `ileri` (içerik sola
+  kayar), ana sayfaya dönen `geri` (sağa), türsüz geçiş (dil, tarayıcının geri tuşu) yalnız soluklaşır; nav sabit
+  dayanak. İmza: **projenin adı sayfalar arasında aynı nesne olarak uçar** (dizin satırı → vaka başlığı, "Sonraki
+  proje" → bir sonraki vakanın başlığı). Bir sayfada her ad bir kez adlandırılır (Sergi kartındaki ad adsız).
+  `html[data-scroll-behavior="smooth"]` şart: yoksa Next yeni sayfayı yumuşak kaydırmayla yukarı taşır.
+- **Tema perdesi.** Yeni tema tıklanan noktadan dairesel kırpımla açılır (View Transitions, `lib/tema.ts`).
+- **Komut paleti.** Ctrl/⌘ K ya da `/`: projeler, ana sayfa bölümleri, CV, e-posta kopyalama, tema, dil tek aramada;
+  aksan ve büyük/küçük harf duyarsız (`components/Komut.tsx`). Dar ekranda nav bağlantıları gizli olduğundan menü
+  düğmesi de bunu açar. Yüzey neredeyse opak cam: arkada hero metni olabilir.
+- **Konum göstergeleri.** Nav'da okunan bölümün altında kayan mürekkep çizgi (vaka sayfasında "İşler"); vaka
+  içindekilerinde sol çizgide okunan bölüme kayan imleç.
+- **Küçükler.** Vaka sonunda sonraki projenin ekranı (üstüne gelince yükselir); lightbox'ta dokunmatik kaydırma, komşu
+  karenin ön yüklenmesi, yönlü geçiş; e-posta satırında kopyala düğmesi; altbilgide başa dön ve Ctrl K ipucu; vaka
+  sayfası için baskı stili (açık tema, adresler yazılır).
+
 ## Do's and Don'ts
 
 - Kaynağı `_portfolyo/projeler/*.md` künyesinde olmayan sayıyı siteye koyma.
@@ -244,5 +269,7 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
 - UI metninde uzun tire (—) kullanma; nokta ya da virgül kullan.
 - Emoji yok; ikonlar lucide.
 - Gizli repoya bağlantı verme; "özel repo" yaz.
-- Kalem çizgisi dışında sayfa açılışında anime edilen öğe ekleme. Kaydırmaya bağlı hareket yalnız yukarıdaki
-  kurallarla; sürekli döngü, zıplama, yay yok.
+- Açılış hareketi yalnız "Açılış" kuralıyla (bir kez, ~1 sn, transform / opacity / clip-path). Kaydırmaya bağlı hareket
+  yalnız yukarıdaki kurallarla; sürekli döngü, zıplama, yay yok.
+- Yapışık (sticky) alanın içindeki öğeye `view()` çizelgesi verme; kabın adlı çizelgesine bağla.
+- Aynı adlı iki `@keyframes` yazma: sonraki öncekini sessizce ezer (hero kartı bu yüzden 64px zıplıyordu).

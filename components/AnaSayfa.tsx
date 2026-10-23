@@ -1,13 +1,15 @@
 import { ArrowDown } from 'lucide-react';
+import { Fragment } from 'react';
 import { HERO, KISI } from '@/content/site';
 import { kureYerleri } from '@/lib/kure';
-import { kisiJsonLd } from '@/lib/meta';
+import { jsonLd, kisiJsonLd } from '@/lib/meta';
 import { M, yol } from '@/lib/metin';
 import type { Dil } from '@/lib/tipler';
 import { CvBant } from './CvBant';
 import { Defter } from './Defter';
 import { Dizin } from './Dizin';
 import { Dugme } from './Dugme';
+import { SayfaGecisi } from './Gecis';
 import { GorununceOynat } from './GorununceOynat';
 import { Kure } from './Kure';
 import { Sergi } from './Sergi';
@@ -15,10 +17,10 @@ import { Yontem } from './Yontem';
 
 export function AnaSayfa({ dil }: { dil: Dil }) {
   return (
-    <>
+    <SayfaGecisi>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(kisiJsonLd(dil)).replace(/</g, '\\u003c') }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(kisiJsonLd(dil)) }}
       />
       {/* Hero: renk ağı zemininde küre; projelerin geçtiği yerler. Ad görünür başlık değil, nav'da duruyor. */}
       <section className="kure-zemin relative overflow-hidden border-b border-cizgi">
@@ -27,13 +29,21 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
             <h1 className="sr-only">
               {KISI.ad} · {HERO.ust[dil]}
             </h1>
-            <p aria-hidden className="etiket text-yazi-2">
+            <p aria-hidden className="acilis etiket text-yazi-2">
               {HERO.ust[dil]}
             </p>
             <p className="mt-4 max-w-[30ch] text-[clamp(1.375rem,2vw,1.75rem)] leading-[1.35] font-[480] text-yazi [font-variation-settings:'wdth'_106]">
-              {HERO.giris[dil]}
+              {/* Açılışta kelimeler sırayla yerine oturur (globals.css, "Açılış"); metin tek parça okunur. */}
+              {HERO.giris[dil].split(' ').map((k, i) => (
+                <Fragment key={i}>
+                  {i > 0 && ' '}
+                  <span className="giris-kelime" style={{ '--i': i } as React.CSSProperties}>
+                    {k}
+                  </span>
+                </Fragment>
+              ))}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="acilis mt-8 flex flex-wrap gap-3" style={{ '--d': 640 } as React.CSSProperties}>
               <Dugme href={`${yol.ana(dil)}#work`}>
                 {M.isleriGor[dil]}
                 <ArrowDown aria-hidden className="size-4" />
@@ -56,6 +66,6 @@ export function AnaSayfa({ dil }: { dil: Dil }) {
       <Dizin dil={dil} />
       <Yontem dil={dil} />
       <CvBant dil={dil} />
-    </>
+    </SayfaGecisi>
   );
 }

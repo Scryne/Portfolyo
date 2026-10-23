@@ -71,7 +71,12 @@ export function CvBant({ dil }: { dil: Dil }) {
             <CvKutusu href={yol.cv('en')} dil={dil} cvDil="en" lang="en" />
           </div>
           <ul className="self-end border-t border-cizgi-guclu lg:col-span-5 lg:col-start-8">
-            <EpostaSatiri ad={M.eposta[dil]} kullanici={KISI.eposta.kullanici} alan={KISI.eposta.alan} />
+            <EpostaSatiri
+              ad={M.eposta[dil]}
+              kullanici={KISI.eposta.kullanici}
+              alan={KISI.eposta.alan}
+              etiket={{ kopyala: M.epostaKopyala[dil], kopyalandi: M.kopyalandi[dil] }}
+            />
             <Satir href={KISI.github} ad="GitHub" deger="github.com/Scryne" />
             <Satir href={KISI.linkedin} ad="LinkedIn" deger="linkedin.com/in/berkay-karaca" />
           </ul>

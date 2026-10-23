@@ -31,7 +31,7 @@ export function Yontem({ dil }: { dil: Dil }) {
                   <p className="mt-3 text-[0.9375rem] leading-snug text-yazi-2">
                     {p && a.ornek[dil].startsWith(`${p.ad}:`) ? (
                       <>
-                        <Link href={yol.proje(dil, p.slug)} className="baglanti text-yazi">
+                        <Link href={yol.proje(dil, p.slug)} transitionTypes={['ileri']} className="baglanti text-yazi">
                           {p.ad}
                         </Link>
                         {a.ornek[dil].slice(p.ad.length)}

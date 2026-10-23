@@ -20,6 +20,8 @@ export type GaleriKaresi = {
 export function Galeri({ kareler, dil, projeAdi }: { kareler: GaleriKaresi[]; dil: Dil; projeAdi: string }) {
   const pencere = useRef<HTMLDialogElement>(null);
   const [acik, setAcik] = useState<number | null>(null);
+  const [yon, setYon] = useState<1 | -1>(1);
+  const dokunma = useRef<{ x: number; y: number } | null>(null);
 
   const ac = (i: number) => {
     setAcik(i);
@@ -27,7 +29,10 @@ export function Galeri({ kareler, dil, projeAdi }: { kareler: GaleriKaresi[]; di
   };
   const kapat = () => pencere.current?.close();
   const git = useCallback(
-    (yon: 1 | -1) => setAcik((i) => (i === null ? i : (i + yon + kareler.length) % kareler.length)),
+    (y: 1 | -1) => {
+      setYon(y);
+      setAcik((i) => (i === null ? i : (i + y + kareler.length) % kareler.length));
+    },
     [kareler.length],
   );
 
@@ -48,6 +53,15 @@ export function Galeri({ kareler, dil, projeAdi }: { kareler: GaleriKaresi[]; di
   }, [git]);
 
   const k = acik === null ? null : kareler[acik];
+
+  // Komşu kareleri önceden indir: okla geçerken büyük görüntü boş gelmesin.
+  useEffect(() => {
+    if (acik === null) return;
+    for (const d of [1, -1]) {
+      const im = new Image();
+      im.src = kareler[(acik + d + kareler.length) % kareler.length].buyuk;
+    }
+  }, [acik, kareler]);
 
   return (
     <>
@@ -92,7 +106,7 @@ export function Galeri({ kareler, dil, projeAdi }: { kareler: GaleriKaresi[]; di
         onClick={(e) => {
           if (e.target === e.currentTarget) kapat();
         }}
-        className="m-auto max-h-[94dvh] w-[min(94vw,1600px)] overflow-visible bg-transparent p-0 text-yazi backdrop:bg-black/70"
+        className="pencere m-auto max-h-[94dvh] w-[min(94vw,1600px)] overflow-visible bg-transparent p-0 text-yazi backdrop:bg-black/70"
       >
         {k && (
           <div className="cam flex max-h-[94dvh] flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--cam-kenar)]">
@@ -112,15 +126,30 @@ export function Galeri({ kareler, dil, projeAdi }: { kareler: GaleriKaresi[]; di
                 </button>
               </div>
             </div>
-            <div className="grid min-h-0 flex-1 place-items-center overflow-auto bg-zemin-3 p-2 md:p-4">
+            {/* Dokunmatikte yatay kaydırma önceki / sonraki kareye geçer. */}
+            <div
+              className="grid min-h-0 flex-1 touch-pan-y place-items-center overflow-auto bg-zemin-3 p-2 md:p-4"
+              onPointerDown={(e) => {
+                if (e.pointerType !== 'mouse') dokunma.current = { x: e.clientX, y: e.clientY };
+              }}
+              onPointerUp={(e) => {
+                const b = dokunma.current;
+                dokunma.current = null;
+                if (!b) return;
+                const [dx, dy] = [e.clientX - b.x, e.clientY - b.y];
+                if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) git(dx < 0 ? 1 : -1);
+              }}
+              onPointerCancel={() => (dokunma.current = null)}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element -- statik export */}
               <img
                 key={k.ad}
                 src={k.buyuk}
+                data-yon={yon}
                 width={k.w}
                 height={k.h}
                 alt={k.aciklama}
-                className="h-auto max-h-[76dvh] w-auto max-w-full rounded-sm object-contain"
+                className="galeri-buyuk h-auto max-h-[76dvh] w-auto max-w-full rounded-sm object-contain"
                 style={{ backgroundColor: k.zemin }}
               />
             </div>
