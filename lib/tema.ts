@@ -1,6 +1,6 @@
 /**
  * Tema değişimi. Destekleyen tarayıcıda yeni tema tıklanan noktadan dairesel bir perdeyle açılır (View
- * Transitions API); desteklemeyende ve hareket azaltmada anında değişir. Tema düğmesi ve komut paleti kullanır.
+ * Transitions API); desteklemeyende ve hareket azaltmada anında değişir. Tema düğmesi kullanır.
  */
 export function temaDegistir(nokta?: { x: number; y: number }) {
   const kok = document.documentElement;

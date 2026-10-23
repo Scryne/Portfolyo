@@ -16,7 +16,7 @@ export function kureYerleri(dil: Dil): KureYeri[] {
     return {
       slug: k.slug,
       ad: p.ad,
-      yer: k.yer[dil],
+      alan: p.alan[dil],
       ne: k.ne[dil],
       href: yol.proje(dil, k.slug),
       konum: k.konum,

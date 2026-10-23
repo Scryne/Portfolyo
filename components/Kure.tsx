@@ -9,7 +9,7 @@ import type { Dil } from '@/lib/tipler';
 export type KureYeri = {
   slug: string;
   ad: string;
-  yer: string;
+  alan: string;
   ne: string;
   href: string;
   /** [enlem, boylam] */
@@ -29,7 +29,7 @@ const METIN = {
 const SURE = 5000;
 /** Seçili konuma dönerken enlemin ne kadarı kadar eğilsin; tam eğim küreyi fazla devirir. */
 const EGIM = 0.6;
-/** Bu kadar dereceden yakın projeler tek kümede halkaya açılır (Türkiye + Levant). */
+/** Bu kadar dereceden yakın projeler tek kümede halkaya açılır. */
 const KUME_DERECE = 9;
 /** Rota yayı: çizim, bekleme, sönme (ms). */
 const ROTA = { ciz: 1100, kal: 1700, son: 700 };
@@ -689,7 +689,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
           />
           <div className="px-1.5 pt-3 pb-1">
             <p className="etiket flex items-baseline justify-between gap-3 text-yazi-2">
-              <span>{y.yer}</span>
+              <span>{y.alan}</span>
               <span className="shrink-0 text-yazi-3 tabular-nums">
                 {iki(aktif + 1)} / {iki(n)}
               </span>
@@ -740,7 +740,7 @@ export function Kure({ yerler, dil, className = '' }: { yerler: KureYeri[]; dil:
               key={k.slug}
               type="button"
               aria-pressed={i === aktif}
-              aria-label={`${k.ad} · ${k.yer}`}
+              aria-label={`${k.ad} · ${k.alan}`}
               onClick={() => elle(i)}
               className="group hidden h-8 w-6 place-items-center rounded-sm lg:grid"
             >

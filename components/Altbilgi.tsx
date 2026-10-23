@@ -8,9 +8,6 @@ export function Altbilgi({ dil }: { dil: Dil }) {
     <footer className="border-t border-cizgi">
       <div className="kap flex flex-col gap-3 py-10 etiket text-yazi-3 md:flex-row md:items-center md:justify-between md:gap-8">
         <p>© 2026 {KISI.ad}</p>
-        <p className="hidden md:block">
-          <kbd className="rounded-[4px] border border-cizgi px-1.5 py-0.5 text-yazi-2">Ctrl K</kbd> {M.komutIpucu[dil]}
-        </p>
         <p className="md:ml-auto">{M.altbilgi[dil]}</p>
         <a href="#icerik" className="group inline-flex items-center gap-1.5 text-yazi-2 transition-colors duration-150 hover:text-murekkep">
           {M.basaDon[dil]}

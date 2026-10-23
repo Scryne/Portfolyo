@@ -106,6 +106,11 @@ Kurallar:
 - Mobilde on çubuk sığmaz: önceki / sayaç / sonraki; masaüstünde çubuklar. Kartta `04 / 10` sayacı.
 - Tur sırası coğrafidir (Türkiye → Levant → Mısır → Fransa → San Francisco), `content/site.ts`.
 
+**Küre v3 (2026-10-23, Scryne: "konumlar birbirine çok yakın, dağınık random koy").** Noktalar artık coğrafi değil:
+on proje kıtalara serpildi (Kuzey/Güney Amerika, Avrupa, Afrika, Asya, Avustralya), küme oluşmaz. Böylece 10-21'deki
+"projelere ülke atanmaz" kararıyla da uyuştu: kartta yer adı yerine projenin alanı yazar (`p.alan`). Halka ve rota
+kuralları yerinde; yakın iki nokta eklenirse halka yine açılır.
+
 **Sahne (2026-10-21, Scryne: "frontend'i çok daha eşsiz yap", "proje-ülke şeyi saçma duruyor").** Aynı gün kurulan
 atlas (noktalı dünya haritası, proje başına konum ve koordinat, vaka sayfasında konum kesiti, "Sonraki proje · 3.090 km
 kuzeybatı" rotası) kaldırıldı. Scryne'a iki yol soruldu: konumları uzak ülkelere dağıtmak (uydurma koordinat olurdu)
@@ -217,8 +222,8 @@ Yumuşak ama keskin: `sm` etiket/düğme, `md` görsel çerçevesi ve kart, `lg`
   (renk tek başına anlam taşımaz).
 - **Künye:** iki kolonlu mono tanım listesi (Dönem, Durum, Repo, Demo, Ölçek).
 - **Dürüst sınırlar:** her vaka sayfasında ayrı bölüm; stil olarak sade liste, uyarı kutusu değil.
-- **Nav:** üstte sabit cam şerit. Ad solda; bölümler (okunanın altında çizgi), komut paleti (Ctrl K; dar ekranda menü
-  düğmesi), dil ve tema sağda.
+- **Nav:** üstte sabit cam şerit. Ad solda; bölümler (okunanın altında çizgi; dar ekranda menü düğmesi), dil ve tema
+  sağda.
 - **Lightbox:** yerel `<dialog>`, ok tuşlarıyla gezinme, Escape kapatır, odak geri döner.
 - **Sahne:** `components/Sahne.tsx` (istemci; kaydırma dilimi → aktif proje), veri ve kareler sunucuda
   `components/Dizin.tsx`. Sabitlenen alanda `view()` kullanılmaz (yapışık öğe kımıldamaz, çizelge yarıda kalır);
@@ -253,13 +258,13 @@ Her parça bir şey anlatır; süs için hareket yok. Hareket azaltmada ve deste
   proje" → bir sonraki vakanın başlığı). Bir sayfada her ad bir kez adlandırılır (Sergi kartındaki ad adsız).
   `html[data-scroll-behavior="smooth"]` şart: yoksa Next yeni sayfayı yumuşak kaydırmayla yukarı taşır.
 - **Tema perdesi.** Yeni tema tıklanan noktadan dairesel kırpımla açılır (View Transitions, `lib/tema.ts`).
-- **Komut paleti.** Ctrl/⌘ K ya da `/`: projeler, ana sayfa bölümleri, CV, e-posta kopyalama, tema, dil tek aramada;
-  aksan ve büyük/küçük harf duyarsız (`components/Komut.tsx`). Dar ekranda nav bağlantıları gizli olduğundan menü
-  düğmesi de bunu açar. Yüzey neredeyse opak cam: arkada hero metni olabilir.
+- **Mobil menü.** Dar ekranda nav bağlantıları gizli; menü düğmesi onları nav'ın altındaki panelde açar (yerel
+  popover, `components/MobilMenu.tsx`). Yüzey opak: arkada hero metni var. Komut paleti (Ctrl K)
+  10-23'te eklendi, aynı gün Scryne'ın isteğiyle kaldırıldı ("gerek yok").
 - **Konum göstergeleri.** Nav'da okunan bölümün altında kayan mürekkep çizgi (vaka sayfasında "İşler"); vaka
   içindekilerinde sol çizgide okunan bölüme kayan imleç.
 - **Küçükler.** Vaka sonunda sonraki projenin ekranı (üstüne gelince yükselir); lightbox'ta dokunmatik kaydırma, komşu
-  karenin ön yüklenmesi, yönlü geçiş; e-posta satırında kopyala düğmesi; altbilgide başa dön ve Ctrl K ipucu; vaka
+  karenin ön yüklenmesi, yönlü geçiş; e-posta satırında kopyala düğmesi; altbilgide başa dön; vaka
   sayfası için baskı stili (açık tema, adresler yazılır).
 
 ## Do's and Don'ts

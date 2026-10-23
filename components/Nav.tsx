@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { PROJELER } from '@/content/projeler';
 import { KISI } from '@/content/site';
 import { M, yol } from '@/lib/metin';
 import type { Dil } from '@/lib/tipler';
 import { DilAnahtari } from './DilAnahtari';
-import { Komut } from './Komut';
+import { MobilMenu } from './MobilMenu';
 import { NavBaglantilari } from './NavBaglantilari';
 import { TemaDugmesi } from './TemaDugmesi';
 
@@ -15,7 +14,6 @@ export function Nav({ dil }: { dil: Dil }) {
     { href: `${ana}#method`, ad: M.navYontem[dil], bolumler: ['method'] },
     { href: `${ana}#cv`, ad: M.navCv[dil], bolumler: ['cv'] },
   ];
-  const projeler = PROJELER.map((p) => ({ slug: p.slug, ad: p.ad, alan: p.alan[dil], href: yol.proje(dil, p.slug) }));
   return (
     // Sayfa geçişinde nav yerinde kalır (globals.css, "Sayfa geçişi").
     <header className="site-nav cam fixed inset-x-0 top-0 z-40 border-b border-[var(--cam-kenar)]">
@@ -25,7 +23,7 @@ export function Nav({ dil }: { dil: Dil }) {
         </Link>
         <div className="flex items-center gap-2">
           <NavBaglantilari baglantilar={baglantilar} ana={ana} />
-          <Komut dil={dil} projeler={projeler} eposta={KISI.eposta} github={KISI.github} linkedin={KISI.linkedin} />
+          <MobilMenu baglantilar={baglantilar} ana={ana} etiket={dil === 'tr' ? 'Menüyü aç' : 'Open menu'} />
           <DilAnahtari dil={dil} />
           <TemaDugmesi dil={dil} />
         </div>

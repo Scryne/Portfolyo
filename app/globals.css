@@ -1048,52 +1048,36 @@ body {
   }
 }
 
-/* ---------- Komut paleti ---------- */
+/* ---------- Mobil menü (components/MobilMenu.tsx) ---------- */
 
-/* Arkasında hero metni olabilir: cam ama neredeyse opak, okunurluk önce. Arama kutusunun odak halkası yerine
-   panelin kenarı mürekkebe döner (tek odaklanabilir alan, imleç orada). */
-.komut-yuzey {
+/* Nav'ın hemen altında tam genişlik panel. Arkada hero metni var: opak, cam değil (okunurluk önce). */
+.mobil-menu {
+  inset: 4rem 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--cam-kenar);
+  color: var(--yazi);
   background: var(--zemin-2);
-  @supports (backdrop-filter: blur(1px)) {
-    background: color-mix(in oklab, var(--zemin-2) 93%, transparent);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-  }
-}
-.komut-yuzey input:focus-visible {
-  outline: none;
-}
-.komut-yuzey:has(input:focus-visible) {
-  border-color: color-mix(in oklab, var(--murekkep) 55%, transparent);
-}
-
-.komut-oge[aria-selected='true'] {
-  background: color-mix(in oklab, var(--murekkep) 12%, transparent);
-}
-.komut-oge[aria-selected='true'] > svg:first-child {
-  color: var(--murekkep);
-}
-.komut-gir {
-  opacity: 0;
-}
-.komut-oge[aria-selected='true'] .komut-gir {
-  opacity: 1;
+  box-shadow: var(--golge);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .komut[open],
-  .pencere[open] {
-    animation: komut-ac 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  .mobil-menu:popover-open {
+    animation: pencere-ac 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-  .komut[open]::backdrop,
+  .pencere[open] {
+    animation: pencere-ac 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
   .pencere[open]::backdrop {
     animation: belir 220ms ease-out;
   }
 }
-@keyframes komut-ac {
+@keyframes pencere-ac {
   from {
     opacity: 0;
     translate: 0 -8px;
-    scale: 0.98;
   }
 }
 

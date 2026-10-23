@@ -28,7 +28,6 @@ export const M = {
   epostaKopyala: { tr: 'E-posta adresini kopyala', en: 'Copy email address' },
   kopyalandi: { tr: 'Kopyalandı', en: 'Copied' },
   basaDon: { tr: 'Başa dön', en: 'Back to top' },
-  komutIpucu: { tr: 'her yere gitmek için', en: 'to jump anywhere' },
   geri: { tr: 'Tüm işler', en: 'All work' },
   kunye: { tr: 'Künye', en: 'Fact sheet' },
   donem: { tr: 'Dönem', en: 'Period' },
