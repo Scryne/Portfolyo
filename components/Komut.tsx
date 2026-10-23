@@ -49,7 +49,7 @@ const METIN = {
 } satisfies Record<string, Record<Dil, string>>;
 
 type Grup = 'bolumler' | 'projeler' | 'eylemler';
-type Oge = { id: string; grup: Grup; ad: string; ipucu?: string; ikon: LucideIcon; ara: string; yap: () => void | 'kal' };
+type Oge = { id: string; grup: Grup; ad: string; ipucu?: React.ReactNode; ikon: LucideIcon; ara: string; yap: () => void | 'kal' };
 
 /** Aramada büyük/küçük harf ve aksan fark etmesin: "yapirisk" YapıRisk'i, "olcum" ölçümü bulsun. */
 const sade = (s: string) =>
@@ -142,7 +142,16 @@ export function Komut({ dil, projeler, eposta, github, linkedin }: Props) {
         id: 'e-kopyala',
         grup: 'eylemler',
         ad: METIN.kopyala[dil],
-        ipucu: kopyalandi ? METIN.kopyalandi[dil] : adres,
+        // Adres HTML'de tek parça durmaz ("@" ayrı öğe), bkz. EpostaSatiri: palet sunucuda da çiziliyor.
+        ipucu: kopyalandi ? (
+          METIN.kopyalandi[dil]
+        ) : (
+          <>
+            {eposta.kullanici}
+            <span>@</span>
+            {eposta.alan}
+          </>
+        ),
         ikon: kopyalandi ? Check : Copy,
         ara: `${METIN.kopyala[dil]} email e-posta mail`,
         yap: () => {
