@@ -18,8 +18,8 @@ export const HERO = {
 
 /** Arama/paylaşım açıklaması: hero cümlesinden geniş, bütün kapsamı anlatır. */
 export const OZET = {
-  tr: 'Çok kiracılı SaaS, OSINT, harita ve endüstriyel yazılım geliştiriyorum. On projenin vaka çalışması, ölçümleri ve CV.',
-  en: 'I build multi-tenant SaaS, OSINT, mapping and industrial software. Case studies, measurements and CV for ten projects.',
+  tr: 'Çok kiracılı SaaS, belge yapay zekâsı, OSINT, harita ve endüstriyel yazılım geliştiriyorum. On bir projenin vaka çalışması, ölçümleri ve CV.',
+  en: 'I build multi-tenant SaaS, document AI, OSINT, mapping and industrial software. Case studies, measurements and CV for eleven projects.',
 } satisfies Ik;
 
 /**
@@ -28,6 +28,15 @@ export const OZET = {
  * oradan gelir. Konum [enlem, boylam].
  */
 export const KURE: { slug: string; kare: string; konum: [number, number]; ne: Ik }[] = [
+  {
+    slug: 'citefield',
+    kare: 'inceleme',
+    konum: [-40, -66],
+    ne: {
+      tr: 'Faturadan okunan her değeri sayfadaki kelimelerine bağlar; kontrolden geçemeyeni gerekçesiyle insana gönderir.',
+      en: 'Ties every value read from an invoice to its words on the page; whatever fails a check goes to a person with the reason.',
+    },
+  },
   {
     slug: 'yapirisk',
     kare: 'sonuc',

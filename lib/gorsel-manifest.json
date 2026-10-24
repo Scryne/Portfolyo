@@ -1,4 +1,78 @@
 {
+  "citefield/inceleme": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "citefield/fatura": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "citefield/genel-bakis": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "citefield/belgeler": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "citefield/sema": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
+  "citefield/inceleme-koyu": {
+    "w": 2880,
+    "h": 1800,
+    "genislikler": [
+      800,
+      1400,
+      2200,
+      2880
+    ],
+    "zemin": "rgb(24 24 40)"
+  },
+  "citefield/mobil": {
+    "w": 780,
+    "h": 1688,
+    "genislikler": [
+      780
+    ],
+    "zemin": "rgb(248 248 248)"
+  },
   "tenderiq/inceleme": {
     "w": 1440,
     "h": 900,

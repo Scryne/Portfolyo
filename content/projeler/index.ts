@@ -1,5 +1,6 @@
 import type { Proje } from '@/lib/tipler';
 import { aegis } from './aegis';
+import { citefield } from './citefield';
 import { fabrikaos } from './fabrikaos';
 import { ghostbuilding } from './ghostbuilding';
 import { kokpit } from './kokpit';
@@ -10,8 +11,9 @@ import { tenderiq } from './tenderiq';
 import { wartrack } from './wartrack';
 import { yapirisk } from './yapirisk';
 
-/** Dizin ve "sonraki proje" sırası. CV'deki sırayla aynı başlar. */
+/** Dizin ve "sonraki proje" sırası. En yeni proje (Citefield, Eki 2026; CV'de henüz yok) başta, sonrası CV'deki sırayla. */
 export const PROJELER: Proje[] = [
+  citefield,
   tenderiq,
   fabrikaos,
   aegis,

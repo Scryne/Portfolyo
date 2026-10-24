@@ -16,6 +16,15 @@ const GENISLIKLER = [800, 1400, 2200];
 
 // proje → [hedef ad, kaynak yol (ekranlar/ altına göre)]. Sıra = galeri sırası; ilki kapak.
 const SECIM = {
+  citefield: [
+    ['inceleme', 'Citefield/vitrin/inceleme.webp'],
+    ['fatura', 'Citefield/vitrin/fatura.webp'],
+    ['genel-bakis', 'Citefield/vitrin/genel-bakis.webp'],
+    ['belgeler', 'Citefield/vitrin/belgeler.webp'],
+    ['sema', 'Citefield/vitrin/sema.webp'],
+    ['inceleme-koyu', 'Citefield/vitrin/inceleme-koyu.webp'],
+    ['mobil', 'Citefield/vitrin/mobil.webp'],
+  ],
   tenderiq: [
     ['inceleme', 'TenderIQ/vitrin/inceleme-vurgu.webp'],
     ['ihale', 'TenderIQ/vitrin/ihale-analiz.webp'],

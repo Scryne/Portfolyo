@@ -19,7 +19,7 @@ if (!css) throw new Error('Derlenmiş CSS bulunamadı; önce next build');
 const cssMetni = readFileSync(css, 'utf8');
 const degisken = (ad) => cssMetni.match(new RegExp(ad + ':([^;}]+)'))?.[1] ?? 'sans-serif';
 
-const SLUGLAR = ['tenderiq', 'fabrikaos', 'aegis', 'ghostbuilding', 'yapirisk', 'wartrack', 'osintlab', 'politikdesk', 'mythatlas', 'kokpit'];
+const SLUGLAR = ['citefield', 'tenderiq', 'fabrikaos', 'aegis', 'ghostbuilding', 'yapirisk', 'wartrack', 'osintlab', 'politikdesk', 'mythatlas', 'kokpit'];
 // index.ts uzantısız import kullandığı için Node doğrudan yükleyemiyor; liste elle. Yeni proje eklenip burası
 // unutulursa o projenin kartı sessizce eksik kalmasın.
 const dosyalar = readdirSync(path.join(KOK, 'content/projeler')).filter((f) => f.endsWith('.ts') && f !== 'index.ts').map((f) => f.slice(0, -3));
