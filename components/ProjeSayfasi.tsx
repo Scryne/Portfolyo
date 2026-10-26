@@ -128,7 +128,16 @@ export function ProjeSayfasi({ p, dil }: { p: Proje; dil: Dil }) {
                 )}
               </dd>
               <dt className="etiket pt-0.5 text-yazi-3">{M.demo[dil]}</dt>
-              <dd className="text-[0.9375rem] text-yazi">{p.demo[dil]}</dd>
+              <dd className="text-[0.9375rem] text-yazi">
+                {p.demoUrl ? (
+                  <a href={p.demoUrl} className="baglanti inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+                    {p.demoUrl.replace('https://', '').replace(/\/$/, '')}
+                    <ArrowUpRight aria-hidden className="size-3.5" />
+                  </a>
+                ) : (
+                  p.demo[dil]
+                )}
+              </dd>
             </dl>
           </div>
         </div>

@@ -90,7 +90,7 @@ const SECIM = {
     ['harita', 'MythAtlas/sonra/shot_map.png'],
     ['zeus', 'MythAtlas/sonra/shot_deity_zeus.png'],
     ['abu-simbel', 'MythAtlas/sonra/shot_site_abu-simbel.png'],
-    ['ilyada', 'MythAtlas/sonra/shot_myth_iliad-achilles.png'],
+    ['gilgamis', 'MythAtlas/sonra/shot_myth_gilgamesh-quest.png'],
     ['soy-agaci', 'MythAtlas/sonra/shot_family-tree.png'],
     ['arkeoloji', 'MythAtlas/sonra/shot_archaeology.png'],
   ],

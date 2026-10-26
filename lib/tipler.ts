@@ -54,6 +54,8 @@ export type Proje = {
   durum: Ik;
   repo: { acik: true; url: string } | { acik: false };
   demo: Ik;
+  /** Canlı demo adresi. Verilirse künyede `demo` metninin yerine bağlantı olarak durur. */
+  demoUrl?: string;
   stack: { grup: Ik; ogeler: string }[];
   olcek: { ad: Ik; deger: Ik }[];
   olcumler: Olcum[];
